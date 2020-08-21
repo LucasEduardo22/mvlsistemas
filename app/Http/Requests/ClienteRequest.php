@@ -31,7 +31,7 @@ class ClienteRequest extends FormRequest
             'cnpj' => 'required|string|size:18',
             'telefone' => 'required|string|size:15',
             'cep' => 'required|string|size:9',
-            'inscricao_estadual' => 'nullable|string|size:11',
+            'inscricao_estadual' => 'nullable|string|size:12',
             'estado' => 'required|string|max:50',
             'cidade' => 'required|string|max:50',
             'bairro' => 'required|string|max:50',

@@ -64,7 +64,7 @@ class ClienteController extends Controller
         $request->merge([
             'cnpj' => str_replace(['.', '/','-'], '', $request->cnpj),
             'cep' => str_replace(['-'], '', $request->cep),
-            'inscricao_estadual' => str_replace(['-'], '', $request->inscricao_estadual),
+            'inscricao_estadual' => str_replace(['.', '-'], '', $request->inscricao_estadual),
             'telefone' => str_replace(['(', ')', ' ','-'], '', $request->telefone),
         ]);
 
