@@ -18,7 +18,10 @@
     </div>
     <div class="card">
         <div class="card-header">
-            @include('fornecedor.partials.form') 
+            <form action="{{route('fornecedor.store')}}" method="post">
+                @method('POST')
+                @include('fornecedor.partials.form') 
+            </form>
         </div>
     </div>
 </div>
@@ -27,10 +30,27 @@
 @push('scripts')
 <script>
     $(document).ready(function($){
-        $('#_cnpj').mask('00.000.000/0000-00');
+
+        $('#_cnpj_cpf').mask('00.000.000/0000-00');
         $('#_cep').mask("99999-999");
         //$('#_cep').mask('00000-000');
         $('#_telefone').mask('(99) 99999-9999'); 
+
+        $('#_cnpj').click(function() {
+            $('#situacao').text("CNPJ");
+            $('#_cnpj_cpf').mask('00.000.000/0000-00');
+            $("#_cnpj_cpf").attr("placeholder", "99.999.999/0000-00").placeholder();
+        });
+
+        $('#_cpf').click(function() {
+            $('#situacao').text("CPF"); 
+            $("#_cnpj_cpf").mask("999.999.999-99");
+            $("#_cnpj_cpf").attr("placeholder", "999.999.999-99").placeholder();
+        });
+        var campo = $('input[name="chklista":checked]').val();
+            alert(campo);
+   
+
         $(document).on('change','#_cep', function(e){
                 //var cep = $("input[name=cep]").val();
                 $.ajax({

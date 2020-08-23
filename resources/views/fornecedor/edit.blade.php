@@ -18,7 +18,10 @@
     </div>
     <div class="row">
         <div class="card-body">
-            @include('fornecedor.partials.form') 
+            <form action="{{route('fornecedor.update', $fornecedor->id)}}" method="post">
+                @method('PUT')
+                @include('fornecedor.partials.form') 
+            </form>
         </div>
     </div>
 </div>
