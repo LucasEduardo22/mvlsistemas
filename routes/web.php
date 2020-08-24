@@ -62,5 +62,10 @@ Route::group(['middleware' => ['auth']], function () {
     Route::post('/home/fornecedor/store', 'FornecedorController@store')->name('fornecedor.store');
     Route::get('/home/fornecedor/{id}/edit', 'FornecedorController@edit')->name('fornecedor.edit');
     Route::put('/home/fornecedor/{id}/update', 'FornecedorController@update')->name('fornecedor.update');
+    
+    Route::any('perfil/search', 'PerfilController@search')->name('perfil.search');
+    Route::resource('perfil', 'PerfilController');
 
+    Route::any('permissao/search', 'PermissaoController@search')->name('perfil.search');
+    Route::resource('permissao', 'PermissaoController');
 });

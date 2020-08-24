@@ -21,18 +21,14 @@ class CreateProdutosTable extends Migration
             $table->unsignedBigInteger('tipoproduto_id');
             $table->string('codigo_referencia',15)->nullable();
             $table->unsignedBigInteger('categoria_id');
-            $table->foreign('categoria_id')
-                            ->references('id')->on('categorias')
-                            ->onDelete('cascade');
-            $table->foreign('tamanho_id')
-                            ->references('id')->on('tamanhos');
-            $table->foreign('unidade_id')
-                            ->references('id')->on('unidades');
-            $table->foreign('tipoproduto_id')
-                            ->references('id')->on('tipo_produtos');
-            //$table->string('grupo_id',255);
             $table->integer('status_id');
+            
+            //$table->string('grupo_id',255);
             $table->timestamps();
+            $table->foreign('categoria_id')->references('id')->on('categorias')->onDelete('cascade');
+            $table->foreign('tamanho_id')->references('id')->on('tamanhos')->onDelete('cascade');
+            $table->foreign('unidade_id')->references('id')->on('unidades')->onDelete('cascade');
+            $table->foreign('tipoproduto_id')->references('id')->on('tipo_produtos')->onDelete('cascade');
         });
     }
 

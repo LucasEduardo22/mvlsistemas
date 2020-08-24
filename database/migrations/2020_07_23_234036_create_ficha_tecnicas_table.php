@@ -19,6 +19,7 @@ class CreateFichaTecnicasTable extends Migration
             $table->string('descricao', 255);
             $table->string('aviamento', 255);
             $table->string('observacao', 255);
+            $table->string('image')->nullable();
             $table->foreign('produto_id')
                             ->references('id')->on('produtos')
                             ->onDelete('cascade');
