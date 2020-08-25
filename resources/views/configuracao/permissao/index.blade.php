@@ -67,7 +67,7 @@
                             </tbody>
                         </table>
                     @else
-                        <h1>Não existe permissão candastrado</h1>
+                        <h1>Não existe permissões cadastradas</h1>
                     @endif
                     <div class="card-footer">
                         @if (isset($filtros))
