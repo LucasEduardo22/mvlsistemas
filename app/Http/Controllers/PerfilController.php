@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdatePerfil;
+use App\Perfil;
 use Illuminate\Http\Request;
 
 class PerfilController extends Controller
 {
+    private $dadosPerfil;
+
+    public function __construct(Perfil $perfil)
+    {
+        $this->dadosPerfil = $perfil;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,9 @@ class PerfilController extends Controller
      */
     public function index()
     {
-        //
+        $perfils = $this->dadosPerfil->paginate();
+
+        return view('configuracao.perfil.index', compact('perfils'));
     }
 
     /**
@@ -23,7 +34,7 @@ class PerfilController extends Controller
      */
     public function create()
     {
-        //
+        return view('configuracao.perfil.create');
     }
 
     /**
@@ -32,9 +43,11 @@ class PerfilController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdatePerfil $request)
     {
-        //
+        $this->dadosPerfil->create($request->all());
+
+        return redirect()->route('perfil.index')->with('success', 'Perfil cadastrado com sucesso');
     }
 
     /**
@@ -45,7 +58,9 @@ class PerfilController extends Controller
      */
     public function show($id)
     {
-        //
+        $perfil = $this->dadosPerfil->find($id);
+
+        return view('configuracao.perfil.show', compact('perfil'));
     }
 
     /**
@@ -56,7 +71,9 @@ class PerfilController extends Controller
      */
     public function edit($id)
     {
-        //
+        $perfil = $this->dadosPerfil->find($id);
+
+        return view('configuracao.perfil.edit', compact('perfil'));
     }
 
     /**
@@ -66,9 +83,16 @@ class PerfilController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePerfil $request, $id)
     {
-        //
+        $perfil = $this->dadosPerfil->find($id);
+        if(!$perfil){
+            return redirect()->back();
+        }
+
+        $perfil->update($request->all());
+
+        return redirect()->route('perfil.index')->with('success', 'Dados alterado com sucesso');
     }
 
     /**
@@ -79,6 +103,16 @@ class PerfilController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $perfil = $this->dadosPerfil->find($id);
+
+        if(empty($perfil)){
+            return redirect()
+            ->back()
+            ->with('error', 'Existe usuário vinculado a esse perfil, portando não pode deletar');
+        }
+        $perfil->delete();
+        return redirect()
+            ->route('perfil.index')
+            ->with('message', 'Resgistro deletado com sucesso');
     }
 }

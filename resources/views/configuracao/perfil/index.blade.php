@@ -6,10 +6,10 @@
     <div class="row">
         <div class="col-xl-12">
             <div class="breadcrumb-holder">
-                <h1 class="main-title float-left">perfiles Cadastrados</h1>
+                <h1 class="main-title float-left">Perfil Cadastrados</h1>
                 <ol class="breadcrumb float-right">
                     <li class="breadcrumb-item">Home</li>
-                    <li class="breadcrumb-item active">perfiles</li>
+                    <li class="breadcrumb-item active">Perfil</li>
                 </ol>
                 <div class="clearfix"></div>
             </div>
@@ -59,8 +59,8 @@
                                         <td style="width: 250px">
                                             <a href="{{route('perfil.edit', $perfil->id)}}" class="btn btn-info">Edit</a>
                                             <a href="{{route('perfil.show',  $perfil->id)}}" class="btn btn-warning">Ver</a>
-                                            <a href="{{route('perfil.permissao',  $perfil->id)}}" class="btn btn-secondary"><i class="fas fa-lock"></i></a>
-                                            <a href="{{route('perfil.plano',  $perfil->id)}}" class="btn btn-success"><i class="fas fa-list-ul"></i></a>
+                                            {{-- <a href="{{route('perfil.permissao',  $perfil->id)}}" class="btn btn-secondary"><i class="fas fa-lock"></i></a>
+                                            <a href="{{route('perfil.plano',  $perfil->id)}}" class="btn btn-success"><i class="fas fa-list-ul"></i></a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

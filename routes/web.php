@@ -66,6 +66,6 @@ Route::group(['middleware' => ['auth']], function () {
     Route::any('perfil/search', 'PerfilController@search')->name('perfil.search');
     Route::resource('perfil', 'PerfilController');
 
-    Route::any('permissao/search', 'PermissaoController@search')->name('perfil.search');
-    Route::resource('permissao', 'PermissaoController');
+    Route::any('/home/permissao/search', 'PermissaoController@search')->name('permissao.search');
+    Route::resource('/home/permissao', 'PermissaoController');
 });

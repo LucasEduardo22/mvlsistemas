@@ -2,10 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreUpdatePermissao;
+use App\Permissao;
 use Illuminate\Http\Request;
 
 class PermissaoController extends Controller
 {
+    private $dadosPermissao;
+
+    public function __construct(Permissao $permissao)
+    {
+        $this->dadosPermissao = $permissao;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +22,9 @@ class PermissaoController extends Controller
      */
     public function index()
     {
-        //
+        $permissaos = $this->dadosPermissao->paginate();
+
+        return view('configuracao.permissao.index', compact('permissaos'));
     }
 
     /**
@@ -23,7 +34,7 @@ class PermissaoController extends Controller
      */
     public function create()
     {
-        //
+        return view('configuracao.permissao.create');
     }
 
     /**
@@ -32,9 +43,11 @@ class PermissaoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreUpdatePermissao $request)
     {
-        //
+        $this->dadosPermissao->create($request->all());
+
+        return redirect()->route('permissao.index')->with('success', 'Permissao cadastrado com sucesso');
     }
 
     /**
@@ -45,7 +58,9 @@ class PermissaoController extends Controller
      */
     public function show($id)
     {
-        //
+        $permissao = $this->dadosPermissao->find($id);
+
+        return view('configuracao.permissao.show', compact('permissao'));
     }
 
     /**
@@ -56,7 +71,9 @@ class PermissaoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $permissao = $this->dadosPermissao->find($id);
+
+        return view('configuracao.permissao.edit', compact('permissao'));
     }
 
     /**
@@ -66,9 +83,16 @@ class PermissaoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreUpdatePermissao $request, $id)
     {
-        //
+        $permissao = $this->dadosPermissao->find($id);
+        if(!$permissao){
+            return redirect()->back();
+        }
+
+        $permissao->update($request->all());
+
+        return redirect()->route('permissao.index')->with('success', 'Dados alterado com sucesso');
     }
 
     /**
@@ -79,6 +103,16 @@ class PermissaoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $permissao = $this->dadosPermissao->find($id);
+
+        if(empty($permissao)){
+            return redirect()
+            ->back()
+            ->with('error', 'Existe Perfil vinculado a essa permissao, portando não pode deletar');
+        }
+        $permissao->delete();
+        return redirect()
+            ->route('permissao.index')
+            ->with('message', 'Resgistro deletado com sucesso');
     }
 }

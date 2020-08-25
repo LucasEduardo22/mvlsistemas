@@ -167,7 +167,8 @@
                                         class="menu-arrow"></span></a>
                                 <ul class="list-unstyled">
                                     <li><a href="#">Cadastrado de fornecedor</a></li>
-                                    <li><a href="#">Perfil e Permissões</a></li>
+                                    <li><a href="{{route('perfil.index')}}">Perfil</a></li>
+                                    <li><a href="{{route('permissao.index')}}">Permissões</a></li>
                                     <li><a href="#">Dados da Empresa</a></li>
                                 </ul>
                             </li>
