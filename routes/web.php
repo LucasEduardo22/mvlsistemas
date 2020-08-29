@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+include('web_builder.php');
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,60 +12,37 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-/* Route::get('/', function () {
-    return view('welcome');
-}); */
-//ENDEREÇO
-Route::post('/home/estado/search', 'EnderecoController@searchEstado')->name('endereco.estado.search');
-Route::post('/home/cidade/search', 'EnderecoController@searchCidade')->name('endereco.cidade.search');
-Route::post('/home/bairro/search', 'EnderecoController@searchBairro')->name('endereco.bairro.search');
-Route::post('/home/endereco/search', 'EnderecoController@search')->name('endereco.search');
-
 Auth::routes();
-Route::group(['middleware' => ['auth']], function () {
-    Route::get('/', 'HomeController@index')->name('home');
 
-    /* //ENDEREÇO
-    Route::post('/home/estado/search', 'EnderecoController@searchEstado')->name('endereco.estado.search');
-    Route::post('/home/cidade/search', 'EnderecoController@searchCidade')->name('endereco.cidade.search');
-    Route::post('/home/bairro/search', 'EnderecoController@searchBairro')->name('endereco.bairro.search');
-    Route::post('/home/endereco/search', 'EnderecoController@search')->name('endereco.search'); */
+// login2, register2 pages
+Route::view('login2', 'auth.login2');
+Route::view('login3', 'auth.login3');
+Route::view('register2', 'auth.register2');
+Route::view('register3', 'auth.register3');
 
-    //Rotas do Cliente
-    Route::get('/home/cliente', 'ClienteController@index')->name('cliente.index');
-    Route::get('/home/cliente/create', 'ClienteController@create')->name('cliente.create');
-    Route::post('/home/cliente/store', 'ClienteController@store')->name('cliente.store');
-    Route::get('/home/cliente/{id}/edit', 'ClienteController@edit')->name('cliente.edit');
-    Route::put('/home/cliente/{id}/update', 'ClienteController@update')->name('cliente.update');
-    Route::any('/home/cliente/search', 'ClienteController@search')->name('cliente.search');
+Route::get('/', function () {
+    return view('index');
+})->middleware('auth');
 
-    //Rotas do Produto
-    Route::get('/home/produto', 'ProdutoController@index')->name('produto.index');
-    Route::get('/home/produto/create', 'ProdutoController@create')->name('produto.create');
-    Route::post('/home/produto/store', 'ProdutoController@store')->name('produto.store');
-    Route::get('/home/produto/{id}/edit', 'ProdutoController@edit')->name('produto.edit');
-    Route::put('/home/produto/{id}/update', 'ProdutoController@update')->name('produto.update');
-    Route::any('/home/produto/search', 'ProdutoController@search')->name('produto.search');
-    Route::get('/home/produto/{id}/show', 'ProdutoController@show')->name('produto.show');
-    Route::delete('/home/produto/{id}', 'ProdutoController@destroy')->name('produto.destroy');
+// Route::resource('users', 'UsersController');
 
-    //Rotas da Ficha Tecníca
-    Route::get('/home/produto/{id}/fichatecnica/create', 'ProdutoController@createFichaTecnica')->name('produto.fichatecnica.create');
-    Route::post('/home/produto/{id}/fichatecnica/store', 'ProdutoController@storeFichaTecnica')->name('produto.fichatecnica.store');
-    Route::get('/home/produto/{id}/fichatecnica/edit', 'ProdutoController@editFichaTecnica')->name('produto.fichatecnica.edit');
-    Route::put('/home/produto/{id}/fichatecnica/update', 'ProdutoController@updateFichaTecnica')->name('produto.fichatecnica.update');
-    
-    //Rotas de Funcionário
-    Route::get('/home/fornecedor', 'FornecedorController@index')->name('fornecedor.index');
-    Route::get('/home/fornecedor/create', 'FornecedorController@create')->name('fornecedor.create');
-    Route::post('/home/fornecedor/store', 'FornecedorController@store')->name('fornecedor.store');
-    Route::get('/home/fornecedor/{id}/edit', 'FornecedorController@edit')->name('fornecedor.edit');
-    Route::put('/home/fornecedor/{id}/update', 'FornecedorController@update')->name('fornecedor.update');
-    
-    Route::any('perfil/search', 'PerfilController@search')->name('perfil.search');
-    Route::resource('perfil', 'PerfilController');
+// GUI crud builder routes
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('builder', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@builder')->name('io_generator_builder');
 
-    Route::any('/home/permissao/search', 'PermissaoController@search')->name('permissao.search');
-    Route::resource('/home/permissao', 'PermissaoController');
+    Route::get('field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@fieldTemplate')->name('io_field_template');
+
+    Route::get('relation_field_template', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@relationFieldTemplate')->name('io_relation_field_template');
+
+    Route::post('generator_builder/generate', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generate')->name('io_generator_builder_generate');
+
+    Route::post('generator_builder/rollback', '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@rollback')->name('io_generator_builder_rollback');
+
+    Route::post(
+        'generator_builder/generate-from-file',
+        '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile'
+    )->name('io_generator_builder_generate_from_file');
 });
+
+Route::get('/home', 'HomeController@index')->name('home');
+Route::get('{name?}', 'JoshController@showView');

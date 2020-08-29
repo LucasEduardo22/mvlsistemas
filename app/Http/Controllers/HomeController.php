@@ -2,9 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Cliente;
-use App\Fornecedor;
-use App\Produto;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,9 +23,6 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $cliente = Cliente::all();
-        $produto = Produto::all();
-        $fornecedor = Fornecedor::all();
-        return view('home', compact('cliente','produto','fornecedor'));
+        return view('home');
     }
 }
