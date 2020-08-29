@@ -14,16 +14,14 @@ include('web_builder.php');
 */
 Auth::routes();
 
-// login2, register2 pages
-Route::view('login2', 'auth.login2');
-Route::view('login3', 'auth.login3');
-Route::view('register2', 'auth.register2');
-Route::view('register3', 'auth.register3');
-
 Route::get('/', function () {
     return view('index');
 })->middleware('auth');
 
+// GUI crud builder routes
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home', 'HomeController@index')->name('home');
+});
 // Route::resource('users', 'UsersController');
 
 // GUI crud builder routes
@@ -41,8 +39,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post(
         'generator_builder/generate-from-file',
         '\InfyOm\GeneratorBuilder\Controllers\GeneratorBuilderController@generateFromFile'
-    )->name('io_generator_builder_generate_from_file');
+    )->name('io_generator_builder_generate_from_file'); 
 });
 
-Route::get('/home', 'HomeController@index')->name('home');
+
 Route::get('{name?}', 'JoshController@showView');
