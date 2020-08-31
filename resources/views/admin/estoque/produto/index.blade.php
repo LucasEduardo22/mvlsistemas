@@ -1,70 +1,72 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Dashboard @parent
+    Produtos @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
     <!-- page vendors -->
     <link href="{{ asset('css/pages.css') }}" rel="stylesheet">
-
-
     <!--end of page vendors -->
 @stop
 @section('content')
-
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div aria-label="breadcrumb" class="card-breadcrumb">
-            <h1>Dashboard</h1>
-
-        </div>
-        <div class="separator-breadcrumb border-top"></div>
-    </section>
-    <!-- /.content -->
-    <section class="content">
-        <div class="row">
+    @include('includes.alert')
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">
+            <a href="{{route('home')}}">Home</a>
+        </li>
+        <li class="breadcrumb-item active">
+            <a href="{{route('produto.index')}}">Produtos</a>
+        </li>
+    </ol>
+    <div class="card">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">  
+            <h1 class="mt-2">Produtos<a href="{{route('produto.create')}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+        </section>
+        <div class="separator-breadcrumb pb-5 border-top"></div>
+        <div class="card-body">
             <div class="col-md-12">
-                <div class="  bg-white dashboard-col pl-15 pb-15 pt-15">
-                    <div class="table-responsive">
+                <div class="table-responsive">
+                    @if ($produtos->count() != 0)
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th class="border-top-0" scope="col">Modelo</th>
                                     <th class="border-top-0" scope="col">Produto</th>
                                     <th class="border-top-0" scope="col">Categoria</th>
-                                    <th class="border-top-0" scope="col">Tamanho</th>
-
+                                    <th class="border-top-0" scope="col">Tipo Produto</th>
+                                    <th class="border-top-0" scope="col">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @if ($produtos->count() != 0)
-                                    @foreach ($produtos as $produto)
-                                        <tr>
-                                            <th scope="row">{{}}</th>
-                                            <td>Vivo</td>
-                                            <td>1 mobile</td>
-
-                                            <td>Excellent</td>
-                                        </tr>
-                                    @endforeach
-                                @else
-                                    <h1>Ops ainda não foi cadastrado nenhuma produto</h1>
-                                @endif
-                                
+                                @foreach ($produtos as $produto)
+                                    <tr>
+                                        <th scope="row">{{$produto->modelo}}</th>
+                                        <th scope="row">{{$produto->nome_produto}}</th>
+                                        <td>{{$produto->categoria->nome}}</td>
+                                        <td>{{$produto->tipoProduto->nome}}</td>
+                                        <td>{{$produto->status->nome}}</td>
+                                        <td style="width: 250px">
+                                            <a href="{{route('produto.edit', $produto->id)}}" class="btn btn-info">Edit</a>
+                                            {{-- <a href="{{route('produto.show', $produto->id)}}" class="btn btn-success">Ver</a> --}}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
-                    </div>
+                        <div class="card-footer">
+                            @if (isset($filtros))
+                                {!! $produtos->links()!!}
+                            @else
+                                {!! $produtos->links()!!}
+                            @endif
+                        </div>
+                    @else
+                        <h1>Ops ainda não foi cadastrado nenhum produto</h1>
+                    @endif
                 </div>
             </div>
-
         </div>
-    </section>
-@stop
-@section('footer_scripts')
-    <!--   page level js ----------->
-    <script language="javascript" type="text/javascript" src="{{ asset('vendors/chartjs/js/Chart.js') }}"></script>
-    <script src="{{ asset('js/pages/dashboard.js') }}"></script>
-
-    <!-- end of page level js -->
+    </div>
 @stop

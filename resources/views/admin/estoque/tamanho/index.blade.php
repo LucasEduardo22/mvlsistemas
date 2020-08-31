@@ -34,7 +34,7 @@
                                 <tr>
                                     <th class="border-top-0" scope="col">Codigo</th>
                                     <th class="border-top-0" scope="col">Sigla</th>
-                                    <th class="border-top-0" scope="col">Catgoria</th>
+                                    <th class="border-top-0" scope="col">Tamanho</th>
                                     <th class="border-top-0" scope="col">Descrição</th>
                                     <th class="border-top-0" scope="col">ação</th>
                                 </tr>

@@ -3,8 +3,8 @@
         <li><span class="close-icon d-xl-none d-lg-block"><img src="{{asset('img/images/input-disabled.png')}}"
                     alt="image missing"></span></li>
 
-        <a href="{{ URL::to('index') }}" class="logo navbar-brand mr-0">
-            <h1 class="text-center">JOSH</h1>
+        <a href="{{ route('home') }}" class="logo navbar-brand mr-0">
+            <h1 class="text-center">MVL</h1>
         </a>
         <li {!! (Request::is('') ? 'class="active"' : '' ) !!}>
             <a href="{{ URL::to('') }}">
@@ -31,7 +31,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="{{route('produto.index')}}">
                         Produtos
                     </a>
                 </li>

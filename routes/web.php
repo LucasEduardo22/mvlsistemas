@@ -15,13 +15,9 @@ include('web_builder.php');
 */
 Auth::routes();
 
-Route::get('/', function () {
-    return view('index');
-})->middleware('auth');
-
 // GUI crud builder routes
 Route::group(['middleware' => 'auth'], function () {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@index')->name('home');
 
     //categoria
     Route::resource('/home/categoria', 'Admin\CategoriaController');
@@ -40,5 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
+    Route::get('/home/produto/create', 'Admin\ProdutoController@create')->name('produto.create');
+    Route::post('/home/produto/store', 'Admin\ProdutoController@store')->name('produto.store');
+    Route::get('/home/produto/{id}/edit', 'Admin\ProdutoController@edit')->name('produto.edit');
+    Route::put('/home/produto/{id}/update', 'Admin\ProdutoController@update')->name('produto.update');
 });
 Route::get('{name?}', 'JoshController@showView');

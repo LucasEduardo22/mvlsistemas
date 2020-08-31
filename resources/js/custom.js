@@ -8,11 +8,11 @@ $(document).ready(function () {
         $(".left-aside .navigation").css({"height": $z});
     }
     var ps = new PerfectScrollbar('#demo');
-    $("#demo .navbar-brand h1").replaceWith('<h1 class="navbrand">J</h1>');
+    $("#demo .navbar-brand h1").replaceWith('<h1 class="navbrand">M</h1>');
 
     $(".left-aside").hover(function () {
             $("#demo .navbar-brand").css({'margin-left': '0', 'transition': 'margin-left 0.3s linear'});
-            $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center">JOSH</h1>');
+            $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center">MVLSITEMAS</h1>');
 
         },
         function () {
@@ -20,7 +20,7 @@ $(document).ready(function () {
                 'margin-left': '-175px',
                 'transition': 'margin-left 0.3s linear'
             });
-            $("#demo .navbar-brand h1").replaceWith('<h1 class="navbrand">J</h1>');
+            $("#demo .navbar-brand h1").replaceWith('<h1 class="navbrand">M</h1>');
         });
 
     var arr;
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     $(".toggle-right").click(function () {
         $(".left-aside .sidebar").css("margin-left","0").removeClass('sidebar-res');
-        $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center">JOSH</h1>');
+        $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center">MVL</h1>');
         $("#demo .navbar-brand").css("margin-left","0");
 
         $(".close-icon").show();
