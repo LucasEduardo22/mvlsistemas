@@ -4,7 +4,7 @@
                     alt="image missing"></span></li>
 
         <a href="{{ route('home') }}" class="logo navbar-brand mr-0">
-            <h1 class="text-center">MVL</h1>
+            <h1 class="text-center">EDUS</h1>
         </a>
         <li {!! (Request::is('') ? 'class="active"' : '' ) !!}>
             <a href="{{ URL::to('') }}">
