@@ -49,7 +49,12 @@
                                         <td>{{$produto->status->nome}}</td>
                                         <td style="width: 280px">
                                             <a href="{{route('produto.edit', $produto->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('estoque.create', $produto->id)}}" class="btn btn-success"><i class="fas fa-layer-group"></i></a>
+                                            @if (!$produto->estoque->id)
+                                                <a href="{{route('estoque.create', $produto->id)}}" class="btn btn-success"><i class="fas fa-layer-group"></i></a>
+                                            @else
+                                                <a href="{{route('estoque.edit', $produto->estoque->id)}}" class="btn btn-success"><i class="fas fa-layer-group"></i></a>
+                                            @endif
+                                            
                                         </td>
                                     </tr>
                                 @endforeach
