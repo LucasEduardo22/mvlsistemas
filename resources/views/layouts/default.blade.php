@@ -34,6 +34,7 @@
     <!-- header logo: style can be found in header-->
     <header class="header">
         <nav class="navbar navbar-expand-lg navbar-light navbar-static-top" role="navigation">
+            
             <a href="javascript:void(0)" class="ml-100 toggle-right d-xl-none d-lg-block">
                 <!-- Add the class icon to your logo image or logo icon to add the margining -->
                 <img src="{{ asset('img/images/toggle.png') }}" alt="logo" />
@@ -41,7 +42,6 @@
             <!-- Header Navbar: style can be found in header-->
             <!-- Sidebar toggle button-->
             <!-- Sidebar toggle button-->
-
             <div class="navbar-right ml-auto">
                 <ul class="navbar-nav nav">
                     <li class="dropdown notifications-menu nav-item dropdown">

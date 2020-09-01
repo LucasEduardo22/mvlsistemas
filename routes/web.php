@@ -40,5 +40,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/home/produto/store', 'Admin\ProdutoController@store')->name('produto.store');
     Route::get('/home/produto/{id}/edit', 'Admin\ProdutoController@edit')->name('produto.edit');
     Route::put('/home/produto/{id}/update', 'Admin\ProdutoController@update')->name('produto.update');
+
+    // Rotas de Estoque
+    Route::get('/home/estoque/index', 'Admin\EstoqueController@index')->name('estoque.index');
+    Route::get('/home/estoque/{id}/create', 'Admin\EstoqueController@create')->name('estoque.create');
+    Route::post('/home/estoque/{id}/store', 'Admin\EstoqueController@store')->name('estoque.store');
+    Route::get('/home/estoque/{id}/edit', 'Admin\EstoqueController@edit')->name('estoque.edit');
+    Route::put('/home/estoque/{id}/update', 'Admin\EstoqueController@update')->name('estoque.update');
 });
 Route::get('{name?}', 'JoshController@showView');

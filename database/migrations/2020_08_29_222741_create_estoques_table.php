@@ -23,8 +23,10 @@ class CreateEstoquesTable extends Migration
             $table->integer('estoque_real')->nullable();
             $table->integer('estoque_reservado')->nullable();
             $table->double('preco_venda', 10,2)->nullable();
+            $table->double('preco_compra', 10,2)->nullable();
             $table->double('custo_atual', 10,2)->nullable();
             $table->double('custo_producao', 10,2)->nullable();
+            $table->string('cor')->nullable();
             $table->unsignedBigInteger('unidade_id');
             $table->unsignedBigInteger('status_id');
             $table->timestamps();

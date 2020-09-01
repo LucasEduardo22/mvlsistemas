@@ -70,5 +70,6 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-sm btn-info col-2">Salvar</button>
+    <button type="submit" name="botao" value="0" class="btn btn-sm btn-info col-2">Salvar</button>
+    <button type="submit" name="botao" value="1" class="btn btn-sm btn-primary col-2">Adicionar estoque</button>
 </div>

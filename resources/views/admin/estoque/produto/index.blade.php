@@ -47,9 +47,9 @@
                                         <td>{{$produto->categoria->nome}}</td>
                                         <td>{{$produto->tipoProduto->nome}}</td>
                                         <td>{{$produto->status->nome}}</td>
-                                        <td style="width: 250px">
+                                        <td style="width: 280px">
                                             <a href="{{route('produto.edit', $produto->id)}}" class="btn btn-info">Edit</a>
-                                            {{-- <a href="{{route('produto.show', $produto->id)}}" class="btn btn-success">Ver</a> --}}
+                                            <a href="{{route('estoque.create', $produto->id)}}" class="btn btn-success"><i class="fas fa-layer-group"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

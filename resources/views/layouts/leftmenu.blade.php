@@ -13,6 +13,13 @@
             </a>
         </li>
 
+        <li>
+            <a href="{{route('estoque.index')}}">
+                <span class="mm-text ">Estoque</span>
+                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
+            </a>
+        </li>
+
         <li >
             <a href="#">
                 <span class="mm-text ">Cadastros</span>
@@ -59,5 +66,4 @@
         </li>
         @include("layouts/menu")
     </ul>
-    <!-- / .navigation -->
 </div>

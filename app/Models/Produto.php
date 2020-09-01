@@ -19,4 +19,8 @@ class Produto extends Model
     public function status(){
         return $this->belongsTo(Status::class);
     }
+
+    public function estoque(){
+        return $this->hasOne(Estoque::class);
+    }
 }

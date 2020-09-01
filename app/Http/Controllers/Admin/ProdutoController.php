@@ -42,8 +42,12 @@ class ProdutoController extends Controller
         /* if($request->hasFile('image') && $request->image->isValid()){
             $data['image'] = $request->image->store("empresas/{$empresa->uuid}/produtos");
         } */
-        $this->dadosProduto->create($data);
-        return redirect()->route('produto.index')->with('success', 'Status cadastrada com sucesso..');
+        $produto = $this->dadosProduto->create($data);
+        if($request->botao != 1){
+            return redirect()->route('produto.index')->with('success', 'Produto cadastrada com sucesso..');
+        }else{
+            return redirect()->route('estoque.create', $produto->id);
+        }
     }
 
     public function edit($id)
@@ -63,8 +67,16 @@ class ProdutoController extends Controller
         }
         $data = $request->all();
         $data['status_id'] = 1; //padrão ativo 
-        $produto->update($data);
 
-        return redirect()->route('produto.index')->with('success', 'Dados atualizado com sucesso..');
+        $produto->update($data);
+        if($request->botao != 1){
+            return redirect()->route('produto.index')->with('success', 'Produto cadastrada com sucesso..');
+        }else{
+            
+            if(!$produto->estoque){
+                return redirect()->route('estoque.create', $produto->id);
+            }
+            return redirect()->route('estoque.edit', $produto->id);
+        }
     }
 }
