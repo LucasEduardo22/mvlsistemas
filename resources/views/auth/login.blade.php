@@ -31,8 +31,8 @@
 
                             <div class="row">
                                 <div class="col-md-10 mx-auto px-2 pb-3">
-                                    <p class="text-center">Welcome Back, Please login to your account</p>
-                                    <div class="row social-buttons">
+                                    <p class="text-center">Bem-vindo, por favor faça seu login</p>
+                                    {{-- <div class="row social-buttons">
                                         <div class="  col-sm-8 col-md-10 col-10 text-center mx-auto">
                                             <button type="button" class="btn btn-primary   m-t-10 btn-block"><span
                                                     class="mr-15"><i class="im im-icon-Facebook-2"></i></span> Sign In
@@ -46,7 +46,7 @@
                                     </div>
                                     <div>
                                         <p class="text-center mt-25">--OR--</p>
-                                    </div>
+                                    </div> --}}
 
                                 </div>
                                 <form action="{{ route('login') }}" id="authentication" method="post"
@@ -57,7 +57,7 @@
                                             {{--<label for="email"> E-mail</label>--}}
                                             <input type="email"
                                                 class="form-control   form-control-lg border-bottom border-top-0 border-left-0 border-right-0 @error('email') is-invalid @enderror"
-                                                id="email" name="email" placeholder="E-mail Address"
+                                                id="email" name="email" placeholder="E-mail "
                                                 value="{{ old('email') }}" required autocomplete="email" autofocus />
                                             @error('email')
                                             <span class="invalid-feedback" role="alert">
@@ -71,7 +71,7 @@
                                             {{--<label for="password">Password</label>--}}
                                             <input type="password"
                                                 class="form-control form-control-lg border-bottom border-top-0 border-left-0 border-right-0  @error('password') is-invalid @enderror"
-                                                id="password" name="password" placeholder="Password" required
+                                                id="password" name="password" placeholder="Senha" required
                                                 autocomplete="current-password" />
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
@@ -85,15 +85,14 @@
                                             <div class="custom-control custom-checkbox">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck1"
                                                     name="remember" {{ old('remember') ? 'checked' : '' }}>
-                                                <label class="custom-control-label" for="customCheck1">&nbsp;Remember
-                                                    Me</label>
+                                                <label class="custom-control-label" for="customCheck1">&nbsp;Lembrar-me</label>
                                             </div>
 
                                         </div>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="form-group mt-4">
-                                            <input type="submit" value="Sign In"
+                                            <input type="submit" value="Entrar"
                                                 class="btn btn-primary btn-block signin-btn" />
                                         </div>
                                     </div>
@@ -101,8 +100,7 @@
                                         <hr class="separator">
                                     </div>
                                     <div class="col-md-12 text-center mt-4">
-                                        <a href="#" class="text-decoration-none text-muted"><small>Forgot you password
-                                                ?</small></a>
+                                        <a href="#" class="text-decoration-none text-muted"><small>Esqueceu sua senha ?</small></a>
                                     </div>
                                 </form>
                             </div>
@@ -114,8 +112,8 @@
                         <div class="card-body  card-login-bg d-none d-md-block">
                             <div class="overlay"></div>
                             <div class="col-12 text-white login2-text">
-                                <h4 class="text-white login2-text font-weight-bold">HEY<br>Glad to See You</h4>
-                                <p class="">Please Keep Connect with us</p>
+                                <h4 class="text-white login2-text font-weight-bold">EDUS</h4>
+                                <p class="">Sistema que sua empresa precisa!</p>
                             </div>
                         </div>
                     </div>
