@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Cadastrar uma nova categoria @parent
+    Cadastrar uma nova subGrupo @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,24 +16,24 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('categoria.index') }}">Categorias</a>
+            <a href="{{ route('subGrupo.index') }}">SubGrupos</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('categoria.create') }}">Create</a>
+            <a href="{{ route('subGrupo.create') }}">Create</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar uma nova categoria</h1>
+            <h1 class="mt-2">Cadastrar uma nova subGrupo</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('categoria.store')}}" class="form-horizontal" method="post" class="form">
+                <form action="{{route('subGrupo.store')}}" class="form-horizontal" method="post" class="form">
                     @method('POST')
                     @csrf
-                    @include('admin.estoque.categoria._partials.form')
+                    @include('admin.estoque.subGrupo._partials.form')
                 </form>
             </div>
         </div>

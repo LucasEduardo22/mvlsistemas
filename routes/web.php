@@ -19,10 +19,10 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
-    //categoria
-    Route::resource('/home/categoria', 'Admin\CategoriaController');
+    //subGrupo
+    Route::resource('/home/sub-grupo', 'Admin\SubGrupoController');
 
-    //categoria
+    //subGrupo
     Route::resource('/home/tipo-produto', 'Admin\TipoProdutoController');
 
     //status

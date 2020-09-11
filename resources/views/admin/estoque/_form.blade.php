@@ -36,9 +36,9 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-4 control-label">Categoria:</label>
+                    <label class="col-sm-4 control-label">SubGrupo:</label>
                     <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->categoria->nome}}</strong></p>
+                        <p class="form-control-static"><strong>{{$produto->subGrupo->nome}}</strong></p>
                     </div>
                 </div>
             </div>

@@ -2,7 +2,7 @@
     <div class="form-group pad-top40">
         <div class="row">
             <label for="_nome" class="col-md-3 control-label">
-                Categoria
+                SubGrupo
             </label>
             <div class="col-md-9">
                 <div class="input-group">
@@ -11,7 +11,7 @@
                             <i class="fal fa-clipboard-check"></i>
                         </span>
                     </span>
-                    <input value="{{old('nome', !empty($categoria->nome) ? $categoria->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome da Categoria" id="_nome">
+                    <input value="{{old('nome', !empty($subGrupo->nome) ? $subGrupo->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome da SubGrupo" id="_nome">
                     @error('nome')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -33,7 +33,7 @@
                             <i class="fas fa-address-book"></i>
                         </span>
                     </span>
-                    <input value="{{old('sigla', !empty($categoria->sigla) ? $categoria->sigla : '')}}" type="text" name="sigla" placeholder="Siglas" class="form-control @error('sigla') is-invalid @enderror" id="_sigla" />
+                    <input value="{{old('sigla', !empty($subGrupo->sigla) ? $subGrupo->sigla : '')}}" type="text" name="sigla" placeholder="Siglas" class="form-control @error('sigla') is-invalid @enderror" id="_sigla" />
                     @error('sigla')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -55,7 +55,7 @@
                             <i class="far fa-audio-description"></i>
                         </span>
                     </span>
-                    <input value="{{old('descricao', !empty($categoria->descricao) ? $categoria->descricao : '')}}" type="text" name="descricao" placeholder="Descrição" class="form-control @error('descricao') is-invalid @enderror" id="_descricao"/>
+                    <input value="{{old('descricao', !empty($subGrupo->descricao) ? $subGrupo->descricao : '')}}" type="text" name="descricao" placeholder="Descrição" class="form-control @error('descricao') is-invalid @enderror" id="_descricao"/>
                     @error('descricao')
                         <div class="invalid-feedback">
                             {{ $message }}
