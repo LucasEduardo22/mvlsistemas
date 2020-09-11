@@ -32,6 +32,6 @@ class CreateSubGruposTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('subGrupos');
+        Schema::dropIfExists('sub_grupos');
     }
 }
