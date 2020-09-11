@@ -44,6 +44,10 @@
             <!-- Sidebar toggle button-->
             <div class="navbar-right ml-auto">
                 <ul class="navbar-nav nav">
+                    <li class="nav-item notifications-menu text-center mt-3  text-center"> 
+                        {{-- <span id="demo"></span>--}}
+                         <span id="dia-data-hora"></span>
+                     </li>
                     <li class="dropdown notifications-menu nav-item dropdown">
                         <a href="javascript:void(0)" class="dropdown-toggle nav-link dropdown-toggle"
                             data-toggle="dropdown" id="navbarDropdown">
@@ -98,6 +102,25 @@
     {{--<script src="http://utatti.github.io/perfect-scrollbar/prettify.js"></script>
     --}}
     <script src="{{ asset('js/custom.js') }}"></script>
+
+    <script>
+        // Função para formatar 1 em 01
+        const zeroFill = n => {
+            return ('0' + n).slice(-2);
+        }
+        // Cria intervalo
+        const interval = setInterval(() => {
+            // Pega o horário atual
+            const now = new Date();
+            
+            // Dias da semana 
+            var semana = ["Domingo", "Segunda-Feira", "Terça-Feira", "Quarta-Feira", "Quinta-Feira", "Sexta-Feira", "Sábado"];
+    
+            // Formata a data conforme dd/mm/aaaa hh:ii:ss
+            const dataHora = semana[now.getDay()] + ' ' + (now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
+            // Exibe na tela usando a div#data-hora
+            document.getElementById('dia-data-hora').innerHTML = dataHora;}, 1000);
+    </script>
 </body>
 
 </html>
