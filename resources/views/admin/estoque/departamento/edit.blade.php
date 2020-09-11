@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Cadastrar uma nova grupo @parent
+    Editar a departamento {{$departamento->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,24 +16,24 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('grupo.index') }}">Grupos</a>
+            <a href="{{ route('departamento.index') }}">departamentos</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('grupo.create') }}">Create</a>
+            <a href="{{ route('departamento.edit', $departamento->id) }}">{{$departamento->nome}}</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar uma nova grupo</h1>
+            <h1 class="mt-2">Editar a departamento <strong>{{$departamento->nome}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('grupo.store')}}" class="form-horizontal" method="post" class="form">
-                    @method('POST')
+                <form action="{{route('departamento.update', $departamento->id)}}" class="form-horizontal" method="post" class="form">
+                    @method('PUT')
                     @csrf
-                    @include('admin.estoque.grupo._partials.form')
+                    @include('admin.estoque.departamento._partials.form')
                 </form>
             </div>
         </div>

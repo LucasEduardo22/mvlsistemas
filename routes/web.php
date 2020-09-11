@@ -19,6 +19,12 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
+    //Departamento
+    Route::resource('/home/departamento', 'Admin\DepartamentoController');
+
+    //Grupo
+    Route::resource('/home/grupo', 'Admin\GrupoController');
+
     //subGrupo
     Route::resource('/home/sub-grupo', 'Admin\SubGrupoController');
 

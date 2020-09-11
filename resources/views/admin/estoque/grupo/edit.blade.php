@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar a subGrupo {{$subGrupo->nome}} @parent
+    Editar a grupo {{$grupo->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,24 +16,24 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('subGrupo.index') }}">SubGrupos</a>
+            <a href="{{ route('grupo.index') }}">Grupos</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('subGrupo.edit', $subGrupo->id) }}">{{$subGrupo->nome}}</a>
+            <a href="{{ route('grupo.edit', $grupo->id) }}">{{$grupo->nome}}</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a subGrupo <strong>{{$subGrupo->nome}}</strong></h1>
+            <h1 class="mt-2">Editar a grupo <strong>{{$grupo->nome}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('subGrupo.update', $subGrupo->id)}}" class="form-horizontal" method="post" class="form">
+                <form action="{{route('grupo.update', $grupo->id)}}" class="form-horizontal" method="post" class="form">
                     @method('PUT')
                     @csrf
-                    @include('admin.estoque.subGrupo._partials.form')
+                    @include('admin.estoque.grupo._partials.form')
                 </form>
             </div>
         </div>

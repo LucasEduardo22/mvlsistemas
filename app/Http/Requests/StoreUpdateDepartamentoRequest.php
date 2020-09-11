@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreUpdateSubGrupoRequest extends FormRequest
+class StoreUpdateDepartamentoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,10 +25,9 @@ class StoreUpdateSubGrupoRequest extends FormRequest
     {
         $id = $this->segment(3);
         return [
-            'nome' => "required|min:3|max:150|unique:subGrupos,nome,{$id},id",
-            'sigla' => "required|min:2|max:10|unique:subGrupos,sigla,{$id},id",
+            'nome' => "required|min:3|max:150|unique:departamentos,nome,{$id},id",
+            'sigla' => "required|min:2|max:10|unique:departamentos,sigla,{$id},id",
             'descricao' => "nullable|min:3|max:150",
-            'grupo_id' => "required",
         ];
     }
 }
