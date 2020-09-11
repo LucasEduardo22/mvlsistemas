@@ -8,7 +8,7 @@
         </a>
         <li {!! (Request::is('') ? 'class="active"' : '' ) !!}>
             <a href="{{ URL::to('') }}">
-                <span class="mm-text ">Dashboard</span>
+                <span class="mm-text ">Inicio</span>
                 <span class="menu-icon"><i class="im im-icon-Home"></i></span>
             </a>
         </li>
