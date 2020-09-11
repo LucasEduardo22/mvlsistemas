@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateCategoriaRequest;
-use App\Models\Categoria;
+use App\Http\Requests\StoreUpdateSubGrupoRequest;
+use App\Models\SubGrupo;
 use Illuminate\Http\Request;
 
-class CategoriaController extends Controller
+class SubGrupoController extends Controller
 {
-    protected $dadosCategoria;
+    protected $dadosSubGrupo;
 
-    public function __construct(Categoria $categoria)
+    public function __construct(SubGrupo $subGrupo)
     {
-        $this->dadosCategoria = $categoria;
+        $this->dadosSubGrupo = $subGrupo;
     }
     /**
      * Display a listing of the resource.
@@ -22,9 +22,9 @@ class CategoriaController extends Controller
      */
     public function index()
     {
-        $categorias = $this->dadosCategoria->paginate();
+        $subGrupos = $this->dadosSubGrupo->paginate();
 
-        return view('admin.estoque.categoria.index', compact('categorias'));
+        return view('admin.estoque.sub-grupo.index', compact('subGrupos'));
     }
 
     /**
@@ -34,7 +34,7 @@ class CategoriaController extends Controller
      */
     public function create()
     {
-        return view('admin.estoque.categoria.create');
+        return view('admin.estoque.sub-grupo.create');
     }
 
     /**
@@ -43,10 +43,10 @@ class CategoriaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateCategoriaRequest $request)
+    public function store(StoreUpdateSubGrupoRequest $request)
     {
-        $this->dadosCategoria->create($request->all());
-        return redirect()->route('categoria.index')->with('success', 'Categoria cadastrada com sucesso..');
+        $this->dadosSubGrupo->create($request->all());
+        return redirect()->route('sub-grupo.index')->with('success', 'SubGrupo cadastrada com sucesso..');
     }
 
     /**
@@ -57,13 +57,13 @@ class CategoriaController extends Controller
      */
     public function show($id)
     {
-        $categoria = $this->dadosCategoria->find($id);
+        $subGrupo = $this->dadosSubGrupo->find($id);
 
-        if(!$categoria){
+        if(!$subGrupo){
             return redirect()->back();
         }
 
-        return view('admin.estoque.categoria.show', compact('categoria'));
+        return view('admin.estoque.sub-grupo.show', compact('subGrupo'));
     }
 
     /**
@@ -74,13 +74,13 @@ class CategoriaController extends Controller
      */
     public function edit($id)
     {
-        $categoria = $this->dadosCategoria->find($id);
+        $subGrupo = $this->dadosSubGrupo->find($id);
 
-        if(!$categoria){
+        if(!$subGrupo){
             return redirect()->back();
         }
 
-        return view('admin.estoque.categoria.edit', compact('categoria'));
+        return view('admin.estoque.sub-grupo.edit', compact('subGrupo'));
     }
 
     /**
@@ -90,16 +90,16 @@ class CategoriaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateCategoriaRequest $request, $id)
+    public function update(StoreUpdateSubGrupoRequest $request, $id)
     {
-        $categoria = $this->dadosCategoria->find($id);
+        $subGrupo = $this->dadosSubGrupo->find($id);
 
-        if(!$categoria){
+        if(!$subGrupo){
             return redirect()->back();
         }
 
-        $categoria->update($request->all());
-        return redirect()->route('categoria.index')->with('success', 'Dados atualizado com sucesso..');
+        $subGrupo->update($request->all());
+        return redirect()->route('sub-grupo.index')->with('success', 'Dados atualizado com sucesso..');
     }
 
     /**

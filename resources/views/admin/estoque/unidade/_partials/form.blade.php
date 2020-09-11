@@ -11,7 +11,7 @@
                             <i class="fal fa-clipboard-check"></i>
                         </span>
                     </span>
-                    <input value="{{old('nome', !empty($unidade->nome) ? $unidade->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome da Categoria" id="_nome">
+                    <input value="{{old('nome', !empty($unidade->nome) ? $unidade->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome da SubGrupo" id="_nome">
                     @error('nome')
                         <div class="invalid-feedback">
                             {{ $message }}

@@ -28,8 +28,8 @@
             </a>
             <ul class="sub-menu list-unstyled">
                 <li>
-                    <a href="{{route('categoria.index')}}">
-                        Categoria
+                    <a href="{{route('sub-grupo.index')}}">
+                        Sub Grupo
                     </a>
                 </li>
                 <li>

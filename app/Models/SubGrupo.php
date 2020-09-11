@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Categoria extends Model
+class SubGrupo extends Model
 {
-    protected $fillable = ['nome', 'sigla', 'descricao'];
+    protected $fillable = ['nome', 'grupo_id', 'sigla', 'descricao'];
 
     public function produtos(){
         return $this->belongsTo(Produto::class);

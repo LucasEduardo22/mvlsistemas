@@ -34,7 +34,7 @@
                                 <tr>
                                     <th class="border-top-0" scope="col">Modelo</th>
                                     <th class="border-top-0" scope="col">Produto</th>
-                                    <th class="border-top-0" scope="col">Categoria</th>
+                                    <th class="border-top-0" scope="col">Sub Grupo</th>
                                     <th class="border-top-0" scope="col">Tipo Produto</th>
                                     <th class="border-top-0" scope="col">Status</th>
                                 </tr>
@@ -44,7 +44,7 @@
                                     <tr>
                                         <th scope="row">{{$produto->modelo}}</th>
                                         <th scope="row">{{$produto->nome_produto}}</th>
-                                        <td>{{$produto->categoria->nome}}</td>
+                                        <td>{{$produto->sub_grupo->nome}}</td>
                                         <td>{{$produto->tipoProduto->nome}}</td>
                                         <td>{{$produto->status->nome}}</td>
                                         <td style="width: 280px">
