@@ -35,6 +35,7 @@
                                     <th class="border-top-0" scope="col">Codigo</th>
                                     <th class="border-top-0" scope="col">Sigla</th>
                                     <th class="border-top-0" scope="col">Sub Grupo</th>
+                                    <th class="border-top-0" scope="col">Grupo</th>
                                     <th class="border-top-0" scope="col">Descrição</th>
                                     <th class="border-top-0" scope="col">ação</th>
                                 </tr>
@@ -45,6 +46,7 @@
                                         <th scope="row">{{$subGrupo->id}}</th>
                                         <th scope="row">{{$subGrupo->sigla}}</th>
                                         <td>{{$subGrupo->nome}}</td>
+                                        <td>{{$subGrupo->grupo->nome}}</td>
                                         <td>{{!$subGrupo->descricao ? "Não informado": $subGrupo->descricao}}</td>
                                         <td style="width: 250px">
                                             <a href="{{route('sub-grupo.edit', $subGrupo->id)}}" class="btn btn-info">Edit</a>

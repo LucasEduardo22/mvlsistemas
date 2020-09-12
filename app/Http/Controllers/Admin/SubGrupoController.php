@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateSubGrupoRequest;
+use App\Models\Grupo;
 use App\Models\SubGrupo;
 use Illuminate\Http\Request;
 
 class SubGrupoController extends Controller
 {
     protected $dadosSubGrupo;
+    protected $dadosGrupo;
 
-    public function __construct(SubGrupo $subGrupo)
+    public function __construct(SubGrupo $subGrupo, Grupo $grupo)
     {
         $this->dadosSubGrupo = $subGrupo;
+        $this->dadosGrupo = $grupo;
     }
     /**
      * Display a listing of the resource.
@@ -34,7 +37,8 @@ class SubGrupoController extends Controller
      */
     public function create()
     {
-        return view('admin.estoque.sub-grupo.create');
+        $grupos = $this->dadosGrupo->get();
+        return view('admin.estoque.sub-grupo.create', compact('grupos'));
     }
 
     /**

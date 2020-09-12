@@ -25,8 +25,8 @@ class StoreUpdateSubGrupoRequest extends FormRequest
     {
         $id = $this->segment(3);
         return [
-            'nome' => "required|min:3|max:150|unique:subGrupos,nome,{$id},id",
-            'sigla' => "required|min:2|max:10|unique:subGrupos,sigla,{$id},id",
+            'nome' => "required|min:3|max:150|unique:sub_grupos,nome,{$id},id",
+            'sigla' => "required|min:2|max:10|unique:sub_grupos,sigla,{$id},id",
             'descricao' => "nullable|min:3|max:150",
             'grupo_id' => "required",
         ];

@@ -8,10 +8,37 @@
                 <div class="input-group">
                     <span class="input-group-append">
                         <span class="input-group-text">
-                            <i class="fal fa-clipboard-check"></i>
+                            <i class="fas fa-layer-group"></i>
                         </span>
                     </span>
                     <input value="{{old('nome', !empty($subGrupo->nome) ? $subGrupo->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome da Sub Grupo" id="_nome">
+                    @error('nome')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group pad-top40">
+        <div class="row">
+            <label for="_nome" class="col-md-3 control-label">
+                Grupo
+            </label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fas fa-layer-group"></i>
+                        </span>
+                    </span>
+                    <select id="_grupo_id" name="grupo_id" class="form-control @error('grupo_id') is-invalid @enderror">
+                        <option>--Select--</option>
+                        @foreach ($grupos as $grupo)
+                            <option value="{{$grupo->id}}" @if(old('modelo', !empty($grupo->grupo->id) ? $grupo->grupo->id : '' ) == $grupo->id ) selected="" @endif>{{$grupo->nome}}</option>
+                        @endforeach
+                    </select>
                     @error('nome')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -52,7 +79,7 @@
                 <div class="input-group">
                     <span class="input-group-append">
                         <span class="input-group-text">
-                            <i class="far fa-audio-description"></i>
+                            <i class="fas fa-clipboard-list"></i>
                         </span>
                     </span>
                     <input value="{{old('descricao', !empty($subGrupo->descricao) ? $subGrupo->descricao : '')}}" type="text" name="descricao" placeholder="Descrição" class="form-control @error('descricao') is-invalid @enderror" id="_descricao"/>

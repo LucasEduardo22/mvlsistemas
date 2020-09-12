@@ -10,7 +10,7 @@ class Grupo extends Model
 
 
     public function departamento(){
-        return $this->hasMany(Departamento::class);
+        return $this->hasOne(Departamento::class, 'id','departamento_id');
     }
 
     public function subGrupo(){

@@ -29,8 +29,8 @@
                 <label for="_sub_grupo" class="control-label">SubGrupo:</label>
                 <select id="_sub_grupo" name="sub_grupo_id" class="form-control col-6 @error('sub_grupo_id') is-invalid @enderror">
                     <option>--Select--</option>
-                    @foreach ($sub_grupos as $sub_grupo)
-                        <option value="{{$sub_grupo->id}}" @if(old('modelo', !empty($produto->sub_grupo->id) ? $produto->sub_grupo->id : '' ) == $sub_grupo->id ) selected="" @endif>{{$sub_grupo->nome}}</option>
+                    @foreach ($subGrupos as $subGrupo)
+                        <option value="{{$subGrupo->id}}" @if(old('modelo', !empty($produto->subGrupo->id) ? $produto->subGrupo->id : '' ) == $subGrupo->id ) selected="" @endif>{{$subGrupo->nome}}</option>
                     @endforeach
                 </select>
                 @error('sub_grupo_id')
