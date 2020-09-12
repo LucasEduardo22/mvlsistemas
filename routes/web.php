@@ -34,6 +34,9 @@ Route::group(['middleware' => 'auth'], function () {
     //unidade
     Route::resource('/home/unidade', 'Admin\UnidadeController');
 
+    //Cliente
+    Route::resource('/home/cliente', 'Admin\ClienteCrontroller');
+
     // Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
     Route::get('/home/produto/create', 'Admin\ProdutoController@create')->name('produto.create');

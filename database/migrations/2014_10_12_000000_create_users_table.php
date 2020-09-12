@@ -23,13 +23,14 @@ class CreateUsersTable extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->unsignedBigInteger('status_id');
-            $table->string('endereco', 150);
+            $table->string('endereco', 255);
             $table->string('bairro', 50);
             $table->string('cidade', 50);
             $table->string('estado', 50);
             $table->string('cep', 10);
             $table->string('numero');
             $table->string('complemento', 50);
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
 

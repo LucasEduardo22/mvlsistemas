@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
 
 <head>
     <title>
@@ -102,6 +101,8 @@
     {{--<script src="http://utatti.github.io/perfect-scrollbar/prettify.js"></script>
     --}}
     <script src="{{ asset('js/custom.js') }}"></script>
+    <script src="https://cdnjs.com/libraries/jquery.mask"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
 
     <script>
         // Função para formatar 1 em 01
@@ -121,6 +122,7 @@
             // Exibe na tela usando a div#data-hora
             document.getElementById('dia-data-hora').innerHTML = dataHora;}, 1000);
     </script>
+    @stack('scripts')
 </body>
 
 </html>

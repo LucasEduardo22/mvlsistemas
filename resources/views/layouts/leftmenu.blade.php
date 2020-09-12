@@ -28,7 +28,7 @@
             </a>
             <ul class="sub-menu list-unstyled">
                 <li>
-                    <a href="#">
+                    <a href="{{route('cliente.index')}}">
                         Clientes
                     </a>
                 </li>

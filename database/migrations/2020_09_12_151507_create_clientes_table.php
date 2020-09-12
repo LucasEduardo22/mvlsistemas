@@ -16,7 +16,7 @@ class CreateClientesTable extends Migration
         Schema::create('clientes', function (Blueprint $table) {
             $table->id();
             $table->string('nome', 150);
-            $table->string('razao_social', 150)->unique();
+            $table->string('razao_social', 150);
             $table->string('cpf_cnpj', 18)->unique();
             $table->string('ie', 10)->unique()->nullable();
             $table->string('telefone', 10)->nullable();
@@ -24,7 +24,7 @@ class CreateClientesTable extends Migration
             $table->string('contato_principal')->nullable();
             $table->string('classificacao', 150)->nullable();
             $table->string('email')->unique();
-            $table->string('endereco', 150);
+            $table->string('endereco', 255);
             $table->string('bairro', 50);
             $table->string('cidade', 50);
             $table->string('estado', 50);
