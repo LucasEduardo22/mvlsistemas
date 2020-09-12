@@ -17,10 +17,18 @@ class UserSeeder extends Seeder
         User::create([
             'perfil_id' => 1,
             'name'  => 'Lucas',
+            'cpf'           => '00114725636',
+            'telefone'      => '41992357727',
             'email' => 'admin@admin.com',
             'password' => Hash::make('password'),
             'status_id' => 1,
+            'endereco' => 'Rua Cid Gonçalves',
+            'bairro' => 'Cidade Industrial',
+            'cidade' => 'Curitiba',
+            'estado' => 'parana',
+            'cep' => '81240520',
+            'numero' => '14',
+            'complemento' => 'casa',
         ]);
-        $this->command->info('User account created with following details: admin@admin.com, password');
     }
 }

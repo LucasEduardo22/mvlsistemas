@@ -32,10 +32,10 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th class="border-top-0" scope="col">#</th>
                                     <th class="border-top-0" scope="col">Modelo</th>
-                                    <th class="border-top-0" scope="col">Produto</th>
-                                    <th class="border-top-0" scope="col">Sub Grupo</th>
-                                    <th class="border-top-0" scope="col">Tipo Produto</th>
+                                    <th class="border-top-0" scope="col">Grupo</th>
+                                    <th class="border-top-0" scope="col">Origem</th>
                                     <th class="border-top-0" scope="col">Status</th>
                                 </tr>
                             </thead>
@@ -44,8 +44,8 @@
                                     <tr>
                                         <th scope="row">{{$produto->modelo}}</th>
                                         <th scope="row">{{$produto->nome_produto}}</th>
-                                        <td>{{$produto->subGrupo->nome}}</td>
-                                        <td>{{$produto->tipoProduto->nome}}</td>
+                                        <td>{{$produto->grupo->nome}}</td>
+                                        <td>{{$produto->grupo->departamento->nome}}</td>
                                         <td>{{$produto->status->nome}}</td>
                                         <td style="width: 280px">
                                             <a href="{{route('produto.edit', $produto->id)}}" class="btn btn-info">Edit</a>
