@@ -26,14 +26,14 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="_sub_grupo" class="control-label">SubGrupo:</label>
-                <select id="_sub_grupo" name="sub_grupo_id" class="form-control col-6 @error('sub_grupo_id') is-invalid @enderror">
+                <label for="_grupo" class="control-label">SubGrupo:</label>
+                <select id="_grupo" name="grupo_id" class="form-control col-6 @error('grupo_id') is-invalid @enderror">
                     <option>--Select--</option>
-                    @foreach ($subGrupos as $subGrupo)
-                        <option value="{{$subGrupo->id}}" @if(old('modelo', !empty($produto->subGrupo->id) ? $produto->subGrupo->id : '' ) == $subGrupo->id ) selected="" @endif>{{$subGrupo->nome}}</option>
+                    @foreach ($grupos as $grupo)
+                        <option value="{{$grupo->id}}" @if(old('modelo', !empty($produto->grupo->id) ? $produto->grupo->id : '' ) == $grupo->id ) selected="" @endif>{{$grupo->nome}}</option>
                     @endforeach
                 </select>
-                @error('sub_grupo_id')
+                @error('grupo_id')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

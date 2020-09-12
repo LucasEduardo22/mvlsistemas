@@ -48,38 +48,27 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('tipo-produto.index')}}">
-                        Tipo Produto
-                    </a>
-                </li>
-                <li>
                     <a href="{{route('unidade.index')}}">
                         Unidade de medida
                     </a>
                 </li>
-            </ul>
-        </li>
-        <li >
-            <a href="#">
-                <span class="mm-text ">Departamentos</span>
-                <span class="menu-icon "><i class="fas fa-clipboard-check"></i></span>
-                <span class="im im-icon-Arrow-Right imicon"></span>
-            </a>
-            <ul class="sub-menu list-unstyled">
-                <li>
-                    <a href="{{route('departamento.index')}}">
-                        Departamentos
+                <li >
+                    <a href="#">
+                        <span class="mm-text ">Departamentos</span>
+                        
                     </a>
-                </li>
-                <li>
-                    <a href="{{route('grupo.index')}}">
-                        Grupos
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('sub-grupo.index')}}">
-                        Sub Grupo
-                    </a>
+                    <ul class="sub-menu list-unstyled">
+                        <li>
+                            <a href="{{route('departamento.index')}}">
+                                Departamentos
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{route('grupo.index')}}">
+                                Grupos
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </li>
