@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar a subGrupo {{$subGrupo->nome}} @parent
+    Editar Sub Grupo {{$subGrupo->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a sub Sub Grupos <strong>{{$subGrupo->nome}}</strong></h1>
+            <h1 class="mt-2">Editar Sub Grupo <strong>{{$subGrupo->nome}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">

@@ -11,7 +11,7 @@
                             <i class="fas fa-layer-group"></i>
                         </span>
                     </span>
-                    <input value="{{old('nome', !empty($subGrupo->nome) ? $subGrupo->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome do Grupo" id="_nome">
+                    <input value="{{old('nome', !empty($subGrupo->nome) ? $subGrupo->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome do Sub Grupo" id="_nome">
                     @error('nome')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -34,7 +34,7 @@
                         </span>
                     </span>
                     <select id="_grupo_id" name="grupo_id" class="form-control @error('grupo_id') is-invalid @enderror">
-                        <option>--Select--</option>
+                        <option>Selecione</option>
                         @foreach ($grupos as $grupo)
                             <option value="{{$grupo->id}}" @if(old('modelo', !empty($subGrupo->grupo->id) ? $subGrupo->grupo->id : '' ) == $grupo->id ) selected="" @endif>{{$grupo->nome}}</option>
                         @endforeach

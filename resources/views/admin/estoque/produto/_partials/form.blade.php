@@ -3,7 +3,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="_modelo" class="control-label">Modelo:</label>
-                <input value="{{old('modelo', !empty($produto->modelo) ? $produto->modelo : '')}}" type="text" name="modelo" placeholder="modelo" class="form-control col-6 @error('modelo') is-invalid @enderror" id="_modelo" />
+                <input value="{{old('modelo', !empty($produto->modelo) ? $produto->modelo : '')}}" type="text" name="modelo" placeholder="Modelo" class="form-control col-6 @error('modelo') is-invalid @enderror" id="_modelo" />
                 @error('modelo')
                     <div class="invalid-feedback">
                         {{ $message }}
@@ -14,7 +14,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <label for="_nome_produto" class="control-label">Produto:</label>
-                <input value="{{old('nome_produto', !empty($produto->nome_produto) ? $produto->nome_produto : '')}}" type="text" name="nome_produto" placeholder="nome produto" class="form-control col-6 @error('nome_produto') is-invalid @enderror" id="_nome_produto" />
+                <input value="{{old('nome_produto', !empty($produto->nome_produto) ? $produto->nome_produto : '')}}" type="text" name="nome_produto" placeholder="Nome Produto" class="form-control col-6 @error('nome_produto') is-invalid @enderror" id="_nome_produto" />
                 @error('nome_produto')
                     <div class="invalid-feedback">
                         {{ $message }}

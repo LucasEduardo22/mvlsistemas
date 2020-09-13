@@ -33,7 +33,7 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0" scope="col">#</th>
-                                    <th class="border-top-0" scope="col">Modelo</th>
+                                    <th class="border-top-0" scope="col">Produto</th>
                                     <th class="border-top-0" scope="col">Grupo</th>
                                     <th class="border-top-0" scope="col">Status</th>
                                 </tr>
@@ -66,7 +66,7 @@
                             @endif
                         </div>
                     @else
-                        <h1>Ops ainda não foi cadastrado nenhum produto</h1>
+                        <h1>Ops, ainda não foi cadastrado nenhum produto</h1>
                     @endif
                 </div>
             </div>

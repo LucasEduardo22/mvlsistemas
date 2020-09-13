@@ -8,7 +8,7 @@
                 <div class="input-group">
                     <span class="input-group-append">
                         <span class="input-group-text">
-                            <i class="fal fa-clipboard-check"></i>
+                            <i class="fas fa-clipboard-check"></i>
                         </span>
                     </span>
                     <input value="{{old('nome', !empty($tamanho->nome) ? $tamanho->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome" id="_nome">
@@ -52,7 +52,7 @@
                 <div class="input-group">
                     <span class="input-group-append">
                         <span class="input-group-text">
-                            <i class="far fa-audio-description"></i>
+                            <i class="fas fa-clipboard-list"></i>
                         </span>
                     </span>
                     <input value="{{old('descricao', !empty($tamanho->descricao) ? $tamanho->descricao : '')}}" type="text" name="descricao" placeholder="Descrição" class="form-control @error('descricao') is-invalid @enderror" id="_descricao"/>

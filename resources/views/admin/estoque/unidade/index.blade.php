@@ -36,7 +36,7 @@
                                     <th class="border-top-0" scope="col">Sigla</th>
                                     <th class="border-top-0" scope="col">Unidade</th>
                                     <th class="border-top-0" scope="col">Descrição</th>
-                                    <th class="border-top-0" scope="col">ação</th>
+                                    <th class="border-top-0" scope="col">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>

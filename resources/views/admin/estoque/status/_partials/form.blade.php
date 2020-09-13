@@ -8,10 +8,10 @@
                 <div class="input-group">
                     <span class="input-group-append">
                         <span class="input-group-text">
-                            <i class="fal fa-clipboard-check"></i>
+                            <i class="fas fa-clipboard-check"></i>
                         </span>
                     </span>
-                    <input value="{{old('nome', !empty($status->nome) ? $status->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Nome do Status" id="_nome">
+                    <input value="{{old('nome', !empty($status->nome) ? $status->nome : '')}}" type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" placeholder="Status" id="_nome">
                     @error('nome')
                         <div class="invalid-feedback">
                             {{ $message }}
@@ -30,7 +30,7 @@
                 <div class="input-group">
                     <span class="input-group-append">
                         <span class="input-group-text">
-                            <i class="far fa-audio-description"></i>
+                            <i class="fas fa-clipboard-list"></i>
                         </span>
                     </span>
                     <input value="{{old('descricao', !empty($status->descricao) ? $status->descricao : '')}}" type="text" name="descricao" placeholder="Descrição" class="form-control @error('descricao') is-invalid @enderror" id="_descricao"/>

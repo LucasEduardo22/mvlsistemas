@@ -37,7 +37,7 @@
                                     <th class="border-top-0" scope="col">Sub Grupo</th>
                                     <th class="border-top-0" scope="col">Grupo</th>
                                     <th class="border-top-0" scope="col">Descrição</th>
-                                    <th class="border-top-0" scope="col">ação</th>
+                                    <th class="border-top-0" scope="col">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -26,7 +26,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <small class="float-right mr-5">status: <strong class="text-success">{{$produto->status->nome}}</strong></small>
-            <h1 class="mt-2">Adicinar o produto <strong>{{$produto->nome_produto}}</strong> no estoque</h1>
+            <h1 class="mt-2">Adicionar o produto <strong>{{$produto->nome_produto}}</strong> no estoque</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
