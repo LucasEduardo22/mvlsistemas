@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar a produto {{$produto->nome}} @parent
+    Editar produto {{$produto->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,7 +16,7 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('produto.index') }}">produtos</a>
+            <a href="{{ route('produto.index') }}">Produtos</a>
         </li>
         <li class="breadcrumb-item active">
             <a href="{{ route('produto.edit', $produto->id) }}">{{$produto->nome_produto}}</a>
@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a produto <strong>{{$produto->nome_produto}}</strong></h1>
+            <h1 class="mt-2">Editar produto <strong>{{$produto->nome_produto}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">

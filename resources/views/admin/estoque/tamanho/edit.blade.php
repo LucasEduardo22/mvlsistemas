@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar a Tamanho {{$tamanho->nome}} @parent
+    Editar Tamanho {{$tamanho->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a tamanho <strong>{{$tamanho->nome}}</strong></h1>
+            <h1 class="mt-2">Editar tamanho <strong>{{$tamanho->nome}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">

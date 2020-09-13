@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar um novo modelo</h1>
+            <h1 class="mt-2">Cadastrar um novo produto</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">

@@ -15,7 +15,7 @@
         <li class="breadcrumb-item">
             <a href="{{route('home')}}">Home</a>
         </li>
-        <li <li class="breadcrumb-item active">
+        <li class="breadcrumb-item active">
             <a href="{{route('status.index')}}">Status</a>
         </li>
     </ol>
@@ -35,7 +35,7 @@
                                     <th class="border-top-0" scope="col">Codigo</th>
                                     <th class="border-top-0" scope="col">Status</th>
                                     <th class="border-top-0" scope="col">Descrição</th>
-                                    <th class="border-top-0" scope="col">ação</th>
+                                    <th class="border-top-0" scope="col">Ação</th>
                                 </tr>
                             </thead>
                             <tbody>

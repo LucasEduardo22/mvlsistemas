@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Cadastrar um novo Unidade @parent
+    Cadastrar Unidade de Medida @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar uma novo Unidade</h1>
+            <h1 class="mt-2">Cadastrar Unidade de Medida</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
