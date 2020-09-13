@@ -4,20 +4,20 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateProdutoRequest;
-use App\Models\Grupo;
+use App\Models\SubGrupo;
 use App\Models\Produto;
 use App\Models\Tamanho;
+use App\Models\TipoProduto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    private $dadosProduto, $dadosGrupo, $dadosTipoProduto;
+    private $dadosProduto, $dadosSubGrupo, $dadosTipoProduto;
 
-    public function __construct(Produto $produto, Grupo $grupo)
+    public function __construct(Produto $produto, SubGrupo $subGrupo)
     {
         $this->dadosProduto = $produto;
-        $this->dadosGrupo = $grupo;
-        
+        $this->dadosSubGrupo = $subGrupo;
     }
 
     public function index()
@@ -29,8 +29,8 @@ class ProdutoController extends Controller
 
     public function create()
     {
-        $grupos = $this->dadosGrupo->get();
-        return view('admin.estoque.produto.create', compact('grupos'));
+        $subGrupos = $this->dadosSubGrupo->get();
+        return view('admin.estoque.produto.create', compact('subGrupos'));
     }
 
     public function store(StoreUpdateProdutoRequest $request)
@@ -51,8 +51,8 @@ class ProdutoController extends Controller
     public function edit($id)
     {
         $produto = $this->dadosProduto->find($id);
-        $grupos = $this->dadosGrupo->get();
-        return view('admin.estoque.produto.edit', compact('produto', 'grupos'));
+        $subGrupos = $this->dadosSubGrupo->get();
+        return view('admin.estoque.produto.edit', compact('produto', 'subGrupos', 'tipoProdutos'));
     }
 
     public function update(StoreUpdateProdutoRequest $request, $id)

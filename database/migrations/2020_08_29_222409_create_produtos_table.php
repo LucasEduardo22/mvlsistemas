@@ -17,12 +17,13 @@ class CreateProdutosTable extends Migration
             $table->id();
             $table->string("modelo", 50)->unique();
             $table->string("nome_produto", 150)->unique();
-            $table->unsignedBigInteger('grupo_id');
+            $table->unsignedBigInteger('sub_grupo_id');
             $table->unsignedBigInteger('status_id');
             $table->string("descricao", 150)->nullable();
+            $table->string("image", 150)->nullable();
             $table->timestamps();
 
-            $table->foreign('grupo_id')->references('id')->on('grupos')->onDelete('cascade');
+            $table->foreign('sub_grupo_id')->references('id')->on('sub_grupos')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
         });
     }

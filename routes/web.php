@@ -25,6 +25,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Grupo
     Route::resource('/home/grupo', 'Admin\GrupoController');
 
+    //Sub Grupo
+    Route::resource('/home/sub-grupo', 'Admin\SubGrupoController');
+
     //status
     Route::resource('/home/status', 'Admin\StatusController');
 

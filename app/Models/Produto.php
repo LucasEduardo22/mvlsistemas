@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
-    protected $fillable = ["modelo", "nome_produto", "grupo_id", "tipo_produto_id", "status_id", "descricao"];
+    protected $fillable = ["modelo", "nome_produto", "sub_grupo_id", "tipo_produto_id", "status_id", "descricao"];
     
-    public function grupo(){
-        return $this->belongsTo(Grupo::class, );
+    public function subGrupo(){
+        return $this->belongsTo(SubGrupo::class, );
     }
 
     public function tipoProduto(){

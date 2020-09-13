@@ -68,6 +68,11 @@
                                 Grupos
                             </a>
                         </li>
+                        <li>
+                            <a href="{{route('sub-grupo.index')}}">
+                                Sub Grupos
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
