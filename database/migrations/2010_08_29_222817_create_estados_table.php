@@ -37,7 +37,7 @@ class CreateEstadosTable extends Migration
                             ->onDelete('cascade');
             $table->timestamps();
         });
-        Schema::create('Enderecos', function (Blueprint $table) {
+        Schema::create('enderecos', function (Blueprint $table) {
             $table->id();
             $table->string('endereco', 255);
             $table->string('cep',8);
