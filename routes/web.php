@@ -53,6 +53,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/home/estoque/{id}/store', 'Admin\EstoqueController@store')->name('estoque.store');
     Route::get('/home/estoque/{id}/edit', 'Admin\EstoqueController@edit')->name('estoque.edit');
     Route::put('/home/estoque/{id}/update', 'Admin\EstoqueController@update')->name('estoque.update');
+    Route::get('/home/estoque/{id}/show', 'Admin\EstoqueController@show')->name('estoque.show');
 
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');
     Route::post('/cidade/search', 'Admin\EnderecoController@searchCidade')->name('endereco.cidade.search');

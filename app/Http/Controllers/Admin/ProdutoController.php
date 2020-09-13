@@ -7,12 +7,11 @@ use App\Http\Requests\StoreUpdateProdutoRequest;
 use App\Models\SubGrupo;
 use App\Models\Produto;
 use App\Models\Tamanho;
-use App\Models\TipoProduto;
 use Illuminate\Http\Request;
 
 class ProdutoController extends Controller
 {
-    private $dadosProduto, $dadosSubGrupo, $dadosTipoProduto;
+    private $dadosProduto, $dadosSubGrupo;
 
     public function __construct(Produto $produto, SubGrupo $subGrupo)
     {

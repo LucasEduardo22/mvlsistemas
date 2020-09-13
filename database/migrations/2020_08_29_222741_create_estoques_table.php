@@ -16,7 +16,6 @@ class CreateEstoquesTable extends Migration
         Schema::create('estoques', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('produto_id');
-            $table->unsignedBigInteger('tamanho_id');
             $table->integer('estoque_inicial')->nullable();
             $table->integer('estoque_minimo')->nullable();
             $table->integer('estoque_atual')->nullable();
@@ -32,7 +31,6 @@ class CreateEstoquesTable extends Migration
             $table->timestamps();
 
             $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
-            $table->foreign('tamanho_id')->references('id')->on('tamanhos')->onDelete('cascade');
             $table->foreign('unidade_id')->references('id')->on('unidades')->onDelete('cascade');
             $table->foreign('status_id')->references('id')->on('status')->onDelete('cascade');
         });

@@ -30,7 +30,7 @@
                 <select id="_sub_grupo" name="sub_grupo_id" class="form-control col-6 @error('sub_grupo_id') is-invalid @enderror">
                     <option>--Select--</option>
                     @foreach ($subGrupos as $subGrupo)
-                        <option value="{{$subGrupo->id}}" @if(old('modelo', !empty($produto->subGrupo->id) ? $produto->subGrupo->id : '' ) == $subGrupo->id ) selected="" @endif>{{$subGrupo->nome}}</option>
+                        <option value="{{$subGrupo->id}}" @if(old('sub_grupo_id', !empty($produto->subGrupo->id) ? $produto->subGrupo->id : '' ) == $subGrupo->id ) selected="" @endif>{{$subGrupo->nome}}</option>
                     @endforeach
                 </select>
                 @error('sub_grupo_id')
@@ -40,22 +40,6 @@
                 @enderror
             </div>
         </div>
-        {{-- <div class="col-sm-6">
-            <div class="form-group">
-                <label for="_tipo_produto_id" class="control-label">Tipo Produto:</label>
-                <select id="_tipo_produto_id" name="tipo_produto_id" class="form-control col-6 @error('tipo_produto_id') is-invalid @enderror">
-                    <option>--Select--</option>
-                    @foreach ($tipoProdutos as $tipoProduto)
-                        <option value="{{$tipoProduto->id}}" @if(old('modelo', !empty($produto->tipoProduto->id) ? $produto->tipoProduto->id : '' ) == $tipoProduto->id ) selected="" @endif>{{$tipoProduto->nome}}</option>
-                    @endforeach
-                </select>
-                @error('tipo_produto_id')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-        </div> --}}
     </div>
     <div class="row">
         <div class="col-sm-6">

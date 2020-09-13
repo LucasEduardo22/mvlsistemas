@@ -15,13 +15,13 @@ class CreateTamanhoProdutosTable extends Migration
     {
         Schema::create('tamanho_produtos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('estoque_id');
+            $table->unsignedBigInteger('estoque_id')->nullable();
             $table->unsignedBigInteger('tamanho_id');
             $table->double('preco_custo', 10,2)->nullable();
             $table->double('preco_venda', 10,2)->nullable();
-            $table->integer('quantidade')->nullable();
-            $table->integer('estoque_atual')->nullable();
-            $table->integer('estoque_real')->nullable();
+            $table->double('quantidade', 10,2)->nullable();
+            $table->double('estoque_pendente', 10,2)->nullable();
+            $table->double('estoque_real', 10,2)->nullable();
             $table->timestamps();
 
             $table->foreign('estoque_id')->references('id')->on('estoques')->onDelete('cascade');

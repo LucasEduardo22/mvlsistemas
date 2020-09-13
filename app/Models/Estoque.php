@@ -8,13 +8,13 @@ class Estoque extends Model
 {
     protected $fillable = 
         [   
-            'produto_id', 'tamanho_id', 'estoque_inicial', 'estoque_minimo', 'estoque_atual', 
+            'produto_id', 'estoque_inicial', 'estoque_minimo', 'estoque_atual', 
             'estoque_real', 'estoque_reservado', 'preco_venda', 'preco_compra', 'custo_atual', 
             'custo_producao', 'cor', 'unidade_id', 'status_id'
         ];
 
     public function tamanho(){
-        return $this->belongsTo(Tamanho::class);
+        return $this->hasMany(TamanhoProduto::class);
     }
 
     public function unidade(){

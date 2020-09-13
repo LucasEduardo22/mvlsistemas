@@ -38,8 +38,6 @@
                                 <tr>
                                     <th class="border-top-0" scope="col">#</th>
                                     <th class="border-top-0" scope="col">Produto</th>
-                                    <th class="border-top-0" scope="col">Tamanho</th>
-                                    <th class="border-top-0" scope="col">Quantidade</th>
                                     <th class="border-top-0" scope="col">Valor venda</th>
                                     <th class="border-top-0" scope="col">Valor compra</th>
                                     <th class="border-top-0" scope="col">Cor</th>
@@ -51,15 +49,13 @@
                                     <tr>
                                         <th scope="row">{{$estoque->produto->modelo}}</th>
                                         <th scope="row">{{$estoque->produto->nome_produto}}</th>
-                                        <th scope="row">{{$estoque->tamanho->sigla}}</th>
-                                        <td>{{$estoque->estoque_atual}}</td>
                                         <td>{{!$estoque->preco_venda ? "Não informado": 'R$ '.number_format($estoque->preco_venda, 2, ',', '.')}}</td>
                                         <td>{{!$estoque->preco_compra ? "Não informado": 'R$ '.number_format($estoque->preco_compra, 2, ',', '.')}}</td>
                                         <td>{{$estoque->cor}}</td>
                                         <td>{{$estoque->status->nome}}</td>
-                                        <td style="width: 100px">
+                                        <td style="width: 250px">
                                             <a href="{{route('estoque.edit', $estoque->id)}}" class="btn btn-info">Edit</a>
-                                            {{-- <a href="{{route('estoque.show', $estoque->id)}}" class="btn btn-success">Ver</a> --}}
+                                            <a href="{{route('estoque.show', $estoque->id)}}" class="btn btn-success">Ver</a>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -27,8 +27,8 @@ class StoreUpdateProdutoRequest extends FormRequest
         return [
             "modelo" => "required|min:3|max:50|unique:produtos,modelo,{$id},id", 
             "nome_produto" => "required|min:3|max:150|unique:produtos,nome_produto,{$id},id", 
-            "grupo_id" =>"required|numeric", 
-            "tipo_produto_id" =>"required|numeric",
+            "sub_grupo_id" =>"required|numeric", 
+            //"tipo_produto_id" =>"required|numeric",
             'descricao' => "nullable|min:3|max:150",
         ];
     }

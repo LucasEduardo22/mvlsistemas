@@ -40,3 +40,11 @@
         </div>
     </div>
 @stop
+@push('scripts')
+    <script>
+        $(document).ready(function($){
+            $('.dinheiro').mask('#.##0,00', {reverse: true});
+        }); 
+
+    </script>
+@endpush

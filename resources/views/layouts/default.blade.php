@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <title>
         @section('title')@show
     </title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -15,6 +14,7 @@
     <link type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/estilo.css') }}">
     <style>
         #demo {
             position: relative;
