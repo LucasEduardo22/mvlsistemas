@@ -1,4 +1,4 @@
-<div class="form-row">
+{{-- <div class="form-row">
     <div class="form-group col-md-1">
         <div class="form-check">
             <input class="form-check-input cpf-cnpj" type="radio" name="cnpj_cpf" id="gridRadios2"
@@ -18,11 +18,11 @@
             </label>
         </div>
     </div>
-</div>
+</div> --}}
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="_nome">Nome Cliente</label>
-        <input type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" id="_nome" value="{{old('nome', !empty($cliente->nome) ? $cliente->nome : '')}}" placeholder="Nome Cliente">
+        <label for="_nome">Nome / Fantasia</label>
+        <input type="text" name="nome" class="form-control @error('nome') is-invalid @enderror" id="_nome" value="{{old('nome', !empty($cliente->nome) ? $cliente->nome : '')}}" placeholder="Nome / fantasia">
         @error('nome')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
@@ -48,6 +48,15 @@
         @enderror
     </div>
     <div class="form-group col-md-6">
+        <label for="_classificacao">Classificação</label>
+        <input type="text" name="classificacao" class="form-control @error('classificacao') is-invalid @enderror" value="{{old('classificacao', !empty($cliente->classificacao) ? $cliente->classificacao : '')}}" id="_classificacao">
+        @error('classificacao')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+        @enderror
+    </div>
+    {{-- <div class="form-group col-md-6">
         <label for="_contato_principal">Nome do Responsável</label>
         <input type="contato_principal" name="contato_principal" class="form-control @error('contato_principal') is-invalid @enderror" value="{{old('contato_principal', !empty($cliente->contato_principal) ? $cliente->contato_principal : '')}}" id="_contato_principal" placeholder="Nome e e-mail ou telefone">
         @error('contato_principal')
@@ -55,7 +64,7 @@
                 <strong>{{ $message }}</strong>
             </span>
         @enderror
-    </div>
+    </div> --}}
 </div>
 
 <div class="form-row">
@@ -163,14 +172,6 @@
             </span>
         @enderror
     </div>
-    <div class="form-group col-md-3">
-        <label for="_classificacao">Classificação</label>
-        <input type="text" name="classificacao" class="form-control @error('classificacao') is-invalid @enderror" value="{{old('classificacao', !empty($cliente->classificacao) ? $cliente->classificacao : '')}}" id="_classificacao">
-        @error('classificacao')
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $message }}</strong>
-            </span>
-        @enderror
-    </div>
+    
 </div>
 <button type="submit" class="btn btn-primary">Salvar</button>

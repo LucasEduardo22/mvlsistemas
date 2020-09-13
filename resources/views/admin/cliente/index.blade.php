@@ -34,7 +34,7 @@
                                 <tr>
                                     <th class="border-top-0" scope="col">Nome Fantasia</th>
                                     <th class="border-top-0" scope="col">Razão Social</th>
-                                    <th class="border-top-0" scope="col">CNPJ / CPF</th>
+                                    <th class="border-top-0" scope="col">CNPJ</th>
                                     <th class="border-top-0" scope="col">Telefone</th>
                                     <th class="border-top-0" scope="col">Ações</th>
                                 </tr>
