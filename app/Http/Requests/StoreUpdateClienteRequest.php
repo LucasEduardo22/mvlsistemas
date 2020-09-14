@@ -28,7 +28,7 @@ class StoreUpdateClienteRequest extends FormRequest
             "nome" => "required|min:3|max:150",
             "razao_social" => "required|min:3|max:150",
             "cpf_cnpj" => "required|unique:clientes,nome,{$id},id",
-            "ie" => "required|unique:clientes,nome,{$id},id",
+            "ie" => "required",
             "telefone" => "required",
             "celular" => "required",
             "contato_principal" => "required",
