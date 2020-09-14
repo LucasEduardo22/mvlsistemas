@@ -132,7 +132,7 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3 control-label">Valor de Campra:</label>
+                    <label class="col-sm-3 control-label">Valor de Compra:</label>
                     <div class="col-sm-6">
                         <input value="{{old('preco_compra', !empty($estoque->preco_compra) ? $estoque->preco_compra : '')}}" type="text" name="preco_compra" placeholder="" class="form-control dinheiro @error('preco_compra') is-invalid @enderror" id="_preco_compra" />
                         @error('preco_compra')

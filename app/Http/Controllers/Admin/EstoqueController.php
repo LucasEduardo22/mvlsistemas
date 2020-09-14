@@ -117,6 +117,7 @@ class EstoqueController extends Controller
     public function show($id){
         $estoque = $this->dadosEstoque->find($id);
         $tamanhos = $this->dadosTamanho->all();
+        //$tamanhos = $this->dadosTamanho->where('estoqy');
         if(!$estoque){
             return redirect()->back();
         }

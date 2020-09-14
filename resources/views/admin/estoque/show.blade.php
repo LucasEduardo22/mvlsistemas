@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar um novo estoque</h1>
+            <h1 class="mt-2">Estoque</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
@@ -33,7 +33,7 @@
                 <div class="form-body">
                     <h3>Estoque</h3>
                     <div class="row">
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <div class="row">
                                     <label class="col-sm-4 control-label">Modelo:</label>
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="col-sm-4">
                             <div class="form-group">
                                 <div class="row">
                                     <label class="col-sm-4 control-label">Produto:</label>
@@ -53,7 +53,38 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-sm-3">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label">Cor:</label>
+                                    <div class="col-sm-4">
+                                        <p class="form-control-static"><strong>{{$estoque->cor}}</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label">Preço de venda:</label>
+                                    <div class="col-sm-4">
+                                        <p class="form-control-static"><strong>{{!$estoque->preco_venda ? "Não informado": 'R$ '.number_format($estoque->preco_venda, 2, ',', '.')}}</strong></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <div class="row">
+                                    <label class="col-sm-4 control-label">Sub Grupo:</label>
+                                    <div class="col-sm-4">
+                                        <p class="form-control-static"><strong>{{$estoque->produto->subGrupo->nome}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
