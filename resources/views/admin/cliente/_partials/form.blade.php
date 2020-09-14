@@ -70,7 +70,7 @@
 <div class="form-row">
     <div class="form-group col-md-3 mb-3">
         <label for="_cpf_cnpj" id="label-cpf_cnpj">CNPJ</label>
-        <input type="text" name="cpf_cnpj" class="form-control @error('cpf_cnpj') is-invalid @enderror" id="_cpf_cnpj" value="{{old('_cnpj-cpf', !empty($cliente->cpf_cnpj) ? $cliente->cpf_cnpj : '')}}" placeholder="99.999.999/9999-99">
+        <input type="text" name="cpf_cnpj" class="form-control @error('cpf_cnpj') is-invalid @enderror" id="_cpf_cnpj" value="{{old('cnpj-cpf', !empty($cliente->cpf_cnpj) ? $cliente->cpf_cnpj : '')}}" placeholder="99.999.999/9999-99">
         @error('cpf_cnpj')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>

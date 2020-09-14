@@ -48,22 +48,6 @@
             $('#_telefone').mask('(99) 9999-9999'); 
             $('#_celular').mask('(99) 99999-9999'); 
             
-            $('.cpf-cnpj').change(function(){
-                var campo = $(this).val();
-                console.log(campo );
-                if (campo == "cpf"){	
-                   // $("#InputCpf-cnpj").val('');
-                    $("#label-cpf_cnpj").html('CPF');
-                    $("#_cpf_cnpj").attr("placeholder", "999.999.999-99");
-                    $("#_cpf_cnpj").mask("999.999.999-99");
-                }
-                else if (campo == "cnpj"){
-               // $("#InputCpf-cnpj").val('');
-                $("#label-cpf_cnpj").html('CNPJ');
-                $("#_cpf_cnpj").attr("placeholder", "99.999.999/9999-99");
-                $("#_cpf_cnpj").mask("99.999.999/9999-99");
-                }			
-            });
             $(document).on('change','#_cep', function(e){
                 //var cep = $("input[name=cep]").val();
                 $.ajax({

@@ -44,8 +44,8 @@
                                     <tr>
                                         <th scope="row">{{$cliente->nome}}</th>
                                         <th scope="row">{{$cliente->razao_social}}</th>
-                                        <td >{{$cliente->cpf_cnpj}}</td>
-                                        <td>{{$cliente->telefone}}</td>
+                                        <td class="cpf_cnpj">{{$cliente->cpf_cnpj}}</td>
+                                        <td class="telefone">{{$cliente->telefone}}</td>
                                         <td style="width: 250px">
                                             <a href="{{route('cliente.edit', $cliente->id)}}" class="btn btn-info">Edit</a>
                                             <a href="{{route('cliente.show', $cliente->id)}}" class="btn btn-success">ver</a>
@@ -74,7 +74,7 @@
         $(document).ready(function($){
             $('.cpf_cnpj').mask('00.000.000/0000-00');
             $('.cep').mask("99999-999");
-            $('.ie').mask("999.99999-99");
+            //$('.ie').mask("999.99999-99");
             $('.telefone').mask('(99) 9999-9999'); 
             $('.celular').mask('(99) 99999-9999'); 
             

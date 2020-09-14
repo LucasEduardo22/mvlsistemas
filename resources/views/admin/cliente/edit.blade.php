@@ -48,7 +48,7 @@
             $('#_telefone').mask('(99) 9999-9999'); 
             $('#_celular').mask('(99) 99999-9999'); 
             
-            $('.cpf-cnpj').change(function(){
+            /* $('.cpf-cnpj').change(function(){
                 var campo = $(this).val();
                 console.log(campo );
                 if (campo == "cpf"){	
@@ -63,7 +63,7 @@
                     $("#_cpf_cnpj").attr("placeholder", "99.999.999/9999-99");
                     $("#_cpf_cnpj").mask("99.999.999/9999-99");
                 }			
-            });
+            }); */
 
             $(document).on('change','#_cep', function(e){
                 //var cep = $("input[name=cep]").val();
