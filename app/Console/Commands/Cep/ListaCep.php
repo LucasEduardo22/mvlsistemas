@@ -45,14 +45,14 @@ class ListaCep extends Command
         } */
         $opts = [
             "http" => [
-                "method" => "GET",
+                //"method" => "GET",
                 "header" => "Accept: application/json"
             ]
         ];
         
         $context = stream_context_create($opts);
         // -H"Accept: text/plain" 
-        $file = curl_exec('http://cep.la/api/SP', false, $context);
+        $file = file_get_contents('http://cep.la/api/SP', false, $context);
         dump($file);
         return;
     }
