@@ -116,6 +116,13 @@ class ClienteCrontroller extends Controller
         return redirect()->route('cliente.index')->with('success', 'Dados atualizado com sucesso..');
     }
 
+    public function search(Request $request){
+    
+        $clientes = $this->dadosCliente->search($request->filtrar);
+        $filtros = $request->except('_token');
+        return view('admin.cliente.index', compact('clientes', 'filtros'));
+    }
+
     /**
      * Remove the specified resource from storage.
      *

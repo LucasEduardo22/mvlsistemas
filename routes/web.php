@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/home/unidade', 'Admin\UnidadeController');
 
     //Cliente
+    Route::any('/home/cliente/search', 'Admin\ClienteCrontroller@search')->name("cliente.search");
     Route::resource('/home/cliente', 'Admin\ClienteCrontroller');
 
     // Rotas de Produto

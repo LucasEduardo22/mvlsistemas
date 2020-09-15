@@ -13,4 +13,11 @@ class Cliente extends Model
                         "endereco", "bairro", "cidade", "estado", "cep", "numero", 
                         "complemento",
                     ];
+
+    public function search($filtro = null){
+        $result = $this->where('id', $filtro )
+                ->orWhere('nome', 'LIKE', "%{$filtro}%")->paginate(1);
+
+        return $result;
+    }
 }
