@@ -16,7 +16,7 @@ class Cliente extends Model
 
     public function search($filtro = null){
         $result = $this->where('id', $filtro )
-                ->orWhere('nome', 'LIKE', "%{$filtro}%")->paginate(1);
+                ->orWhere('nome', 'LIKE', "%{$filtro}%")->paginate(15);
 
         return $result;
     }
