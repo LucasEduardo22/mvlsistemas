@@ -35,7 +35,7 @@ class StoreUpdateClienteRequest extends FormRequest
             "classificacao" => "nullable|min:3|max:150",
             "email" => "required|email|min:3|max:150", 
             "endereco" => "required|min:3|max:255",
-            "bairro" => "required|min:3|max:50",
+            "bairro" => "required|min:3|max:150",
             "cidade" => "required|min:3|max:50",
             "estado" => "required|min:3|max:50",
             "cep" => "required|max:9",

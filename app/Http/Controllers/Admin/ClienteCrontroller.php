@@ -48,7 +48,7 @@ class ClienteCrontroller extends Controller
         $request->merge([
             'cpf_cnpj' => str_replace(['.', '/','-'], '', $request->cpf_cnpj),
             'cep' => str_replace(['-'], '', $request->cep),
-            'ie' => str_replace(['.', '-'], '', $request->ie),
+            //'ie' => str_replace(['.', '-'], '', $request->ie),
             'telefone' => str_replace(['(', ')', ' ','-'], '', $request->telefone),
             'celular' => str_replace(['(', ')', ' ','-'], '', $request->celular),
         ]);
@@ -102,7 +102,7 @@ class ClienteCrontroller extends Controller
         $request->merge([
             'cpf_cnpj' => str_replace(['.', '/','-'], '', $request->cpf_cnpj),
             'cep' => str_replace(['-'], '', $request->cep),
-            'ie' => str_replace(['.', '-'], '', $request->ie),
+            //'ie' => str_replace(['.', '-'], '', $request->ie),
             'telefone' => str_replace(['(', ')', ' ','-'], '', $request->telefone),
             'celular' => str_replace(['(', ')', ' ','-'], '', $request->celular),
         ]);
