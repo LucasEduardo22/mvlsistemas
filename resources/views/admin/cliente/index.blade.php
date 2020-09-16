@@ -45,6 +45,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
+                                    <th class="border-top-0" scope="col">Código</th>
                                     <th class="border-top-0" scope="col">Nome Fantasia</th>
                                     <th class="border-top-0" scope="col">Razão Social</th>
                                     <th class="border-top-0" scope="col">CNPJ</th>
@@ -55,6 +56,7 @@
                             <tbody>
                                 @foreach ($clientes as $cliente)
                                     <tr>
+                                        <th scope="row">{{$cliente->id}}</th>
                                         <th scope="row">{{$cliente->nome}}</th>
                                         <th scope="row">{{$cliente->razao_social}}</th>
                                         <td class="cpf_cnpj">{{$cliente->cpf_cnpj}}</td>
