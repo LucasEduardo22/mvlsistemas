@@ -90,14 +90,14 @@
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <div class="row"> <label class="col-sm-4 control-label">CEP:</label>
+                <div class="row">
+                    <label class="col-sm-4 control-label">Nº:</label>
                     <div class="col-sm-8">
-                        <p class="form-control-static" id="cep"><strong>{{$cliente->cep}}</strong></p>
+                        <p class="form-control-static"><strong>{{$cliente->numero}}</strong></p>
                     </div>
                 </div>
             </div>
-
-        </div>
+        </div> 
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -122,16 +122,15 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Nº:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$cliente->numero}}</strong></p>
-                    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <div class="row"> <label class="col-sm-4 control-label">CEP:</label>
+                <div class="col-sm-8">
+                    <p class="form-control-static" id="cep"><strong>{{$cliente->cep}}</strong></p>
                 </div>
             </div>
         </div>
+    </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
