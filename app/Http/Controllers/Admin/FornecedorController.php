@@ -3,17 +3,17 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateClienteRequest;
-use App\Models\Cliente;
+use App\Http\Requests\StoreUpdateFornecedorRequest;
+use App\Models\Fornecedor;
 use Illuminate\Http\Request;
 
-class ClienteCrontroller extends Controller
+class FornecedorController extends Controller
 {
-    protected $dadosCliente;
+    protected $dadosFornecedor;
 
-    public function __construct(Cliente $cliente)
+    public function __construct(Fornecedor $fornecedor)
     {
-        $this->dadosCliente = $cliente;
+        $this->dadosFornecedor = $fornecedor;
     }
     /**
      * Display a listing of the resource.
@@ -22,9 +22,9 @@ class ClienteCrontroller extends Controller
      */
     public function index()
     {
-        $clientes = $this->dadosCliente->paginate();
+        $fornecedors = $this->dadosFornecedor->paginate();
 
-        return view('admin.cliente.index', compact('clientes'));
+        return view('admin.fornecedor.index', compact('fornecedors'));
     }
 
     /**
@@ -34,7 +34,7 @@ class ClienteCrontroller extends Controller
      */
     public function create()
     {
-        return view('admin.cliente.create');
+        return view('admin.fornecedor.create');
     }
 
     /**
@@ -43,7 +43,7 @@ class ClienteCrontroller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateClienteRequest $request)
+    public function store(StoreUpdateFornecedorRequest $request)
     {
         $request->merge([
             'cpf_cnpj' => str_replace(['.', '/','-'], '', $request->cpf_cnpj),
@@ -52,8 +52,10 @@ class ClienteCrontroller extends Controller
             'telefone' => str_replace(['(', ')', ' ','-'], '', $request->telefone),
             'celular' => str_replace(['(', ')', ' ','-'], '', $request->celular),
         ]);
-        $this->dadosCliente->create($request->all());
-        return redirect()->route('cliente.index')->with('success', 'Cliente cadastrada com sucesso..');
+        $data = $request->all();
+        $data['status_id'] = 1; //padrão ativo 
+        $this->dadosFornecedor->create($data);
+        return redirect()->route('fornecedor.index')->with('success', 'Fornecedor cadastrada com sucesso..');
     }
 
     /**
@@ -64,13 +66,13 @@ class ClienteCrontroller extends Controller
      */
     public function show($id)
     {
-        $cliente = $this->dadosCliente->find($id);
+        $fornecedor = $this->dadosFornecedor->find($id);
 
-        if(!$cliente){
+        if(!$fornecedor){
             return redirect()->back();
         }
 
-        return view('admin.cliente.show', compact('cliente'));
+        return view('admin.fornecedor.show', compact('fornecedor'));
     }
 
     /**
@@ -81,13 +83,13 @@ class ClienteCrontroller extends Controller
      */
     public function edit($id)
     {
-        $cliente = $this->dadosCliente->find($id);
+        $fornecedor = $this->dadosFornecedor->find($id);
 
-        if(!$cliente){
+        if(!$fornecedor){
             return redirect()->back();
         }
 
-        return view('admin.cliente.edit', compact('cliente'));
+        return view('admin.fornecedor.edit', compact('fornecedor'));
     }
 
     /**
@@ -97,7 +99,7 @@ class ClienteCrontroller extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateClienteRequest $request, $id)
+    public function update(StoreUpdateFornecedorRequest $request, $id)
     {
         $request->merge([
             'cpf_cnpj' => str_replace(['.', '/','-'], '', $request->cpf_cnpj),
@@ -106,21 +108,23 @@ class ClienteCrontroller extends Controller
             'telefone' => str_replace(['(', ')', ' ','-'], '', $request->telefone),
             'celular' => str_replace(['(', ')', ' ','-'], '', $request->celular),
         ]);
-        $cliente = $this->dadosCliente->find($id);
 
-        if(!$cliente){
+        $fornecedor = $this->dadosFornecedor->find($id);
+
+        if(!$fornecedor){
             return redirect()->back();
         }
-
-        $cliente->update($request->all());
-        return redirect()->route('cliente.index')->with('success', 'Dados atualizado com sucesso..');
+        $data = $request->all();
+        $data['status_id'] = 1; //padrão ativo 
+        $fornecedor->update($data);
+        return redirect()->route('fornecedor.index')->with('success', 'Dados atualizado com sucesso..');
     }
 
     public function search(Request $request){
     
-        $clientes = $this->dadosCliente->search($request->filtrar);
+        $fornecedors = $this->dadosFornecedor->search($request->filtrar);
         $filtros = $request->except('_token');
-        return view('admin.cliente.index', compact('clientes', 'filtros'));
+        return view('admin.fornecedor.index', compact('fornecedors', 'filtros'));
     }
 
     /**

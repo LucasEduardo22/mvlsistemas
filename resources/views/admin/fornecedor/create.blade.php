@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar o cliente {{$cliente->nome}} @parent
+    Cadastrar um novo Fornecedor @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,24 +16,24 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('cliente.index') }}">clientes</a>
+            <a href="{{ route('fornecedor.index') }}">Fornecedores</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('cliente.edit', $cliente->id) }}">{{$cliente->nome_cliente}}</a>
+            <a href="{{ route('fornecedor.create') }}">Create</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a cliente <strong>{{$cliente->nome_cliente}}</strong></h1>
+            <h1 class="mt-2">Cadastrar um novo fornecedor</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('cliente.update', $cliente->id)}}" class="form-horizontal" method="post" class="form">
-                    @method('PUT')
+                <form action="{{route('fornecedor.store')}}" class="form-horizontal" method="post" class="form">
+                    @method('POST')
                     @csrf
-                    @include('admin.cliente._partials.form')
+                    @include('admin.fornecedor._partials.form')
                 </form>
             </div>
         </div>
@@ -44,7 +44,7 @@
         $(document).ready(function($){
             $('#_cpf_cnpj').mask('00.000.000/0000-00');
             $('#_cep').mask("99999-999");
-            //$('#_ie').mask("999.99999-99");
+           // $('#_ie').mask("999.99999-99");
             $('#_telefone').mask('(99) 9999-9999'); 
             $('#_celular').mask('(99) 99999-9999'); 
             $(".text_maiusculo").on("input", function(){
@@ -65,7 +65,7 @@
                     $("#_cpf_cnpj").attr("placeholder", "99.999.999/9999-99");
                     $("#_cpf_cnpj").mask("99.999.999/9999-99");
                 }			
-            }); 
+            });
 
             $(document).on('change','#_cep', function(e){
                 //var cep = $("input[name=cep]").val();

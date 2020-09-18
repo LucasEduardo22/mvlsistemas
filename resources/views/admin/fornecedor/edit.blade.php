@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar o cliente {{$cliente->nome}} @parent
+    Editar fornecedor {{$fornecedor->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,24 +16,24 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('cliente.index') }}">clientes</a>
+            <a href="{{ route('fornecedor.index') }}">fornecedores</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('cliente.edit', $cliente->id) }}">{{$cliente->nome_cliente}}</a>
+            <a href="{{ route('fornecedor.edit', $fornecedor->id) }}">{{$fornecedor->nome_fornecedor}}</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a cliente <strong>{{$cliente->nome_cliente}}</strong></h1>
+            <h1 class="mt-2">Editar a fornecedor <strong>{{$fornecedor->nome_fornecedor}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('cliente.update', $cliente->id)}}" class="form-horizontal" method="post" class="form">
+                <form action="{{route('fornecedor.update', $fornecedor->id)}}" class="form-horizontal" method="post" class="form">
                     @method('PUT')
                     @csrf
-                    @include('admin.cliente._partials.form')
+                    @include('admin.fornecedor._partials.form')
                 </form>
             </div>
         </div>

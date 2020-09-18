@@ -33,6 +33,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('fornecedor.index')}}">
+                        Fornecedores
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('produto.index')}}">
                         Produtos
                     </a>

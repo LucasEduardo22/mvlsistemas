@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Clientes @parent
+    Fornecedores @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,18 +16,18 @@
             <a href="{{route('home')}}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{route('cliente.index')}}">Clientes</a>
+            <a href="{{route('fornecedor.index')}}">Fornecedores</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">  
-            <h1 class="mt-2">Clientes<a href="{{route('cliente.create')}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+            <h1 class="mt-2">Fornecedores<a href="{{route('fornecedor.create')}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class = "col-md-12">
-                <form action="{{route('cliente.search')}}" method="post">
+                <form action="{{route('fornecedor.search')}}" method="post">
                     @csrf
                     <div class = "row">
                         <div class= "col-md-10">    
@@ -41,7 +41,7 @@
             </div>
             <div class="col-md-12">
                 <div class="table-responsive">
-                    {{-- @if ($clientes->count() != 0) --}}
+                    {{-- @if ($fornecedors->count() != 0) --}}
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -54,16 +54,16 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($clientes as $cliente)
+                                @foreach ($fornecedors as $fornecedor)
                                     <tr>
-                                        <th scope="row">{{$cliente->id}}</th>
-                                        <th scope="row">{{$cliente->nome}}</th>
-                                        <th scope="row">{{$cliente->razao_social}}</th>
-                                        <td class="cpf_cnpj">{{$cliente->cpf_cnpj}}</td>
-                                        <td class="telefone" style="width: 180px">{{$cliente->telefone}}</td>
+                                        <th scope="row">{{$fornecedor->id}}</th>
+                                        <th scope="row">{{$fornecedor->nome}}</th>
+                                        <th scope="row">{{$fornecedor->razao_social}}</th>
+                                        <td class="cpf_cnpj">{{$fornecedor->cpf_cnpj}}</td>
+                                        <td class="telefone" style="width: 180px">{{$fornecedor->telefone}}</td>
                                         <td style="width: 250px">
-                                            <a href="{{route('cliente.edit', $cliente->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('cliente.show', $cliente->id)}}" class="btn btn-success">ver</a>
+                                            <a href="{{route('fornecedor.edit', $fornecedor->id)}}" class="btn btn-info">Edit</a>
+                                            <a href="{{route('fornecedor.show', $fornecedor->id)}}" class="btn btn-success">ver</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -71,13 +71,13 @@
                         </table>
                         <div class="card-footer">
                             @if (isset($filtros))
-                                {!! $clientes->links()!!}
+                                {!! $fornecedors->links()!!}
                             @else
-                                {!! $clientes->links()!!}
+                                {!! $fornecedors->links()!!}
                             @endif
                         </div>
                    {{--  @else
-                        <h1>Ops ainda não foi cadastrado nenhum cliente</h1>
+                        <h1>Ops ainda não foi cadastrado nenhum fornecedor</h1>
                     @endif --}}
                 </div>
             </div>

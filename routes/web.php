@@ -38,8 +38,12 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/home/unidade', 'Admin\UnidadeController');
 
     //Cliente
-    Route::any('/home/cliente/search', 'Admin\ClienteCrontroller@search')->name("cliente.search");
-    Route::resource('/home/cliente', 'Admin\ClienteCrontroller');
+    Route::any('/home/cliente/search', 'Admin\ClienteController@search')->name("cliente.search");
+    Route::resource('/home/cliente', 'Admin\ClienteController');
+
+    //Fornecedor
+    Route::any('/home/fornecedor/search', 'Admin\FornecedorController@search')->name("fornecedor.search");
+    Route::resource('/home/fornecedor', 'Admin\FornecedorController');
 
     // Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
