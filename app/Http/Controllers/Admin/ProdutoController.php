@@ -62,6 +62,9 @@ class ProdutoController extends Controller
             return redirect()->back();
         }
         $data = $request->all();
+        if($request->hasFile('image') && $request->image->isValid()){
+            $data['image'] = $request->image->store("/produtos");
+        } 
         $data['status_id'] = 1; //padrão ativo 
 
         $produto->update($data);

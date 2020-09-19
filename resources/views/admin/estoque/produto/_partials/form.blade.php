@@ -75,9 +75,9 @@
             <div class="form-group">
                 <label for="_image" class="control-label">
                     @if (!empty($produto->image))
-                        <img src="{{ asset('storage/'.$produto->image) }}" alt="{{$produto->image}}" id="_img" style="width: 100px; height: 100px;">
+                        <img src="{{ asset('storage/'.$produto->image) }}" alt="{{$produto->image}}" id="_img" style="width: 300px; height: 400px;">
                     @else
-                        <img class="card-img-top" id="_img" style="width: 50%;" src="{{ asset('img/images/mvlsistemas.jpg') }}" alt="mvlsistemas">
+                        <img id="_img" style="width: 300px; height: 400px;" src="{{ asset('img/images/mvlsistemas.jpg') }}" alt="mvlsistemas">
                     @endif
                     
                 </label>
