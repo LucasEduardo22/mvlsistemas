@@ -72,6 +72,7 @@
             </div>
         </div>
         <div class="col-sm-6">
+            <label for="_image" class="control-label">Adicione uma imagem:</label>
             <div class="form-group">
                 <label for="_image" class="control-label">
                     @if (!empty($produto->image))
