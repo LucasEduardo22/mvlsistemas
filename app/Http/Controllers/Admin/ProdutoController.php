@@ -36,9 +36,9 @@ class ProdutoController extends Controller
     {
         $data = $request->all();
         $data['status_id'] = 1; //padrão ativo 
-        /* if($request->hasFile('image') && $request->image->isValid()){
-            $data['image'] = $request->image->store("empresas/{$empresa->uuid}/produtos");
-        } */
+        if($request->hasFile('image') && $request->image->isValid()){
+            $data['image'] = $request->image->store("/produtos");
+        } 
         $produto = $this->dadosProduto->create($data);
         if($request->botao != 1){
             return redirect()->route('produto.index')->with('success', 'Produto cadastrada com sucesso..');
@@ -51,7 +51,7 @@ class ProdutoController extends Controller
     {
         $produto = $this->dadosProduto->find($id);
         $subGrupos = $this->dadosSubGrupo->get();
-        return view('admin.estoque.produto.edit', compact('produto', 'subGrupos', 'tipoProdutos'));
+        return view('admin.estoque.produto.edit', compact('produto', 'subGrupos'));
     }
 
     public function update(StoreUpdateProdutoRequest $request, $id)

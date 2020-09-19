@@ -46,7 +46,43 @@
             <div class="form-group">
                 <label for="_descricao" class="control-label">Descrição:</label>
                 <textarea id="_decricao" class="form-control resize_vertical @error('descricao') is-invalid @enderror" name="descricao" id="_descricao" >{{old('descricao', !empty($produto->descricao) ? $produto->descricao : '')}}</textarea>
-                @error('decricao')
+                @error('descricao')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="_aviamento" class="control-label">Aviamentos:</label>
+                <textarea id="_aviamento" class="form-control resize_vertical @error('aviamento') is-invalid @enderror" name="aviamento" id="_aviamento" >{{old('aviamento', !empty($produto->aviamento) ? $produto->aviamento : '')}}</textarea>
+                @error('aviamento')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label for="_observacao" class="control-label">Observaçao:</label>
+                <textarea id="_observacao" class="form-control resize_vertical @error('observacao') is-invalid @enderror" name="observacao" id="_observacao" >{{old('observacao', !empty($produto->observacao) ? $produto->observacao : '')}}</textarea>
+                @error('observacao')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                @enderror
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="_image" class="control-label">
+                    @if (!empty($produto->image))
+                        <img src="{{ asset('storage/'.$produto->image) }}" alt="{{$produto->image}}" id="_img" style="width: 100px; height: 100px;">
+                    @else
+                        <img class="card-img-top" id="_img" style="width: 50%;" src="{{ asset('img/images/mvlsistemas.jpg') }}" alt="mvlsistemas">
+                    @endif
+                    
+                </label>
+                <input type="file" name="image" class="@error('image') is-invalid @enderror" {{old('image')}} id="_image" hidden>
+                @error('image')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>

@@ -28,8 +28,10 @@ class StoreUpdateProdutoRequest extends FormRequest
             "modelo" => "required|min:3|max:50|unique:produtos,modelo,{$id},id", 
             "nome_produto" => "required|min:3|max:150|unique:produtos,nome_produto,{$id},id", 
             "sub_grupo_id" =>"required|numeric", 
-            //"tipo_produto_id" =>"required|numeric",
+            "image" =>"required",
             'descricao' => "nullable|min:3|max:150",
+            'aviamento' => "nullable|min:3|max:255",
+            'observacao' => "nullable|min:3|max:255",
         ];
     }
 }

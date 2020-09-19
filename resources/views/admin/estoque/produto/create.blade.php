@@ -30,7 +30,7 @@
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('produto.store')}}" class="form-horizontal" method="post" class="form">
+                <form action="{{route('produto.store')}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
                     @method('POST')
                     @csrf
                     @include('admin.estoque.produto._partials.form')
@@ -39,3 +39,22 @@
         </div>
     </div>
 @stop
+@push('scripts')
+    <script>
+        $(document).ready(function($){
+            $('#_image').change(function(){
+                const file = $(this)[0].files[0];
+                const fileReader = new FileReader();
+
+                fileReader.onloadend = function(){
+                    $("#_img").attr('src', fileReader.result);
+                    console.log(fileReader.result)
+                }
+                fileReader.readAsDataURL(file)
+                
+            });
+            
+        }); 
+
+    </script>
+@endpush 
