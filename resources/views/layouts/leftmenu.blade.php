@@ -28,6 +28,11 @@
             </a>
             <ul class="sub-menu list-unstyled">
                 <li>
+                    <a href="{{route('aviamento.index')}}">
+                        Aviamentos
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('cliente.index')}}">
                         Clientes
                     </a>
