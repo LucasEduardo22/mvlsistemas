@@ -53,15 +53,6 @@
                 @enderror
             </div>
             <div class="form-group">
-                <label for="_aviamento" class="control-label">Aviamentos:</label>
-                <textarea id="_aviamento" class="form-control resize_vertical @error('aviamento') is-invalid @enderror" name="aviamento" id="_aviamento" >{{old('aviamento', !empty($produto->aviamento) ? $produto->aviamento : '')}}</textarea>
-                @error('aviamento')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
-            </div>
-            <div class="form-group">
                 <label for="_observacao" class="control-label">Observaçao:</label>
                 <textarea id="_observacao" class="form-control resize_vertical @error('observacao') is-invalid @enderror" name="observacao" id="_observacao" >{{old('observacao', !empty($produto->observacao) ? $produto->observacao : '')}}</textarea>
                 @error('observacao')
@@ -91,6 +82,7 @@
             </div>
         </div>
     </div>
+   
     <button type="submit" name="botao" value="0" class="btn btn-sm btn-info col-2">Salvar</button>
-    <button type="submit" name="botao" value="1" class="btn btn-sm btn-primary col-2">Adicionar estoque</button>
+    <button type="submit" name="botao" value="1" class="btn btn-sm btn-primary col-2">Adicionar Aviamentos</button>
 </div>

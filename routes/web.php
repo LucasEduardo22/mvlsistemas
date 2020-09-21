@@ -17,6 +17,9 @@ Auth::routes();
 
 // GUI crud builder routes
 Route::group(['middleware' => 'auth'], function () {
+    Route::get('/home/grade', function () {
+        return view('admin.grade.index');
+    })->name('grade');
     Route::get('/', 'HomeController@index')->name('home');
 
     //Aviamentos
@@ -48,13 +51,16 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('/home/fornecedor/search', 'Admin\FornecedorController@search')->name("fornecedor.search");
     Route::resource('/home/fornecedor', 'Admin\FornecedorController');
 
+    //Ficha Tecnica 
+    Route::get('/home/produto/{id}/create-aviamento', 'Admin\FichaTecnicaController@create')->name('produto.aviamento.create');
+    Route::post('/home/produto/{id}/store-aviamento', 'Admin\FichaTecnicaController@store')->name('produto.aviamento.estoque.store');
+
     // Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
     Route::get('/home/produto/create', 'Admin\ProdutoController@create')->name('produto.create');
     Route::post('/home/produto/store', 'Admin\ProdutoController@store')->name('produto.store');
     Route::get('/home/produto/{id}/edit', 'Admin\ProdutoController@edit')->name('produto.edit');
     Route::put('/home/produto/{id}/update', 'Admin\ProdutoController@update')->name('produto.update');
-
     // Rotas de Estoque
     Route::get('/home/estoque/index', 'Admin\EstoqueController@index')->name('estoque.index');
     Route::get('/home/estoque/{id}/create', 'Admin\EstoqueController@create')->name('estoque.create');

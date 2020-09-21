@@ -169,6 +169,7 @@ mix.styles(
         paths.fontawesome + 'css/all.min.css',
         destCss + 'perfect-scrollbar.css',
         destCss + 'pages.css',
+        destCss + 'estilo.css',
         vendors + 'metismenu/dist/metisMenu.css',
 
     ], destCss + 'app.css');

@@ -43,6 +43,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('grade')}}">
+                        Grade
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('produto.index')}}">
                         Produtos
                     </a>

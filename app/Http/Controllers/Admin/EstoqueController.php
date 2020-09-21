@@ -86,7 +86,7 @@ class EstoqueController extends Controller
         if(!$estoque){
             return redirect()->back();
         }
-        return view('admin.estoque.edit', compact('estoque', 'produto', 'tamanhos', 'unidades'));
+        return view('admin.estoque.edit', compact('estoque', 'produto', 'unidades'));
     }
     public function update(StoreUpdateEstoqueRequest $request, $id)
     {
