@@ -61,6 +61,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/home/produto/store', 'Admin\ProdutoController@store')->name('produto.store');
     Route::get('/home/produto/{id}/edit', 'Admin\ProdutoController@edit')->name('produto.edit');
     Route::put('/home/produto/{id}/update', 'Admin\ProdutoController@update')->name('produto.update');
+    Route::get('/home/produto/{id}/show', 'Admin\ProdutoController@show')->name('produto.show');
     // Rotas de Estoque
     Route::get('/home/estoque/index', 'Admin\EstoqueController@index')->name('estoque.index');
     Route::get('/home/estoque/{id}/create', 'Admin\EstoqueController@create')->name('estoque.create');

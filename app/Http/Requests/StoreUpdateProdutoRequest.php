@@ -29,9 +29,9 @@ class StoreUpdateProdutoRequest extends FormRequest
             "nome_produto" => "required|min:3|max:150|unique:produtos,nome_produto,{$id},id", 
             "sub_grupo_id" =>"required|numeric", 
             "image" =>"nullable",
-            'descricao' => "nullable|min:3|max:150",
-            'aviamento' => "nullable|min:3|max:255",
-            'observacao' => "nullable|min:3|max:255",
+            'descricao' => "nullable|min:3|max:1000",
+            'aviamento' => "nullable|min:3|max:1000",
+            'observacao' => "nullable|min:3|max:1000",
         ];
     }
 }

@@ -7,6 +7,7 @@
 @section('header_styles')
     <!-- page vendors -->
     <link href="{{ asset('css/pages.css') }}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/estilo.css') }}">
     <!--end of page vendors -->
 @stop
 @section('content')
@@ -47,7 +48,7 @@
                                         <td>{{$produto->status->nome}}</td>
                                         <td style="width: 280px">
                                             <a href="{{route('produto.edit', $produto->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('produto.edit', $produto->id)}}" class="btn btn-info">ver</a>
+                                            <a href="{{route('produto.show', $produto->id)}}"  class="btn bg-warning-dark">ver</a>
                                             @if (!$produto->estoque)
                                                 <a href="{{route('estoque.create', $produto->id)}}" class="btn btn-success"><i class="fas fa-layer-group"></i></a>
                                             @else

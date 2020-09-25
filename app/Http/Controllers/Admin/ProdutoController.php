@@ -50,6 +50,16 @@ class ProdutoController extends Controller
         }
     }
 
+    public function show($id){
+        $produto = $this->dadosProduto->find($id);
+
+        if(!$produto){
+            return redirect()->back();
+        }
+
+        return view('admin.estoque.produto.show', compact('produto'));
+    }
+
     public function edit($id)
     {
         $produto = $this->dadosProduto->find($id);
@@ -74,10 +84,7 @@ class ProdutoController extends Controller
         if($request->botao != 1){
             return redirect()->route('produto.index')->with('success', 'Produto cadastrada com sucesso..');
         }else{
-            
-            if(!$produto->estoque){
-                return redirect()->route('produto.aviamento.index', $produto->id);
-            }
+            return redirect()->route('admin.estoque.aviamento.create', $produto->id);
         }
     }
 }

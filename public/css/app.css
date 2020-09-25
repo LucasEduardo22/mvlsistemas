@@ -12367,6 +12367,7 @@ ol.breadcrumb .breadcrumb-item + .breadcrumb-item::before {
 
 .bg-warning-dark {
   background-color: #cc9500;
+  color: white;
 }
 
 .bg-info-light {
@@ -12875,6 +12876,10 @@ textarea::placeholder {
     width: 10px;
 }
 
+.txtTexto{
+    background-color: yellow;
+    color: white;
+}
 /*!
 * metismenu https://github.com/onokumus/metismenu#readme
 * A jQuery menu plugin
