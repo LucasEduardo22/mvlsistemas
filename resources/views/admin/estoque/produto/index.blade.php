@@ -27,6 +27,20 @@
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
+        <div class = "col-md-12">
+            <form action="{{route('produto.search')}}" method="post">
+                @csrf
+                <div class = "row">
+                    <div class= "col-md-10">    
+                        <input type="text" class="form-control" id="filtrar" value="{{$filtros['filtrar'] ?? ''}}" name="filtrar" placeholder = "Pesquisar por"> 
+                    </div>
+                    <div class= "col-md-2">
+                        <button type="submit" class= "btn btn-success btn-block" >Pesquisar</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="card-body">
             <div class="col-md-12">
                 <div class="table-responsive">
                     @if ($produtos->count() != 0)

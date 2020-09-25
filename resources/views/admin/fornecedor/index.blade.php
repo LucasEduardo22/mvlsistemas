@@ -31,7 +31,7 @@
                     @csrf
                     <div class = "row">
                         <div class= "col-md-10">    
-                            <input type="text" class="form-control" id="filtrar" value="{{$filtros['filtrar'] ?? ''}}" name="filtrar" placeholder = "pesquisar por"> 
+                            <input type="text" class="form-control" id="filtrar" value="{{$filtros['filtrar'] ?? ''}}" name="filtrar" placeholder = "Pesquisar por"> 
                         </div>
                         <div class= "col-md-2">
                             <button type="submit" class= "btn btn-success btn-block" >Pesquisar</button>
