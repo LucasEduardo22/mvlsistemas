@@ -80,4 +80,10 @@ class ProdutoController extends Controller
             }
         }
     }
+    public function search(Request $request){
+    
+        $produtos = $this->dadosProduto->search($request->filtrar);
+        $filtros = $request->except('_token');
+        return view('admin.estoque.produto.index', compact('produtos', 'filtros'));
+    }
 }
