@@ -47,7 +47,7 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="border-top-0" scope="col">#</th>
+                                    <th class="border-top-0" scope="col">Modelo</th>
                                     <th class="border-top-0" scope="col">Produto</th>
                                     <th class="border-top-0" scope="col">Grupo</th>
                                     <th class="border-top-0" scope="col">Status</th>

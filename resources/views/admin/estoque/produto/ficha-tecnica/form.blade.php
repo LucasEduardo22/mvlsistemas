@@ -65,30 +65,58 @@
                     <thead>
                         <tr>
                             <th class="border-top-0" scope="col">#</th>
-                            <th class="border-top-0" scope="col">Codigo</th>
                             <th class="border-top-0" scope="col">Aviamento</th>
                             <th class="border-top-0" scope="col">Adicione detalhes</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($aviamentos as $aviamento)
+                            @php
+                                $dados = $produto->aviamentos()->where('aviamento_id', $aviamento->id)->first(); 
+                            @endphp
                             <tr>
                                 <td>
-                                    <input type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
-                                </td>
-                                <td>
-                                    {{$aviamento->id}}
+                                    @if (!empty($dados))
+                                        @if ($aviamento->id == $dados->aviamento_id)
+                                            <strong class="txtChecked"><i class="fas fa-check-circle"></i></strong>    
+                                        @else
+                                            <input type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
+                                        @endif
+                                    @else
+                                        <input type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
+                                    @endif
+                                    
                                 </td>
                                 <td>
                                     {{$aviamento->nome}}
                                 </td>
                                 <td>
-                                    <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes')}}</textarea>
-                                    @error('detalhes')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    @if (!empty($dados))
+                                        @if ($aviamento->id == $dados->aviamento_id)
+                                            <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhe[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
+                                            <input type="hidden" name="id[]" value="{{$dados->id}}">
+                                            @error('detalhes')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror    
+                                        @else
+                                            <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
+                                            @error('detalhes')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror
+                                        @endif
+                                    @else
+                                        <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
+                                        @error('detalhes')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror
+                                    @endif
+                                    
                                 </td>
                             </tr>
                         @endforeach                                            

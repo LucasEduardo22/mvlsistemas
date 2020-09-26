@@ -84,7 +84,7 @@ class ProdutoController extends Controller
         if($request->botao != 1){
             return redirect()->route('produto.index')->with('success', 'Produto cadastrada com sucesso..');
         }else{
-            return redirect()->route('admin.estoque.aviamento.create', $produto->id);
+            return redirect()->route('produto.aviamento.edit', $produto->id);
         }
     }
     public function search(Request $request){

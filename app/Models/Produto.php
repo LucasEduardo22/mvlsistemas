@@ -9,7 +9,7 @@ class Produto extends Model
     protected $fillable = ["modelo", "nome_produto", "sub_grupo_id", "tipo_produto_id", "status_id", "descricao", "image", "aviamento", "observacao"];
 
     public function search($filtro = null){
-        $result = $this->where('id', $filtro )
+        $result = $this->where('modelo', $filtro )
                 ->orWhere('nome_produto', 'LIKE', "%{$filtro}%")->paginate(15);
         return $result;
     }
@@ -24,6 +24,10 @@ class Produto extends Model
 
     public function status(){
         return $this->belongsTo(Status::class);
+    }
+
+    public function aviamentos(){
+        return $this->hasMany(FichaTecnica::class);
     }
 
     public function estoque(){

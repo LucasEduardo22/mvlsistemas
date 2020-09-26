@@ -88,7 +88,7 @@ class FichaTecnicaController extends Controller
         }
 
         return view('admin.estoque.ficha-tecnica.show', compact('fichaTecnica'));
-    }
+    } 
 
     /**
      * Show the form for editing the specified resource.
@@ -98,13 +98,9 @@ class FichaTecnicaController extends Controller
      */
     public function edit($id)
     {
-        $fichaTecnica = $this->dadosFichaTecnica->find($id);
-
-        if(!$fichaTecnica){
-            return redirect()->back();
-        }
-
-        return view('admin.estoque.ficha-tecnica.edit', compact('fichaTecnica'));
+        $produto = $this->dadosProduto->find($id);
+        $aviamentos= $this->dadosAviamentos->paginate(25);
+        return view('admin.estoque.produto.ficha-tecnica.edit', compact('produto', "aviamentos"));
     }
 
     /**
@@ -114,16 +110,42 @@ class FichaTecnicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateFichaTecnicaRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $fichaTecnica = $this->dadosFichaTecnica->find($id);
+        $produto = $this->dadosProduto->find($id);
+        $aviamentos = $this->dadosFichaTecnica->where('produto_id', $produto->id)->get();
 
-        if(!$fichaTecnica){
-            return redirect()->back();
+        foreach($aviamentos as $aviamento){
+
+            if(empty($aviamento) || !empty($request)){
+                for ($i=0; $i < count($request->aviamento_id); $i++) { 
+                    $novo = new FichaTecnica;
+                    $novo->aviamento_id = $request->aviamento_id[$i];
+                    $novo->produto_id = $produto->id;
+                    if($request->detalhes[$i] != null){
+                        $novo->detalhes = $request->detalhes[$i];
+                    }
+                    $novo->save();
+                }
+                return redirect()
+                    ->route('produto.index')
+                    ->with('success', 'Dados adicionado com sucesso');
+            }else{
+                for ($i=0; $i < count($request->id); $i++) { 
+                    $dados = $aviamento->find($request->id[$i]);
+                    
+                    if($request->detalhe[$i] != null){
+                        $dados->detalhes = $request->detalhe[$i];
+                    }
+                    $dados->save();
+                }
+
+                return redirect()
+                    ->route('produto.index')
+                    ->with('success', 'Dados adicionado com sucesso');
+            }
         }
-
-        $fichaTecnica->update($request->all());
-        return redirect()->route('ficha-tecnica.index')->with('success', 'Dados atualizado com sucesso..');
+        
     }
 
     /**

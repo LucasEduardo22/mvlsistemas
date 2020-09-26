@@ -54,6 +54,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Ficha Tecnica 
     Route::get('/home/produto/{id}/create-aviamento', 'Admin\FichaTecnicaController@create')->name('produto.aviamento.create');
     Route::post('/home/produto/{id}/store-aviamento', 'Admin\FichaTecnicaController@store')->name('produto.aviamento.estoque.store');
+    Route::get('/home/produto/{id}/edit-aviamento', 'Admin\FichaTecnicaController@edit')->name('produto.aviamento.edit');
+    Route::put('/home/produto/{id}/update-aviamento', 'Admin\FichaTecnicaController@update')->name('produto.aviamento.estoque.update');
+    Route::delete('/home/produto/{id}/delete-aviamento', 'Admin\FichaTecnicaController@destroy')->name('produto.aviamento.estoque.destroy');
 
     // Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');

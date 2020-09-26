@@ -52,124 +52,33 @@
             </div>
         </div>
     </div>
+    <h3>Aviamentos:</h3>
     <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Email:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->email}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">CNPJ:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static" id="cpf_cnpj"><strong>{{$produto->cpf_cnpj}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">I.E:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static" id="ie"><strong>{{$produto->ie}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Telefone:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static" id="telefone"><strong>{{$produto->telefone}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Celular:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static" id="celular"><strong>{{$produto->celular}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <h3>Endereço</h3>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Endereço:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->endereco}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Nº:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->numero}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div> 
-    </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Estado:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->estado}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Cidade:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->cidade}}</strong></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-    <div class="col-sm-6">
-        <div class="form-group">
-            <div class="row"> <label class="col-sm-4 control-label">CEP:</label>
-                <div class="col-sm-8">
-                    <p class="form-control-static" id="cep"><strong>{{$produto->cep}}</strong></p>
-                </div>
-            </div>
-        </div>
-    </div>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <div class="row">
-                    <label class="col-sm-4 control-label">Complemento:</label>
-                    <div class="col-sm-8">
-                        <p class="form-control-static"><strong>{{$produto->complemento}}</strong></p>
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-12">
+            <table id="people-table" class="col-md-12 table table-striped table-bordered">
+                <thead>
+                    <tr>
+                        <th class="border-top-0" scope="col">Sigla</th>
+                        <th class="border-top-0" scope="col">Aviamento</th>
+                        <th class="border-top-0" scope="col">detalhes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($produto->aviamentos as $aviamento)
+                        <tr>
+                            <td>
+                                {{$aviamento->produtosAviamento->sigla}}
+                            </td>
+                            <td>
+                                {{$aviamento->produtosAviamento->nome}}
+                            </td>
+                            <td>
+                                {{$aviamento->detalhes}}
+                            </td>
+                        </tr>
+                    @endforeach                                            
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
