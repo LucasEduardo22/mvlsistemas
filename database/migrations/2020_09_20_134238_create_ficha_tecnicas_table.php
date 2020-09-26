@@ -17,8 +17,8 @@ class CreateFichaTecnicasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('aviamento_id');
             $table->unsignedBigInteger('produto_id');
-            $table->string("detalhes", 100)->nullable();
-            $table->string("observacao", 150)->nullable();
+            $table->string("detalhes", 255)->nullable();
+            $table->string("observacao", 255)->nullable();
             $table->timestamps();
 
             $table->foreign('aviamento_id')->references('id')->on('aviamentos')->onDelete('cascade');
