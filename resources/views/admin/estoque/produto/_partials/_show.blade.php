@@ -61,6 +61,7 @@
                         <th class="border-top-0" scope="col">Sigla</th>
                         <th class="border-top-0" scope="col">Aviamento</th>
                         <th class="border-top-0" scope="col">detalhes</th>
+                        <th class="border-top-0" scope="col">Ação</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -74,6 +75,13 @@
                             </td>
                             <td>
                                 {{$aviamento->detalhes}}
+                            </td>
+                            <td>
+                                <form action="{{route('produto.aviamento.estoque.destroy', [$aviamento->id, $produto->id])}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach                                            

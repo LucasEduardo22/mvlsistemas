@@ -42,3 +42,23 @@
         </div>
     </div>
 @stop
+
+@push('scripts')
+    <script>
+        $(document).ready(function($){
+           
+            $('._ave').click(function(){
+                var campo = $(this).val();
+                console.log(campo);	
+                if (campo != 0) {
+                    $("._detalhe").show();
+                } else {
+                    $("._detalhe").hide();
+                }	
+                
+            });
+            
+        }); 
+
+    </script>
+@endpush 

@@ -56,14 +56,23 @@ class FichaTecnicaController extends Controller
         $produto = $this->dadosProduto->find($id);
      
         if(!empty($request)){
-            for ($i=0; $i < count($request->aviamento_id); $i++) { 
-                $novo = new FichaTecnica;
-                $novo->aviamento_id = $request->aviamento_id[$i];
-                $novo->produto_id = $produto->id;
-                if($request->detalhes[$i] != null){
-                    $novo->detalhes = $request->detalhes[$i];
+            $dados = [];
+            $detalhes = [];
+            
+            foreach ($request->aviamento as $i => $value) {
+                foreach ($request->aviamento_id as $c => $ave){
+                    if($ave == $value){
+                        $dados[] = $value;
+                        $detalhes[]= $request->detalhes[$i];
+                    }
                 }
-                $novo->save();
+            }
+            foreach ($dados as $id => $item) {
+                $novo = new FichaTecnica;
+                $novo->aviamento_id = $item;
+                $novo->produto_id = $produto->id;
+                $novo->detalhes = $detalhes[$id];
+                $novo->save(); 
             }
             return redirect()
                 ->route('produto.index')
@@ -115,37 +124,78 @@ class FichaTecnicaController extends Controller
         $produto = $this->dadosProduto->find($id);
         $aviamentos = $this->dadosFichaTecnica->where('produto_id', $produto->id)->get();
 
-        foreach($aviamentos as $aviamento){
-
-            if(empty($aviamento) || !empty($request)){
-                for ($i=0; $i < count($request->aviamento_id); $i++) { 
-                    $novo = new FichaTecnica;
-                    $novo->aviamento_id = $request->aviamento_id[$i];
-                    $novo->produto_id = $produto->id;
-                    if($request->detalhes[$i] != null){
-                        $novo->detalhes = $request->detalhes[$i];
-                    }
-                    $novo->save();
-                }
-                return redirect()
-                    ->route('produto.index')
-                    ->with('success', 'Dados adicionado com sucesso');
-            }else{
-                for ($i=0; $i < count($request->id); $i++) { 
-                    $dados = $aviamento->find($request->id[$i]);
+        if($aviamentos->count() != 0){
+            foreach($aviamentos as $aviamento){
+                if(empty($aviamento) || !empty($request->aviamento_id)){
                     
-                    if($request->detalhe[$i] != null){
-                        $dados->detalhes = $request->detalhe[$i];
+                    $dados = [];
+                    $detalhes = [];
+                    
+                    foreach ($request->aviamento as $i => $value) {
+                        foreach ($request->aviamento_id as $c => $ave){
+                            if($ave == $value){
+                                $dados[] = $value;
+                                $detalhes[]= $request->detalhes[$i];
+                            }
+                        }
                     }
-                    $dados->save();
-                }
+                    foreach ($dados as $id => $item) {
 
+                        $novo = new FichaTecnica;
+                        $novo->aviamento_id = $item;
+                        $novo->produto_id = $produto->id;
+                        $novo->detalhes = $detalhes[$id];
+                        $novo->save(); 
+                    }
+
+                    for ($i=0; $i < count($request->Ave_id); $i++) { 
+                        $dados = $aviamento->find($request->Ave_id[$i]);
+                        
+                        if($request->detalhe[$i] != null){
+                            $dados->detalhes = $request->detalhe[$i];
+                        }
+                        $dados->save();
+                    }
+                    
+                }else{
+                    for ($i=0; $i < count($request->Ave_id); $i++) { 
+                        $dados = $aviamento->find($request->Ave_id[$i]);
+                        
+                        if($request->detalhe[$i] != null){
+                            $dados->detalhes = $request->detalhe[$i];
+                        }
+                        $dados->save();
+                    }
+                }
                 return redirect()
-                    ->route('produto.index')
-                    ->with('success', 'Dados adicionado com sucesso');
+                        ->route('produto.index')
+                        ->with('success', 'Dados adicionado com sucesso');
             }
+        }else{
+            if(!empty($request)){
+                $dados = [];
+                $detalhes = [];
+                
+                foreach ($request->aviamento as $i => $value) {
+                    foreach ($request->aviamento_id as $c => $ave){
+                        if($ave == $value){
+                            $dados[] = $value;
+                            $detalhes[]= $request->detalhes[$i];
+                        }
+                    }
+                }
+                foreach ($dados as $id => $item) {
+                    $novo = new FichaTecnica;
+                    $novo->aviamento_id = $item;
+                    $novo->produto_id = $produto->id;
+                    $novo->detalhes = $detalhes[$id];
+                    $novo->save(); 
+                }
+            }
+            return redirect()
+                ->route('produto.index')
+                ->with('success', 'Dados adicionado com sucesso');
         }
-        
     }
 
     /**
@@ -154,8 +204,18 @@ class FichaTecnicaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $produto_id)
     {
-        //
+        $aviamento = $this->dadosFichaTecnica->find($id);
+        $produto = $this->dadosProduto->find($produto_id);
+        if(!$aviamento){
+            return redirect()->back();
+        }
+        $aviamento->delete();
+
+        return redirect()
+                ->route('produto.show', $produto->id)
+                ->with('success', 'Aviamento deletado com sucesso');
+
     }
 }

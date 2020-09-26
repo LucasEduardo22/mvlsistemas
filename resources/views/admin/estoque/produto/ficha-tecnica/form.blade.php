@@ -83,7 +83,7 @@
                                             <input type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
                                         @endif
                                     @else
-                                        <input type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
+                                        <input class="_ave" type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
                                     @endif
                                     
                                 </td>
@@ -93,8 +93,8 @@
                                 <td>
                                     @if (!empty($dados))
                                         @if ($aviamento->id == $dados->aviamento_id)
-                                            <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhe[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
-                                            <input type="hidden" name="id[]" value="{{$dados->id}}">
+                                            <textarea id="_detalhes" class="form-control _detalhes resize_vertical @error('detalhes') is-invalid @enderror" name="detalhe[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
+                                            <input type="hidden" name="Ave_id[]" value="{{$dados->id}}">
                                             @error('detalhes')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -102,6 +102,7 @@
                                             @enderror    
                                         @else
                                             <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
+                                            <input type="hidden" name="aviamento[]" value="{{$aviamento->id}}">
                                             @error('detalhes')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -109,7 +110,9 @@
                                             @enderror
                                         @endif
                                     @else
+                                        <input type="hidden" name="" class="">
                                         <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
+                                        <input type="hidden" name="aviamento[]" value="{{$aviamento->id}}">
                                         @error('detalhes')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
