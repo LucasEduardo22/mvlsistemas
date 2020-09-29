@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
-    <title>Josh Login</title>
+    <title>MVL sistemas</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico')}}" />
     <!--page level css -->

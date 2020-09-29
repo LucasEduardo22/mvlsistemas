@@ -1,10 +1,10 @@
-<div id="menu" role="navigation">
+<div id="menu" class="hasMenu" role="navigation">
     <ul class="navigation list-unstyled" id="demo">
         <li><span class="close-icon d-xl-none d-lg-block"><img src="{{asset('img/images/input-disabled.png')}}"
                     alt="image missing"></span></li>
 
         <a href="{{ route('home') }}" class="logo navbar-brand mr-0">
-            <h1 class="text-center">EDUS</h1>
+            <h1 class="text-center" id="edus">EDUS</h1>
         </a>
         <li {!! (Request::is('') ? 'class="active"' : '' ) !!}>
             <a href="{{ URL::to('') }}">
@@ -19,7 +19,24 @@
                 <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
             </a>
         </li>
-
+        <li>
+            <a href="{{route('cliente.index')}}">
+                <span class="mm-text ">Clientes</span>
+                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
+            </a>
+        </li>
+        <li>
+            <a href="{{route('fornecedor.index')}}">
+                <span class="mm-text ">Funcionarios</span>
+                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
+            </a>
+        </li>
+        <li>
+            <a href="{{route('usuario.index')}}">
+                <span class="mm-text ">Usuários</span>
+                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
+            </a>
+        </li>
         <li >
             <a href="#">
                 <span class="mm-text ">Cadastros</span>
@@ -30,16 +47,6 @@
                 <li>
                     <a href="{{route('aviamento.index')}}">
                         Aviamentos
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('cliente.index')}}">
-                        Clientes
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('fornecedor.index')}}">
-                        Fornecedores
                     </a>
                 </li>
                 <li>

@@ -61,10 +61,6 @@
                                             </div>
 
                                         </form>
-                                        <div>
-                                            <small><a href="#" class="text-decoration-none text-muted">Forgot your
-                                                    password?</a></small>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -14,7 +14,9 @@ include('web_builder.php');
 |
 */
 Auth::routes();
-
+Route::get('/home/grade', function () {
+        return view('admin.grade.index');
+    })->name('grade');
 // GUI crud builder routes
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/grade', function () {
@@ -74,6 +76,19 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/estoque/{id}/edit', 'Admin\EstoqueController@edit')->name('estoque.edit');
     Route::put('/home/estoque/{id}/update', 'Admin\EstoqueController@update')->name('estoque.update');
     Route::get('/home/estoque/{id}/show', 'Admin\EstoqueController@show')->name('estoque.show');
+
+    //Roto=as de usuário 
+    Route::get('/home/usuario/index', 'Admin\UsuarioController@indexUsuario')->name('usuario.index');
+    Route::get('/home/usuario/create', 'Admin\UsuarioController@createUsuario')->name('usuario.create');
+    Route::post('/home/usuario/store', 'Admin\UsuarioController@storeUsuario')->name('usuario.store');
+    Route::get('/home/usuario/{id}/edit', 'Admin\UsuarioController@editUsuario')->name('usuario.edit');
+    Route::put('/home/usuario/{id}/update', 'Admin\UsuarioController@updateUsuario')->name('usuario.update');
+    Route::get('/home/usuario/{id}/show', 'Admin\UsuarioController@showUsuario')->name('usuario.show');
+    Route::any('/home/usuario/search', 'Admin\UsuarioController@search')->name('usuario.search');
+
+    //RECUPERA SENHA
+    Route::get('/home/usuario/edit-senha', 'Admin\UsuarioController@editSenha')->name('usuario.edit.senha');
+    Route::put('/home/usuario/update-senha', 'Admin\UsuarioController@updateSenha')->name('usuario.update.senha');
 
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');
     Route::post('/cidade/search', 'Admin\EnderecoController@searchCidade')->name('endereco.cidade.search');

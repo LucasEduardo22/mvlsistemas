@@ -31,7 +31,7 @@
 
 <body>
     <!-- header logo: style can be found in header-->
-    <header class="header">
+    <header class="header" id="hasHeaderTopo">
         <nav class="navbar navbar-expand-lg navbar-light navbar-static-top" role="navigation">
             
             <a href="javascript:void(0)" class="ml-100 toggle-right d-xl-none d-lg-block">
@@ -71,7 +71,7 @@
             </div>
         </nav>
     </header>
-    <div class="wrapper">
+    <div class="wrapper"">
 
         <!-- Left side column. contains the logo and sidebar -->
         <aside class="left-aside">

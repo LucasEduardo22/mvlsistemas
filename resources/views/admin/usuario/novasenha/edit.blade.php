@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en-US">
+<html lang="pt-BR">
 
 <head>
     <title>Josh {{ __('Confirm Password') }}</title>
@@ -30,17 +30,28 @@
                         <div class="card-body ">
 
                             <div class="row">
-                                <strong>{{ __('Please confirm your password before continuing.') }}</strong><br>
-                                <form action="{{ route('password.confirm') }}" id="authentication" method="post"
+                                <strong>{{ __('Cadastre sua nova senha.') }}</strong><br>
+                                <form action="{{ route('usuario.update.senha') }}" id="authentication" method="post"
                                     class="sign_validator mx-auto col-11">
                                     @csrf
+                                    @method('PUT')
                                     <div class="col-md-12">
                                         <div class="form-group mt-4">
                                             {{--<label for="password">Password</label>--}}
                                             <input type="password"
                                                 class="form-control form-control-lg border-bottom border-top-0 border-left-0 border-right-0  @error('password') is-invalid @enderror"
-                                                id="password" name="password" placeholder="Password" required
-                                                autocomplete="current-password" />
+                                                id="password" name="password" placeholder="Senha" required />
+                                            @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form-group mt-4">
+                                            {{--<label for="password">Password</label>--}}
+                                            <input type="password"
+                                                class="form-control form-control-lg border-bottom border-top-0 border-left-0 border-right-0  @error('password1') is-invalid @enderror"
+                                                id="password1" name="password1" placeholder="Confirma senha" />
                                             @error('password')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -51,7 +62,7 @@
 
                                     <div class="col-md-12">
                                         <div class="form-group mt-4">
-                                            
+                                            <button type="submit" class="btn btn-primary">Salvar</button>
                                         </div>
                                     </div>
                                 </form>

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Cliente;
 use App\Models\Produto;
+use App\Models\Status;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -30,7 +32,14 @@ class HomeController extends Controller
     {
         $cliente = $this->dadosCliente->get();
         $produto = $this->dadosProduto->get();
+        $user = Auth::user();
         
-        return view('admin.home.index', compact("cliente" , "produto"));
+        if ($user->status_id != Status::PENDENTE) {
+            return view('admin.home.index', compact("cliente" , "produto"));
+        } else {
+            return redirect()->route('usuario.edit.senha');
+        }
+        
+        
     }
 }

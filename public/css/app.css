@@ -11821,6 +11821,20 @@ a:hover {
   text-decoration: none;
 }
 
+.hasMenu {
+  background-color: #100f0f;
+  color: #f8f9fa;
+}
+
+#edus {
+  color: #f8f9fa;
+}
+
+#hasHeaderTopo {
+  background-color: #313131;
+  color: #f8f9fa;
+}
+
 .form-control {
   border-radius: 0;
   box-shadow: none;
