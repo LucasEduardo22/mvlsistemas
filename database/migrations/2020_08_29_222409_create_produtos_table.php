@@ -20,7 +20,7 @@ class CreateProdutosTable extends Migration
             $table->unsignedBigInteger('sub_grupo_id');
             $table->unsignedBigInteger('status_id');
             $table->text("descricao")->nullable();
-            $table->text("aviamento")->nullable();
+            //$table->text("aviamento")->nullable();
             $table->text("observacao")->nullable();
             $table->string("image")->nullable();
             $table->timestamps();
