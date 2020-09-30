@@ -27,7 +27,7 @@
         </li>
         <li>
             <a href="{{route('fornecedor.index')}}">
-                <span class="mm-text ">Funcionarios</span>
+                <span class="mm-text ">Fornecedores</span>
                 <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
             </a>
         </li>
