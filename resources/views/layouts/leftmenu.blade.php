@@ -12,31 +12,6 @@
                 <span class="menu-icon"><i class="im im-icon-Home"></i></span>
             </a>
         </li>
-
-        <li>
-            <a href="{{route('estoque.index')}}">
-                <span class="mm-text ">Estoque</span>
-                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{route('cliente.index')}}">
-                <span class="mm-text ">Clientes</span>
-                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{route('fornecedor.index')}}">
-                <span class="mm-text ">Fornecedores</span>
-                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
-            </a>
-        </li>
-        <li>
-            <a href="{{route('usuario.index')}}">
-                <span class="mm-text ">Usuários</span>
-                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
-            </a>
-        </li>
         <li >
             <a href="#">
                 <span class="mm-text ">Cadastros</span>
@@ -50,23 +25,19 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{route('grade')}}">
-                        Grade
+                    <a href="{{route('cliente.index')}}">
+                        Clientes
                     </a>
                 </li>
+                <li>
+                    <a href="{{route('fornecedor.index')}}">
+                        Fornecedores
+                    </a>
+                </li>
+                
                 <li>
                     <a href="{{route('produto.index')}}">
                         Produtos
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('status.index')}}">
-                        Status
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('tamanho.index')}}">
-                        Tamanho
                     </a>
                 </li>
                 <li>
@@ -96,6 +67,56 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mm-text ">Estoque</span>
+                <span class="menu-icon"><i class="fas fa-layer-group"></i></span>
+                <span class="im im-icon-Arrow-Right imicon"></span>
+            </a>
+            <ul class="sub-menu list-unstyled">
+
+            </ul>
+        </li>
+        <li>
+            <a href="#">
+                <span class="mm-text ">Financeiro</span>
+                <span class="menu-icon"><i class="fas fa-coins"></i></span>
+                <span class="im im-icon-Arrow-Right imicon"></span>
+            </a>
+            <ul class="sub-menu list-unstyled">
+
+            </ul>
+        </li>
+        
+        <li>
+            <a href="#">
+                <span class="mm-text ">Configuração</span>
+                <span class="menu-icon "><i class="fas fa-cogs"></i></span>
+                <span class="im im-icon-Arrow-Right imicon"></span>
+            </a>
+            <ul class="sub-menu list-unstyled">
+                <li>
+                    <a href="{{route('grade')}}">
+                        Grade
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('status.index')}}">
+                        Status
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('tamanho.index')}}">
+                        Tamanho
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('usuario.index')}}">
+                        Usuários
+                    </a>
                 </li>
             </ul>
         </li>
