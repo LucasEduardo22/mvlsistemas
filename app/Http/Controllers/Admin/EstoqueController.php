@@ -50,7 +50,7 @@ class EstoqueController extends Controller
             "preco_venda" => str_replace(['.'], '', $request->preco_venda),
             "preco_venda" => str_replace([','], '.', $request->preco_venda),
         ]);
-       // dd($request->all());
+
         $produto = $this->dadosProduto->find($id);
         $dados = $request->all();
         $dados['produto_id'] = $produto->id;
@@ -62,14 +62,17 @@ class EstoqueController extends Controller
             return redirect()->back();
         }
         $estoque = $this->dadosEstoque->create($dados);
-        for ($i = 0; $i < count($request->tamanho); $i++) {
+        foreach ($request->tamanho as $i => $value) {
+            $preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
+            $preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
+            $quantidade = str_replace([','], '.', $request->quantidade[$i]);
 
             $tamanhoProduto = new TamanhoProduto;
             $tamanhoProduto->estoque_id = $estoque->id;
-            $tamanhoProduto->tamanho_id = $request->tamanho[$i];
-            $tamanhoProduto->preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
-            $tamanhoProduto->preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
-            $tamanhoProduto->quantidade = str_replace([','], '.', $request->quantidade[$i]);
+            $tamanhoProduto->tamanho_id = $value;
+            $tamanhoProduto->preco_custo = !empty($preco_custo) ? $preco_custo : null;
+            $tamanhoProduto->preco_venda = !empty($preco_venda) ? $preco_venda : null;
+            $tamanhoProduto->quantidade = !empty($quantidade) ? $quantidade : null;
             $tamanhoProduto->save();
         }
         
@@ -80,13 +83,12 @@ class EstoqueController extends Controller
     {
         $estoque = $this->dadosEstoque->find($id);
         $produto = $estoque->produto;
-        $tamanhos = $this->dadosTamanho->all();
-        /* $tamanhoProdutos = $this->dadosTamanhoProduto->where('estoque_id', $estoque->id)->get(); */
+        $tamanhos = $this->dadosTamanho->all(); 
         $unidades = $this->dadosUnidade->all();
         if(!$estoque){
             return redirect()->back();
         }
-        return view('admin.estoque.edit', compact('estoque', 'produto', 'unidades'));
+        return view('admin.estoque.edit', compact('estoque', 'produto', 'unidades', 'tamanhos'));
     }
     public function update(StoreUpdateEstoqueRequest $request, $id)
     {
@@ -100,15 +102,17 @@ class EstoqueController extends Controller
         }
 
         $estoque->update($dados);
-        for ($i = 0; $i < count($request->tamanho); $i++) {
-
-            $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $request->tamanho[$i])->first();
-            //dd($tamanhoProduto);
+        foreach ($request->tamanho as $i => $value) {
+            $preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
+            $preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
+            $quantidade = str_replace([','], '.', $request->quantidade[$i]);
+          
+            $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $value)->where('estoque_id', $estoque->id)->first();
             $tamanhoProduto->estoque_id = $estoque->id;
-            $tamanhoProduto->tamanho_id = $request->tamanho[$i];
-            $tamanhoProduto->preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
-            $tamanhoProduto->preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
-            $tamanhoProduto->quantidade = str_replace([','], '.', $request->quantidade[$i]);
+            $tamanhoProduto->tamanho_id = $value;
+            $tamanhoProduto->preco_custo = !empty($preco_custo) ? $preco_custo : null;
+            $tamanhoProduto->preco_venda = !empty($preco_venda) ? $preco_venda : null;
+            $tamanhoProduto->quantidade = !empty($quantidade) ? $quantidade : null;
             $tamanhoProduto->save();
         }
         return redirect()->route('estoque.index')->with('success', 'Estoque atualizado com sucesso..');

@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class TamanhoProduto extends Model
 {
-    public function tamanhoProduto(){
+    public function tamanhoProdutos(){
 
-        //dd($this->hasOne(Tamanho::class));
-        return $this->hasMany(Tamanho::class);
+        return $this->hasOne(Tamanho::class, 'id', 'tamanho_id');
     }
 }
