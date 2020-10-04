@@ -12,6 +12,12 @@
                 <span class="menu-icon"><i class="im im-icon-Home"></i></span>
             </a>
         </li>
+        <li>
+            <a href="{{route('pedido.create')}}">
+                <span class="mm-text ">Pedidos</span>
+                <span class="menu-icon"><i class="fas fa-shopping-cart"></i></span>
+            </a>
+        </li>
         <li >
             <a href="#">
                 <span class="mm-text ">Cadastros</span>

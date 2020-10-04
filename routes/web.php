@@ -60,7 +60,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/home/produto/{id}/update-aviamento', 'Admin\FichaTecnicaController@update')->name('produto.aviamento.estoque.update');
     Route::delete('/home/produto/{id}/{produto_id}/delete-aviamento', 'Admin\FichaTecnicaController@destroy')->name('produto.aviamento.estoque.destroy');
 
-    // Rotas de Produto
+    //Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
     Route::get('/home/produto/create', 'Admin\ProdutoController@create')->name('produto.create');
     Route::post('/home/produto/store', 'Admin\ProdutoController@store')->name('produto.store');
@@ -69,7 +69,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/produto/{id}/show', 'Admin\ProdutoController@show')->name('produto.show');
     Route::any('/home/produto/search', 'Admin\ProdutoController@search')->name("produto.search");
 
-    // Rotas de Estoque
+    //Rotas de Estoque
     Route::get('/home/estoque/index', 'Admin\EstoqueController@index')->name('estoque.index');
     Route::get('/home/estoque/{id}/create', 'Admin\EstoqueController@create')->name('estoque.create');
     Route::post('/home/estoque/{id}/store', 'Admin\EstoqueController@store')->name('estoque.store');
@@ -77,7 +77,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/home/estoque/{id}/update', 'Admin\EstoqueController@update')->name('estoque.update');
     Route::get('/home/estoque/{id}/show', 'Admin\EstoqueController@show')->name('estoque.show');
 
-    //Roto=as de usuário 
+    //Rotoas de usuário 
     Route::get('/home/usuario/index', 'Admin\UsuarioController@indexUsuario')->name('usuario.index');
     Route::get('/home/usuario/create', 'Admin\UsuarioController@createUsuario')->name('usuario.create');
     Route::post('/home/usuario/store', 'Admin\UsuarioController@storeUsuario')->name('usuario.store');
@@ -90,9 +90,14 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/usuario/edit-senha', 'Admin\UsuarioController@editSenha')->name('usuario.edit.senha');
     Route::put('/home/usuario/update-senha', 'Admin\UsuarioController@updateSenha')->name('usuario.update.senha');
 
+    //ROTAS PEDIDOS
+    Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
+
+    //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');
     Route::post('/cidade/search', 'Admin\EnderecoController@searchCidade')->name('endereco.cidade.search');
     Route::post('/bairro/search', 'Admin\EnderecoController@searchBairro')->name('endereco.bairro.search');
     Route::post('/endereco/search', 'Admin\EnderecoController@search')->name('endereco.search');
+
 });
 Route::get('{name?}', 'JoshController@showView');
