@@ -12,7 +12,7 @@ $(document).ready(function () {
 
     $(".left-aside").hover(function () {
             $("#demo .navbar-brand").css({'margin-left': '0', 'transition': 'margin-left 0.3s linear'});
-            $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center" id="edus">EDUS</h1>');
+            $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center text-light" id="edus">EDUS</h1>');
 
         },
         function () {
@@ -48,7 +48,7 @@ $(document).ready(function () {
 
     $(".toggle-right").click(function () {
         $(".left-aside .sidebar").css("margin-left","0").removeClass('sidebar-res');
-        $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center">EDUS</h1>');
+        $("#demo .navbar-brand h1").replaceWith('<h1 class="text-center text-light">EDUS</h1>');
         $("#demo .navbar-brand").css("margin-left","0");
 
         $(".close-icon").show();

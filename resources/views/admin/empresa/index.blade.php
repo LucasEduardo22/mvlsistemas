@@ -29,7 +29,7 @@
            
             <div class="col-md-12">
                 @if (empty($empresa))
-                    <h1 class="mt-2"><a href="{{route('empresa.create')}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+                    <h1 class="mt-2"><a href="{{route('empresa.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
                 @else  
                     @include('admin.empresa._partials._show')  
                 @endif
