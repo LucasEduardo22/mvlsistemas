@@ -22,14 +22,14 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">  
-            <h1 class="mt-2">Empresas
+            <h1>Empresa</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
            
             <div class="col-md-12">
                 @if (empty($empresa))
-                    <a href="{{route('empresa.create')}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+                    <h1 class="mt-2"><a href="{{route('empresa.create')}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
                 @else  
                     @include('admin.empresa._partials._show')  
                 @endif

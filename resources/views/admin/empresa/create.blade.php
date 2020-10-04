@@ -30,7 +30,7 @@
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('empresa.store')}}" class="form-horizontal" method="post" class="form">
+                <form action="{{route('empresa.store')}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
                     @method('POST')
                     @csrf
                     @include('admin.empresa._partials.form')

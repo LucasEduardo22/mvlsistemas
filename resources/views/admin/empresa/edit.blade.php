@@ -30,7 +30,7 @@
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('empresa.update', $empresa->id)}}" class="form-horizontal" method="post" class="form">
+                <form action="{{route('empresa.update', $empresa->id)}}" class="form-horizontal" method="post" enctype="multipart/form-data" class="form">
                     @method('PUT')
                     @csrf
                     @include('admin.empresa._partials.form')

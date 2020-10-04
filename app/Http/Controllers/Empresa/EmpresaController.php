@@ -55,6 +55,7 @@ class EmpresaController extends Controller
         if($request->hasFile('image') && $request->image->isValid()){
             $data['image'] = $request->image->store("/empresas");
         } 
+        
         //dd($data);
         $this->dadosEmpresa->create($data);
         return redirect()->route('empresa.index')->with('success', 'Empresa cadastrada com sucesso..');
@@ -90,7 +91,6 @@ class EmpresaController extends Controller
         if(!$empresa){
             return redirect()->back();
         }
-
         return view('admin.empresa.edit', compact('empresa'));
     }
 
@@ -116,7 +116,13 @@ class EmpresaController extends Controller
             return redirect()->back();
         }
 
-        $empresa->update($request->all());
+        $data = $request->all();
+
+        if($request->hasFile('image') && $request->image->isValid()){
+            $data['image'] = $request->image->store("/empresas");
+        } 
+
+        $empresa->update($data);
         return redirect()->route('empresa.index')->with('success', 'Dados atualizado com sucesso..');
     }
 

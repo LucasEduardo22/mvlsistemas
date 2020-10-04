@@ -180,7 +180,7 @@
         <div class="form-group">
             <label for="_image" class="btn Forempresas control-label">
                 @if (!empty($empresa->image))
-                    <img class="logo1" src="{{ asset('storage/'.$empresa->image) }}" alt="{{$empresa->image}}" id="_logo" style="width: 300px; height: 400px;">
+                    <img class="logo1" src="{{ asset('storage/'.$empresa->image) }}" alt="{{$empresa->nome}}" id="_logo">
                 @else
                     <img class="logo1" id="_logo" src="{{ asset('img/images/mvlsistemas.jpg') }}" alt="mvlsistemas">
                 @endif

@@ -1,4 +1,5 @@
 <div class="form-body">
+    <h1 class="mt-2"><a href="{{route('empresa.edit', $empresa->id)}}" class="btn btn-info mb-5 pb-5 float-right"><i class="fas fa-plus-square"></i> Edtiar</a></h1>
     <h3>Dados do empresa</h3>
     <div class="row">
         <div class="col-sm-6">
