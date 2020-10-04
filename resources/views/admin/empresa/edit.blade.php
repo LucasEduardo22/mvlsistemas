@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar o empresa {{$empresa->nome}} @parent
+    Editar a empresa {{$empresa->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -142,6 +142,18 @@
                         $('[name=endereco]').val(data.endereco);
                     }
                 });
+            });
+
+            $('#_image').change(function(){
+                const file = $(this)[0].files[0];
+                const fileReader = new FileReader();
+
+                fileReader.onloadend = function(){
+                    $("#_logo").attr('src', fileReader.result);
+                    console.log(fileReader.result)
+                }
+                fileReader.readAsDataURL(file)
+                
             });
         }); 
 

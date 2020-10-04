@@ -48,7 +48,7 @@
                                         <td>{{!$tamanho->descricao ? "Não informado": $tamanho->descricao}}</td>
                                         <td style="width: 250px">
                                             <a href="{{route('tamanho.edit', $tamanho->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('tamanho.show', $tamanho->id)}}" class="btn btn-success">Ver</a>
+                                            {{-- <a href="{{route('tamanho.show', $tamanho->id)}}" class="btn btn-success">Ver</a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

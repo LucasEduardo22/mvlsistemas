@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar o empresa {{$empresa->nome}} @parent
+    Cadastrar um novo empresa @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -19,19 +19,19 @@
             <a href="{{ route('empresa.index') }}">empresas</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('empresa.edit', $empresa->id) }}">{{$empresa->nome_empresa}}</a>
+            <a href="{{ route('empresa.create') }}">Create</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar a empresa <strong>{{$empresa->nome_empresa}}</strong></h1>
+            <h1 class="mt-2">Cadastrar uma nova empresa</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('empresa.update', $empresa->id)}}" class="form-horizontal" method="post" class="form">
-                    @method('PUT')
+                <form action="{{route('empresa.store')}}" class="form-horizontal" method="post" class="form">
+                    @method('POST')
                     @csrf
                     @include('admin.empresa._partials.form')
                 </form>
@@ -44,7 +44,7 @@
         $(document).ready(function($){
             $('#_cpf_cnpj').mask('00.000.000/0000-00');
             $('#_cep').mask("99999-999");
-            //$('#_ie').mask("999.99999-99");
+           // $('#_ie').mask("999.99999-99");
             $('#_telefone').mask('(99) 9999-9999'); 
             $('#_celular').mask('(99) 99999-9999'); 
             $(".text_maiusculo").on("input", function(){
@@ -65,7 +65,7 @@
                     $("#_cpf_cnpj").attr("placeholder", "99.999.999/9999-99");
                     $("#_cpf_cnpj").mask("99.999.999/9999-99");
                 }			
-            }); 
+            });
 
             $(document).on('change','#_cep', function(e){
                 //var cep = $("input[name=cep]").val();
@@ -142,6 +142,18 @@
                         $('[name=endereco]').val(data.endereco);
                     }
                 });
+            });
+
+            $('#_image').change(function(){
+                const file = $(this)[0].files[0];
+                const fileReader = new FileReader();
+
+                fileReader.onloadend = function(){
+                    $("#_logo").attr('src', fileReader.result);
+                    console.log(fileReader.result)
+                }
+                fileReader.readAsDataURL(file)
+                
             });
         }); 
 

@@ -65,6 +65,32 @@
             </div>
         </div>
     </div>
+    <div class="form-group pad-top40">
+        <div class="row">
+            <label for="_nome" class="col-md-3 control-label">
+                Tipo
+            </label>
+            <div class="col-md-9">
+                <div class="input-group">
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fas fa-clipboard-check"></i>
+                        </span>
+                    </span>
+                    <select id="_tipo" name="tipo" class="form-control @error('tipo') is-invalid @enderror">
+                        <option>Selecione</option>
+                        <option value="M" @if(old('modelo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "M" ) selected="" @endif>Masculino</option>
+                        <option value="F" @if(old('modelo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "F" ) selected="" @endif>Feminino</option>
+                    </select>
+                    @error('nome')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <div class="form-position row">
     <div class="col-md-offset-3 col-md-9 ml-auto mb-3">

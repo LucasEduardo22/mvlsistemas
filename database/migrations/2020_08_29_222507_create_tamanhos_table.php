@@ -18,6 +18,7 @@ class CreateTamanhosTable extends Migration
             $table->string("nome", 50)->unique();
             $table->string("sigla", 10)->unique();
             $table->string("descricao", 150)->nullable();
+            $table->enum('tipo', ['M', 'F'])->nullable();
             $table->timestamps();
         });
     }

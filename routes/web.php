@@ -24,6 +24,9 @@ Route::group(['middleware' => 'auth'], function () {
     })->name('grade');
     Route::get('/', 'HomeController@index')->name('home');
 
+    //Empresas
+    Route::resource('/home/empresa', 'Empresa\EmpresaController');
+
     //Aviamentos
     Route::resource('/home/aviamento', 'Admin\AviamentoController');
 

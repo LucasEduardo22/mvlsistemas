@@ -153,7 +153,7 @@
                             @foreach ($tamanhos as $tamanho)
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanho->id}}">
-                                    <p class="text_grid">{{$tamanho->id}}º
+                                    <p class="@if($tamanho->tipo == "M") text_grid @else text_gridF @endif">{{$tamanho->id}}º
                                         {{$tamanho->sigla.' - '.$tamanho->nome}}
                                     </p>
                                     <div class="form-group">
@@ -189,7 +189,7 @@
                             @foreach ($estoque->tamanho as $tamanhoProduto) 
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanhoProduto->tamanho_id}}">
-                                    <p class="text_grid">{{$tamanhoProduto->tamanhoProdutos->id}}º
+                                    <p class="@if($tamanhoProduto->tamanhoProdutos->tipo == "M") text_grid @else text_gridF @endif">{{$tamanhoProduto->tamanhoProdutos->id}}º
                                         {{$tamanhoProduto->tamanhoProdutos->sigla.' - '.$tamanhoProduto->tamanhoProdutos->nome}}
                                     </p>
                                     <div class="form-group">

@@ -3,6 +3,11 @@
     text-align: center;
     color: white;
 }
+.text_gridF{
+    background-color: rgb(233, 53, 152);
+    text-align: center;
+    color: white;
+}
 
 #mvls{
     height: 10px;
@@ -16,4 +21,14 @@
 
 .txtChecked{
     color: rgb(30, 19, 243);
+}
+.Forempresas{
+    height: 50%;
+    width: 50%;
+    margin-left: 0%;
+}
+.logo1{
+    height: 60%;
+    width: 40%;
+    margin-left: 0%;
 }

@@ -105,6 +105,16 @@
             </a>
             <ul class="sub-menu list-unstyled">
                 <li>
+                    <a href="{{route('usuario.index')}}">
+                        Usuários
+                    </a>
+                </li>
+                <li>
+                    <a href="{{route('empresa.index')}}">
+                        Dados da empresa
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('grade')}}">
                         Grade
                     </a>
@@ -117,11 +127,6 @@
                 <li>
                     <a href="{{route('tamanho.index')}}">
                         Tamanho
-                    </a>
-                </li>
-                <li>
-                    <a href="{{route('usuario.index')}}">
-                        Usuários
                     </a>
                 </li>
             </ul>
