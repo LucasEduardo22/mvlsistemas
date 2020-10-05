@@ -64,6 +64,26 @@
                         </div>
                     </div>
                 </div>
+                <div class="card">
+                    <div class="card-body linha-verticalEstoque">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="border-top-0" scope="col">#</th>
+                                        <th class="border-top-0" scope="col">Produto</th>
+                                        <th class="border-top-0" scope="col">Valor venda</th>
+                                        <th class="border-top-0" scope="col">Valor compra</th>
+                                        <th class="border-top-0" scope="col">Cor</th>
+                                        <th class="border-top-0" scope="col">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

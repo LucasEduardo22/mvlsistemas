@@ -12937,12 +12937,19 @@ textarea::placeholder {
 
 .linha-vertical{
     border-right: 1px solid rgb(19, 18, 18);
+    border-left: 1px solid rgb(19, 18, 18);
 }
 
 .linha-horizontal {
     border-right: 1px solid #000;
     border-top: 1px solid #000;
     border-bottom: 1px solid #000;
+}
+
+.linha-verticalEstoque{
+    border-bottom: 1px solid #000;
+    border-right: 1px solid rgb(19, 18, 18);
+    border-left: 1px solid rgb(19, 18, 18);
 }
 /*!
 * metismenu https://github.com/onokumus/metismenu#readme
