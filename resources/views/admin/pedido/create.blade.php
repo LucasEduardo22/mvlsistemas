@@ -20,11 +20,6 @@
         </li>
     </ol>
     <div class="card">
-        <!-- Content Header (Page header) -->
-        <section class="content-header">
-
-        </section>
-        <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="col-md-12">
                 <div class="card-group linha-horizontal">
