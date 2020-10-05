@@ -29,7 +29,7 @@ Dashboard @parent
                 <i class="im-icon-Add-User im-icon-set float-right bg-primary"></i>
                 <h3>Clientes</h3>
                 {{$cliente->count()}}
-                <p class="mb-0 mt-3 "><span></span> <span class="float-right pr-15"></span></p>
+                {{-- <p class="mb-0 mt-3 "><span></span> <span class="float-right pr-15"></span></p> --}}
             </div>
         </div>
 
@@ -38,7 +38,7 @@ Dashboard @parent
                 <i class="im-icon-Bar-Code im-icon-set float-right bg-success"></i>
                 <h3>Produtos</h3>
                 {{$produto->count()}}
-                <p class="mb-0 mt-3 "><span></span> <span class="float-right pr-15"></span></p>
+                {{-- <p class="mb-0 mt-3 "><span></span> <span class="float-right pr-15"></span></p> --}}
             </div>
         </div>
 
@@ -46,13 +46,7 @@ Dashboard @parent
             <div class="bg-white dashboard-col pl-15 pb-15 pt-15">
                 <i class="im im-icon-Love-User im-icon-set float-right bg-info"></i>
                 <h3>Fornecedores</h3>
-                {{-- <p>Number of Fans</p> --}}
-                {{-- <div class="progress mr-15">
-                    <div id="progress-info" class="progress-bar bg-info progress-bar-striped progress-bar-animated"
-                        role="progressbar" style="width: 1%" aria-valuenow="1" aria-valuemin="0" aria-valuemax="100">
-                    </div>
-                </div>
-                <p class="mb-0 mt-3 "><span></span> <span class="float-right pr-15"></span></p> --}}
+                {{$fornecedor->count()}}
             </div>
         </div>
 
