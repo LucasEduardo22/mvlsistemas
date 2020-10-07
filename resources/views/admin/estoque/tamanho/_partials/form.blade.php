@@ -82,7 +82,7 @@
                         <option value="M" @if(old('modelo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "M" ) selected="" @endif>Masculino</option>
                         <option value="F" @if(old('modelo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "F" ) selected="" @endif>Feminino</option>
                     </select>
-                    @error('nome')
+                    @error('tipo')
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
