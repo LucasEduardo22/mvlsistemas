@@ -94,10 +94,10 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3 control-label">Valor de Compra:</label>
+                    <label class="col-sm-3 control-label">Valor de Custo:</label>
                     <div class="col-sm-6">
-                        <input value="{{old('preco_compra', !empty($estoque->preco_compra) ? $estoque->preco_compra : '')}}" type="text" name="preco_compra" placeholder="" class="form-control dinheiro @error('preco_compra') is-invalid @enderror" id="_preco_compra" />
-                        @error('preco_compra')
+                        <input value="{{old('custo_atual', !empty($estoque->custo_atual) ? $estoque->custo_atual : '')}}" type="text" name="custo_atual" placeholder="" class="form-control dinheiro @error('custo_atual') is-invalid @enderror" id="_custo_atual" />
+                        @error('custo_atual')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -106,6 +106,7 @@
                 </div>
             </div>
         </div>
+        {{-- 
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
@@ -119,8 +120,9 @@
                         @enderror
                     </div>
                 </div>
-            </div>
+            </div> 
         </div>
+        --}}
     </div>
     <div class="row">
         <div class="col-sm-6">
@@ -144,29 +146,26 @@
             </div>
         </div>
     </div>
-    <h3>Tamanho</h3>
-    <div class="row">
-        <div class="col-sm-12">
-            <div class="form-group">
-                <div class="container">
-                    <div class="row">
-                       @if (empty($estoque->tamanho))
+    <div class="separator-breadcrumb pb-2 border-dark border-top"></div>
+    <h3>
+        <button class="btn btn-secondary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fas fa-plus-square"></i> Adicionar Tamanho
+        </button>
+    </h3>
+    <div class="collapse" id="collapseExample">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <div class="container">
+                        <div class="row">
+                        @if (empty($produto->estoque->tamanho))
                             @foreach ($tamanhos as $tamanho)
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanho->id}}">
                                     <p class="text_grid">{{$tamanho->id}}º
                                         {{$tamanho->sigla.' - '.$tamanho->nome}}
                                     </p>
-                                    <div class="form-group">
-                                        <label for="_preco_custo[]">Valor de custo:</label>
-                                        <input type="text" name="preco_custo[]" class="form-control dinheiro @error('preco_custo[]') is-invalid @enderror" value="{{old("preco_custo[])")}}" id="_preco_custo" placeholder="R$ 000,00">
-                                        @error('preco_custo[]')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                    <div class="form-group">
+                                   <div class="form-group">
                                         <label for="_preco_venda1[]">Valor de venda:</label>
                                         <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]")}}" id="_preco_venda1[]" placeholder="R$ 000,00">
                                         @error('preco_venda1[]')
@@ -175,6 +174,16 @@
                                             </span>
                                         @enderror
                                     </div>
+                                     {{-- <div class="form-group">
+                                        <label for="_preco_custo[]">Valor de custo:</label>
+                                        <input type="text" name="preco_custo[]" class="form-control dinheiro @error('preco_custo[]') is-invalid @enderror" value="{{old("preco_custo[])")}}" id="_preco_custo" placeholder="R$ 000,00">
+                                        @error('preco_custo[]')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                    
                                     <div class="form-group">
                                         <label for="_quantidade[]">Quantidade:</label>
                                         <input type="text" name="quantidade[]" class="form-control dinheiro @error('quantidade[]') is-invalid @enderror" value="{{old("quantidade[]")}}" id="_quantidade" placeholder="">
@@ -183,10 +192,10 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                             @endforeach
-                       @else
+                        @else
                             @foreach ($estoque->tamanho as $tamanhoProduto) 
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanhoProduto->tamanho_id}}">
@@ -194,18 +203,20 @@
                                         {{$tamanhoProduto->tamanhoProdutos->sigla.' - '.$tamanhoProduto->tamanhoProdutos->nome}}
                                     </p>
                                     <div class="form-group">
-                                        <label for="_preco_custo[]">Valor de custo:</label>
-                                        <input type="text" name="preco_custo[]" class="form-control dinheiro @error('preco_custo[]') is-invalid @enderror" value="{{old("preco_custo[])", !empty($tamanhoProduto->preco_custo) ? number_format($tamanhoProduto->preco_custo, 2, ',', '.'): '')}}" id="_preco_custo" placeholder="R$ 000,00">
-                                        @error('preco_custo[]')
+                                        <label for="_preco_venda1[]">Valor de venda:</label>
+                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]", !empty($tamanhoProduto->preco_venda) ? number_format($tamanhoProduto->preco_venda, 2, ',', '.') : '')}}" id="_preco_venda1[]" placeholder="R$ 000,00">
+                                        @error('preco_venda1[]')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
                                     </div>
+                                    
+                                    {{-- 
                                     <div class="form-group">
-                                        <label for="_preco_venda1[]">Valor de venda:</label>
-                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]", !empty($tamanhoProduto->preco_venda) ? number_format($tamanhoProduto->preco_venda, 2, ',', '.') : '')}}" id="_preco_venda1[]" placeholder="R$ 000,00">
-                                        @error('preco_venda1[]')
+                                        <label for="_preco_custo[]">Valor de custo:</label>
+                                        <input type="text" name="preco_custo[]" class="form-control dinheiro @error('preco_custo[]') is-invalid @enderror" value="{{old("preco_custo[])", !empty($tamanhoProduto->preco_custo) ? number_format($tamanhoProduto->preco_custo, 2, ',', '.'): '')}}" id="_preco_custo" placeholder="R$ 000,00">
+                                        @error('preco_custo[]')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
                                             </span>
@@ -219,13 +230,13 @@
                                                 <strong>{{ $message }}</strong>
                                             </span>
                                         @enderror
-                                    </div>
+                                    </div> --}}
                                 </div>
                             @endforeach
-                            
                         @endif
+                        </div>
                     </div>
-                  </div>
+                </div>
             </div>
         </div>
     </div>

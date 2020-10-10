@@ -30,8 +30,7 @@ class StoreUpdateEstoqueRequest extends FormRequest
             'preco_venda' => 'nullable',
             'preco_compra' => 'nullable',
             "unidade_id" =>"required|numeric", 
-            //"tamanho_id" =>"required|numeric",
-            'cor' => "required|min:3|max:50",
+            //'cor' => "required|min:3|max:50",
         ];
     }
 }

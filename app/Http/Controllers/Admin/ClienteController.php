@@ -123,6 +123,18 @@ class ClienteController extends Controller
         return view('admin.cliente.index', compact('clientes', 'filtros'));
     }
 
+
+    public function searchCliente(Request $request){
+        $request->merge([
+            'filtrar' => str_replace(['.', '/','-'], '', $request->filtrar),
+        ]);
+        $dados = $request->filtrar;
+
+        $cliente = $this->dadosCliente->where("id",$dados)
+                    ->orWhere('cpf_cnpj', $dados)->first();
+        return response()->json($cliente);
+    }
+
     /**
      * Remove the specified resource from storage.
      *

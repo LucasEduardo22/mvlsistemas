@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Cliente
     Route::any('/home/cliente/search', 'Admin\ClienteController@search')->name("cliente.search");
+    Route::any('/cliente/search-pedido', 'Admin\ClienteController@searchCliente')->name('pedido.cliente.searchPedido'); 
     Route::resource('/home/cliente', 'Admin\ClienteController');
 
     //Fornecedor
@@ -103,4 +104,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/endereco/search', 'Admin\EnderecoController@search')->name('endereco.search');
 
 });
+
 Route::get('{name?}', 'JoshController@showView');

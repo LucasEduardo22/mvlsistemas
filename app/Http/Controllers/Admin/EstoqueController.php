@@ -45,8 +45,8 @@ class EstoqueController extends Controller
     public function store(StoreUpdateEstoqueRequest $request, $id)
     {
         $request->merge([
-            "preco_compra" => str_replace(['.'], '', $request->preco_compra),
-            "preco_compra" => str_replace([','],'.', $request->preco_compra),
+            "custo_atual" => str_replace(['.'], '', $request->custo_atual),
+            "custo_atual" => str_replace([','],'.', $request->custo_atual),
             "preco_venda" => str_replace(['.'], '', $request->preco_venda),
             "preco_venda" => str_replace([','], '.', $request->preco_venda),
         ]);
@@ -62,18 +62,20 @@ class EstoqueController extends Controller
             return redirect()->back();
         }
         $estoque = $this->dadosEstoque->create($dados);
-        foreach ($request->tamanho as $i => $value) {
-            $preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
-            $preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
-            $quantidade = str_replace([','], '.', $request->quantidade[$i]);
-
-            $tamanhoProduto = new TamanhoProduto;
-            $tamanhoProduto->estoque_id = $estoque->id;
-            $tamanhoProduto->tamanho_id = $value;
-            $tamanhoProduto->preco_custo = !empty($preco_custo) ? $preco_custo : null;
-            $tamanhoProduto->preco_venda = !empty($preco_venda) ? $preco_venda : null;
-            $tamanhoProduto->quantidade = !empty($quantidade) ? $quantidade : null;
-            $tamanhoProduto->save();
+        if(!empty($request->preco_venda1)){
+            foreach ($request->tamanho as $i => $value) {
+               // $preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
+                $preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
+               // $quantidade = str_replace([','], '.', $request->quantidade[$i]);
+    
+                $tamanhoProduto = new TamanhoProduto;
+                $tamanhoProduto->estoque_id = $estoque->id;
+                $tamanhoProduto->tamanho_id = $value;
+              //  $tamanhoProduto->preco_custo = !empty($preco_custo) ? $preco_custo : null;
+                $tamanhoProduto->preco_venda = !empty($preco_venda) ? $preco_venda : null;
+                //$tamanhoProduto->quantidade = !empty($quantidade) ? $quantidade : null;
+                $tamanhoProduto->save();
+            }
         }
         
         return redirect()->route('estoque.index')->with('success', 'Estoque atualizado com sucesso..');
@@ -94,7 +96,7 @@ class EstoqueController extends Controller
     {
         $estoque = $this->dadosEstoque->find($id);
         $dados = $request->all();
-        $dados['es$estoque_id'] = $estoque->id;
+        //$dados['estoque_id'] = $estoque->id;
         $dados['estoque_atual'] = $request->estoque_inicial;
         $dados['status_id'] = 1;
         if(!$estoque){
@@ -102,18 +104,23 @@ class EstoqueController extends Controller
         }
 
         $estoque->update($dados);
-        foreach ($request->tamanho as $i => $value) {
-            $preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
-            $preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
-            $quantidade = str_replace([','], '.', $request->quantidade[$i]);
-          
-            $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $value)->where('estoque_id', $estoque->id)->first();
-            $tamanhoProduto->estoque_id = $estoque->id;
-            $tamanhoProduto->tamanho_id = $value;
-            $tamanhoProduto->preco_custo = !empty($preco_custo) ? $preco_custo : null;
-            $tamanhoProduto->preco_venda = !empty($preco_venda) ? $preco_venda : null;
-            $tamanhoProduto->quantidade = !empty($quantidade) ? $quantidade : null;
-            $tamanhoProduto->save();
+        if(!empty($request->preco_venda1)){
+            foreach ($request->tamanho as $i => $value) {
+               // $preco_custo = str_replace([','], '.', $request->preco_custo[$i]);
+                $preco_venda = str_replace([','], '.', $request->preco_venda1[$i]);
+               // $quantidade = str_replace([','], '.', $request->quantidade[$i]);
+            
+                $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $value)->where('estoque_id', $estoque->id)->first();
+                if(!$tamanhoProduto){
+                    $tamanhoProduto = new TamanhoProduto;
+                }
+                $tamanhoProduto->estoque_id = $estoque->id;
+                $tamanhoProduto->tamanho_id = $value;
+             //   $tamanhoProduto->preco_custo = !empty($preco_custo) ? $preco_custo : null;
+                $tamanhoProduto->preco_venda = !empty($preco_venda) ? $preco_venda : null;
+             //   $tamanhoProduto->quantidade = !empty($quantidade) ? $quantidade : null;
+                $tamanhoProduto->save();
+            }
         }
         return redirect()->route('estoque.index')->with('success', 'Estoque atualizado com sucesso..');
     }

@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl" tabindex="-1" id="modalCliente" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
       <div class="modal-content">
             <div class="modal-header">
@@ -37,10 +37,10 @@
                             <tbody>
                                 @foreach ($clientes as $cliente)
                                     <tr>
-                                        <th scope="row">{{$cliente->id}}</th>
-                                        <th scope="row">{{$cliente->nome}}</th>
-                                        <td class="cpf_cnpj">{{$cliente->cpf_cnpj}}</td>
-                                        <td class="telefone" style="width: 180px">{{$cliente->telefone}}</td>
+                                        <td scope="row" data-id="{{$cliente->id}}" class="_selecionar">{{$cliente->id}}</td>
+                                        <td scope="row" data-nome="{{$cliente->nome}}" class="_selecionar nome">{{$cliente->nome}}</td>
+                                        <td class="cpf_cnpj _selecionar" data-cpf_cnpj="{{$cliente->cpf_cnpj}}" >{{$cliente->cpf_cnpj}}</td>
+                                        <td class="telefone _selecionar"data-telefone="{{$cliente->telefone}}"  style="width: 180px">{{$cliente->telefone}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -59,7 +59,6 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" class="btn btn-primary">Salvar mudanças</button>
             </div>
         </div>
     </div>
