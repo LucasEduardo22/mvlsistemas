@@ -18,6 +18,7 @@ class VerifyCsrfToken extends Middleware
         '/bairro/search',
         '/endereco/search',
         '/cliente/search-pedido',
+        '/home/pedido/adicionar-poduto',
         'api/*',
     ];
 }

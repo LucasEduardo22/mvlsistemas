@@ -4,7 +4,7 @@
             <input class="form-check-input cpf-cnpj" type="radio" name="cnpj_cpf" id="gridRadios2"
                 value="cnpj" checked="">
             
-            <label class="form-check-label cpf-cnpj" for="gridRadios1">
+            <label class="form-check-label cpf-cnpj" for="gridRadios2">
                 CNPJ
             </label>
         </div>
@@ -13,7 +13,7 @@
         <div class="form-check">
             <input class="form-check-input cpf-cnpj" type="radio" name="cnpj_cpf" id="gridRadios1"
                 value="cpf">
-            <label class="form-check-label" for="gridRadios2">
+            <label class="form-check-label" for="gridRadios1">
                 CPF
             </label>
         </div>

@@ -73,8 +73,14 @@
                                     <p>Quantidade total: <strong class="text-dark" id="_status">10 peças</strong></p>
                                 </div>
                             </div>
-                            <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modalProduto">ADICIONAR PRODUTO</button>
-                            @include('admin.pedido.modal.produto')
+                            <div class="row float-right">
+                                <div class="col-md-5 d-flex justify-content-start mr-0">
+                                    <label for="_modelo" class="pb-0 pr-2 mb-0">Modelo:</label>
+                                    <input type="text" name="filtrar_modelo" class="form-control pt-0" id="_modelo" value="{{old("modelo")}}">
+                                </div>
+                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modalProduto">ADICIONAR PRODUTO</button>
+                                @include('admin.pedido.modal.produto')
+                            </div>
                         </div>
                     </div>
                     <div class="card col-sm-4">
@@ -115,13 +121,13 @@
                                     <tr>
                                         <th class="border-top-0" scope="col">#</th>
                                         <th class="border-top-0" scope="col">Produto</th>
-                                        <th class="border-top-0" scope="col">Valor venda</th>
-                                        <th class="border-top-0" scope="col">Valor compra</th>
-                                        <th class="border-top-0" scope="col">Cor</th>
-                                        <th class="border-top-0" scope="col">Status</th>
+                                        <th class="border-top-0" scope="col">Sub Grup</th>
+                                        <th class="border-top-0" scope="col">Quantidade</th>
+                                        <th class="border-top-0" scope="col">Valor</th>
+                                        <th class="border-top-0" scope="col">Ação</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="_adicionarProduto">
                                 </tbody>
                             </table>
                         </div>
@@ -139,7 +145,36 @@
             //$('.ie').mask("999.99999-99");
             $('.telefone').mask('(99) 9999-9999');
             $('.celular').mask('(99) 99999-9999');
+            $('.sem_tamanho').hide();
 
+            $('input[type=radio]').change(function() {
+                $('input[type=radio]:checked').not(this).prop('checked', false);
+            });
+
+            $('.tipos').change(function(){
+                var campo = $(this).val();
+                console.log(campo );
+                if (campo == "T"){	
+                    $('.femin').show();
+                    $('.masc').show();
+                    $('.sem_tamanho').hide();
+                }
+                else if (campo == "M"){
+                    $('.tem_tamanho').show();
+                    $('.femin').hide();
+                    $('.sem_tamanho').hide();
+                    $('.masc').show();
+                }			
+                else if (campo == "F"){
+                    $('.tem_tamanho').show();
+                    $('.femin').show();
+                    $('.sem_tamanho').hide();
+                    $('.masc').hide();
+                }else{
+                    $('.tem_tamanho').hide();
+                    $('.sem_tamanho').show();
+                }			
+            });
             $(document).on('click', '._selecionar', function(e) {
                 e.preventDefault;
 
@@ -208,8 +243,48 @@
                     }
                 }); 
             }); 
+            $(document).on('change', '#_modelo', function(e){
+                e.preventDefault;
+                //var id = $('[name=filtrar_modelo]').val();
+                //console.log(id);
 
-             
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route("pedido.produto") }}',
+                    dataType: 'json',
+                    //async: false,
+                    data: {filtrar: $('[name=filtrar_modelo]').val()},
+                    //contentType: "application/json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data){
+                        //var $el = $('[name=estado]');
+                        var data = JSON.parse(JSON.stringify(data));
+                        var cnpj = data.cpf_cnpj
+                        //console.log(data[2]);
+                        if (data != 0) {
+                            $('._adicionarProduto').html(
+                                "<tr>"+
+                                    "<td>"+data[0].modelo+"</td>"+
+                                    "<td>"+data[0].nome_produto+"</td>"+
+                                    "<td>"+data[1]+"</td>"+
+                                    "<td>0</td>"+
+                                    "<td>R$0,00</td>"+
+                                    '<td><a href="" class="btn btn-primary">'+
+                                        'detalhes'+
+                                    '</a></td>'+
+                                "<tr>"
+                            );
+                            
+                            $('.grupo').html();
+                        } else {
+                            alert("dados não encontrado");
+                        }  
+                        
+                    }
+                }); 
+            });
         });
 
     </script>

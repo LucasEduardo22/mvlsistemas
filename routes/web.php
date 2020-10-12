@@ -96,6 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //ROTAS PEDIDOS
     Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
+   /*  Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto'); */
 
     //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');
@@ -104,5 +105,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/endereco/search', 'Admin\EnderecoController@search')->name('endereco.search');
 
 });
-
 Route::get('{name?}', 'JoshController@showView');
+Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');

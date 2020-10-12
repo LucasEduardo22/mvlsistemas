@@ -64,7 +64,7 @@
                 </div>
             </div>
         </div>
-    </div>{{-- 
+    </div>
     <div class="form-group pad-top40">
         <div class="row">
             <label for="_nome" class="col-md-3 control-label">
@@ -90,7 +90,7 @@
                 </div>
             </div>
         </div>
-    </div> --}}
+    </div>
 </div>
 <div class="form-position row">
     <div class="col-md-offset-3 col-md-9 ml-auto mb-3">
