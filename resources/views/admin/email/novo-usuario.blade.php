@@ -1,5 +1,5 @@
-<p>Ola! seja bem ao mvl Sistemas </p>
+<p>Ola! seja bem vindo ao MVL Sistemas </p>
 
-<p>Sua de acesso é: <strong>{{$dados}}</strong></p>
+<p>Sua senha de acesso é: <strong>{{$dados}}</strong></p>
 
-<p>Para cadastra a nova senha acessa ao painel de login do sistemas</p>
+<p>Para cadastra a nova senha acesse ao painel de login do sistema</p>
