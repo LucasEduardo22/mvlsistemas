@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-xl" tabindex="-1" id="modalProduto" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal fade bd-example-modal-xl modalProduto" tabindex="-1" id="modalProduto" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
       <div class="modal-content">
             <div class="modal-header">
@@ -40,7 +40,7 @@
                             <p>Produto: <strong id="nome_produto">Nenhum Produto foi selecionado</strong></p>
                         </div>
                         <div class="form-group col-md-4">
-                            <p>Sub Grupo: <strong id="#subgrupo" class="grupo">Nenhum Produto foi selecionadoe</strong></p>
+                            <p>Sub Grupo: <strong id="subgrupo" class="grupo">Nenhum Produto foi selecionadoe</strong></p>
                         </div>
                         {{-- <div class="form-group col-md-3">
                             <p>Cor Principal: <strong>Azul</strong></p>
@@ -94,7 +94,7 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-4 sem_tamanho">
-                            <p>Valor total: <strong id="nome_produto">R$120,20</strong></p>
+                            <p>Valor total: <strong id="valor_total">R$120,20</strong></p>
                         </div>
                     </div>
                     <h3>Serigrafia ou Bordado</h3>

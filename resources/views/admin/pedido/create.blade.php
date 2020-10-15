@@ -155,6 +155,7 @@
                 var campo = $(this).val();
                 console.log(campo );
                 if (campo == "T"){	
+                    $('.tem_tamanho').show();
                     $('.femin').show();
                     $('.masc').show();
                     $('.sem_tamanho').hide();
@@ -245,7 +246,7 @@
             }); 
             $(document).on('change', '#_modelo', function(e){
                 e.preventDefault;
-                //var id = $('[name=filtrar_modelo]').val();
+                var id = $('[name=filtrar_modelo]').val();
                 //console.log(id);
 
                 $.ajax({
@@ -261,29 +262,44 @@
                     success: function(data){
                         //var $el = $('[name=estado]');
                         var data = JSON.parse(JSON.stringify(data));
-                        var cnpj = data.cpf_cnpj
-                        //console.log(data[2]);
+                        //var cnpj = data.cpf_cnpj
+                        console.log(data);
                         if (data != 0) {
-                            $('._adicionarProduto').html(
+                            $('._adicionarProduto').append(
                                 "<tr>"+
-                                    "<td>"+data[0].modelo+"</td>"+
-                                    "<td>"+data[0].nome_produto+"</td>"+
-                                    "<td>"+data[1]+"</td>"+
+                                    "<td data-modelo='"+data[0].modelo+"'>"+data[0].modelo+'<input value="'+data[0].id+'" type="hidden" name="produto_id"/>'+"</td>"+
+                                    "<td data-nome_produto='"+data[0].nome_produto+"'>"+data[0].nome_produto+"</td>"+
+                                    "<td data-subGrupo='"+data[1]+"'>"+data[1]+"</td>"+
                                     "<td>0</td>"+
                                     "<td>R$0,00</td>"+
-                                    '<td><a href="" class="btn btn-primary">'+
-                                        'detalhes'+
-                                    '</a></td>'+
+                                    '<td style="width: 210px">'
+                                        +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
+                                        +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
+                                    '</td>'+
                                 "<tr>"
                             );
-                            
-                            $('.grupo').html();
+                            //$(this).closest('table').append(row);
                         } else {
                             alert("dados não encontrado");
                         }  
                         
                     }
                 }); 
+            });
+
+            $("._adicionarProduto").on("click", ".detalhes", function(e){
+                e.preventDefault;
+                var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
+                var nome_produto = $(this).closest('tr').find('td[data-nome_produto]').data('nome_produto');
+                var subgrupo = $(this).closest('tr').find('td[data-subgrupo]').data('subgrupo');
+
+                $('#nome_produto').html(nome_produto);
+                $('.grupo').html(subgrupo);
+                $(".modalProduto").modal('show');
+            });
+            $("._adicionarProduto").on("click", ".remover", function(e){
+                e.preventDefault;
+                $(this).closest('tr').remove(); 
             });
         });
 

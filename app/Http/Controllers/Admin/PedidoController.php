@@ -38,17 +38,19 @@ class PedidoController extends Controller
     public function adicionarProduto(Request $request)
     {
         $dados = $request->filtrar;
-        
-        $produto = $this->dadosProduto->where('id', $dados)
-                    ->orWhere('modelo', $dados)->first();
-
-        $subGrupo = $produto->subGrupo->nome;
-        if(!empty($produto->estoque)){ 
-            dd($produto->estoque);
-            $tamanhoProduto = $this->dadosTamanhoProduto->where('estoque_id', $produto->estoque->id)->get();
-            return response()->json([$produto, $subGrupo, $tamanhoProduto]);
-        }else{
-            return response()->json([$produto,$subGrupo]);
+        if(!empty($dados)){ 
+            $produto = $this->dadosProduto->where('id', $dados)
+                        ->orWhere('modelo', $dados)->first();
+            if(!empty($produto)){
+                $subGrupo = $produto->subGrupo->nome;
+                if(!empty($produto->estoque)){ 
+                    $tamanhoProduto = $this->dadosTamanhoProduto->where('estoque_id', $produto->estoque->id)->get();
+                    return response()->json([$produto, $subGrupo, $tamanhoProduto]);
+                }else{
+                    return response()->json([$produto,$subGrupo]);
+                }
+            }
+            
         }
     }
 }
