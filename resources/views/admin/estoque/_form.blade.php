@@ -158,10 +158,7 @@
                 <div class="form-group">
                     <div class="container">
                         <div class="row">
-                        @if ($produto->estoque->tamanho == null)
-                            @php
-                                dd("1", $produto->estoque->tamanho);
-                            @endphp
+                        @if (empty($produto->estoque->tamanho))
                             @foreach ($tamanhos as $tamanho)
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanho->id}}">
