@@ -13,7 +13,7 @@
             </a>
         </li>
         <li>
-            <a href="{{route('pedido.create')}}">
+            <a href="{{route('pedido.index')}}">
                 <span class="mm-text ">Pedidos</span>
                 <span class="menu-icon"><i class="fas fa-shopping-cart"></i></span>
             </a>

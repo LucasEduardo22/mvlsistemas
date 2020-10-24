@@ -22,7 +22,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">  
-            <h1 class="mt-2">Pedidos<a href="{{route('pedido.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+            <h1 class="mt-2">Pedidos<a href="{{route('pedido.create')}}" class="btn mr-2 btn-primary float-right"><i class="fas fa-plus-square"></i> CRIA UM NOVO PEDIDO</a></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">

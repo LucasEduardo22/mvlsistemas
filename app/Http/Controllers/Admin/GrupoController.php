@@ -79,12 +79,12 @@ class GrupoController extends Controller
     public function edit($id)
     {
         $grupo = $this->dadosGrupo->find($id);
-
+        $departamentos = $this->dadosDepartamento->get();
         if(!$grupo){
             return redirect()->back();
         }
 
-        return view('admin.estoque.grupo.edit', compact('grupo'));
+        return view('admin.estoque.grupo.edit', compact('grupo', 'departamentos'));
     }
 
     /**
