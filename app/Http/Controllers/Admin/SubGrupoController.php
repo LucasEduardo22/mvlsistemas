@@ -79,12 +79,12 @@ class SubGrupoController extends Controller
     public function edit($id)
     {
         $subGrupo = $this->dadosSubGrupo->find($id);
-
+        $grupos = $this->dadosGrupo->get();
         if(!$subGrupo){
             return redirect()->back();
         }
 
-        return view('admin.estoque.sub-grupo.edit', compact('subGrupo'));
+        return view('admin.estoque.sub-grupo.edit', compact('subGrupo', "grupos"));
     }
 
     /**
