@@ -96,7 +96,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     //ROTAS PEDIDOS
     Route::get('/home/pedido/index', 'Admin\PedidoController@index')->name('pedido.index');
-    Route::any('/cliente/search/pedido', 'Admin\ClienteController@searchPedido')->name('pedido.search');
+    Route::any('/pedido/search-pedido', 'Admin\ClienteController@searchCliente')->name('pedido.search');
     Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
 
