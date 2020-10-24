@@ -95,8 +95,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/home/usuario/update-senha', 'Admin\UsuarioController@updateSenha')->name('usuario.update.senha');
 
     //ROTAS PEDIDOS
+    Route::get('/home/pedido/index', 'Admin\PedidoController@index')->name('pedido.index');
+    Route::any('/cliente/search/pedido', 'Admin\ClienteController@searchPedido')->name('pedido.search');
     Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
-   /*  Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto'); */
+    Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
 
     //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');
@@ -106,4 +108,4 @@ Route::group(['middleware' => 'auth'], function () {
 
 });
 Route::get('{name?}', 'JoshController@showView');
-Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
+/* Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto'); */
