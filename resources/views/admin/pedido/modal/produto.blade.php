@@ -83,21 +83,6 @@
                                 </div>
                             @enderror
                         </div>
-                        {{--<div class="form-group col-md-2 sem_tamanho">
-                            <label for="_tecido" class="pb-0 mb-0">
-                                Quantidade:
-                            </label>
-                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tipo de tecido" id="_tecido">
-                            @error('tecido')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        </div>
-                        <div class="form-group col-md-4 sem_tamanho">
-                            <p>Valor total: <strong id="valor_total">R$120,20</strong></p>
-                        </div> --}}
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
@@ -135,9 +120,33 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-4 sem_tamanho">
-                            <p>Valor total: <strong id="valor_total">R$120,20</strong></p>
+                    </div>
+                    <div class="form-row sem_tamanho">
+                        <div class="form-group col-md-2 sem_tamanho">
+                            <label for="_tecido" class="pb-0 mb-0">
+                                Quantidade:
+                            </label>
+                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tipo de tecido" id="_tecido">
+                            @error('tecido')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
                         </div>
+                        <div class="form-group col-md-2 sem_tamanho">
+                            <label for="_tecido" class="pb-0 mb-0">
+                                Valor Unitario:
+                            </label>
+                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tipo de tecido" id="_tecido">
+                            @error('tecido')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4 sem_tamanho">
+                        <p>Valor total: <strong id="valor_total">R$120,20</strong></p>
                     </div>
                     <h3>Serigrafia ou Bordado</h3>
                     <div class="form-row">

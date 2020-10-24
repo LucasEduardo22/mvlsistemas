@@ -12960,6 +12960,11 @@ textarea::placeholder {
 .colunas{
     margin-bottom: 2px;
 }
+
+.table-overflow {
+    max-height:400px;
+    overflow-y:auto;
+}
 /*!
 * metismenu https://github.com/onokumus/metismenu#readme
 * A jQuery menu plugin

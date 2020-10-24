@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Models\FormaPagamento;
+use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Tamanho;
 use App\Models\TamanhoProduto;
@@ -12,20 +13,29 @@ use Illuminate\Http\Request;
 
 class PedidoController extends Controller
 {
+    protected $dadosPedido;
     protected $dadosCliente;
     protected $dadosProduto;
     protected $dadosFormaPagamento;
     protected $dadosTamanhoProduto;
     protected $dadosTamanho;
 
-    public function __construct(Cliente $cliente, FormaPagamento $formaPagamento, Produto $produto, Tamanho $tamanho, TamanhoProduto $tamanhoProduto)
+    public function __construct(Pedido $pedido, Cliente $cliente, FormaPagamento $formaPagamento, Produto $produto, Tamanho $tamanho, TamanhoProduto $tamanhoProduto)
     {
+        $this->dadosPedido = $pedido;
         $this->dadosCliente = $cliente;
         $this->dadosFormaPagamento = $formaPagamento;
         $this->dadosProduto = $produto;
         $this->dadosTamanhoProduto = $tamanhoProduto;
         $this->dadosTamanho = $tamanho;
     }
+
+    public function index(){
+        $pedidos = $this->dadosPedido->paginate(5);
+
+        return view('admin.pedido.index', compact("pedidos"));
+    }
+
     public function createPedido()
     {
         $clientes = $this->dadosCliente->paginate(5);

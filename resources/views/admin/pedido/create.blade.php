@@ -25,6 +25,7 @@
                 <div class="card-group linha-horizontal">
                     <div class="card">
                         <div class="card-body linha-vertical">
+                            <p class="float-right">Vendedor: {{ Auth::user()->name }}</p>
                             <h5 class="card-title text-center">CRIAR PEDIDO</h5>
                             <div class="separator-breadcrumb pt-1 pb-2 border-dark border-top"></div>
                             <div class="form-row">
@@ -115,9 +116,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card">
+                <div class="card" style="height: 430px;">
                     <div class="card-body linha-verticalEstoque">
-                        <div class="table-responsive">
+                        <div class="table-overflow">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -247,7 +248,7 @@
                     }
                 }); 
             }); 
-            $(document).on('change', '#_modelo', function(e){
+            $(document).on('click', '.modelo_id', function(e){
                 e.preventDefault;
                 //console.log(id);
 

@@ -36,9 +36,9 @@
                             <tbody>
                                 @foreach ($produtos as $produto)
                                     <tr>
-                                        <td scope="row" data-id="{{$produto->modelo}}" class="_selecionar">{{$produto->modelo}}</td>
-                                        <td scope="row" data-nome="{{$produto->nome_produto}}" class="_selecionar nome">{{$produto->nome_produto}}</td>
-                                        <td data-sub_grupo_id="{{$produto->sub_grupo_id}}" >{{$produto->subGrupo->nome}}</td>
+                                        <td scope="row" data-id="{{$produto->modelo}}" class="modelo_id">{{$produto->modelo}}</td>
+                                        <td scope="row" data-nome="{{$produto->nome_produto}}" class="modelo_id">{{$produto->nome_produto}}</td>
+                                        <td class="modelo_id" data-sub_grupo_id="{{$produto->sub_grupo_id}}" >{{$produto->subGrupo->nome}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

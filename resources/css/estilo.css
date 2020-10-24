@@ -64,3 +64,8 @@
 .colunas{
     margin-bottom: 2px;
 }
+
+.table-overflow {
+    max-height:400px;
+    overflow-y:auto;
+}
