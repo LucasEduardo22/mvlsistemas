@@ -59,12 +59,12 @@
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label for="inputPassword4 pb-0">Desconto:</label>
-                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input placeholder">
+                                    <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-3">
-                                    <p>Cliente: <strong class="text-success" id="_status">Pendente</strong></p>
+                                    <p>Situção: <strong class="text-success" id="_status">Pendente</strong></p>
                                 </div>
                                 <div class="form-group col-md-4">
                                     <p>Preço total: <strong class="text-dark" id="_status">R$ 120,00</strong></p>
@@ -78,8 +78,8 @@
                                     <label for="_modelo" class="pb-0 pr-2 mb-0">Modelo:</label>
                                     <input type="text" name="filtrar_modelo" class="form-control pt-0" id="_modelo" value="{{old("modelo")}}">
                                 </div>
-                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modalProduto">ADICIONAR PRODUTO</button>
-                                @include('admin.pedido.modal.produto')
+                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modallistaProduto">ADICIONAR PRODUTO</button>
+                                @include('admin.pedido.modal.listaProduto')
                             </div>
                         </div>
                     </div>
@@ -87,16 +87,18 @@
                         <div class="card-header">
                             <div class="row">
                                 <div class="row">
-                                    <div class= "col-md-10"> 
+                                    <div class= "col-md-8"> 
                                         <div class="input-group">
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text bg-success" id="search"><i class="fas fa-search"></i></div>
                                             </div>
-                                            <input type="text" class="form-control" id="filtrar" name="filtrar" placeholder = "codigo ou CNPJ"> 
+                                            <input type="text" class="form-control" id="filtrar" name="filtrar" placeholder = "Código ou CNPJ"> 
                                         </div>     
                                     </div>
+                                    <div class="pl-0"> 
+                                        <button class="btn btn-primary" data-toggle="modal" data-target="#modalCliente"><i class="fas fa-plus-square"></i> ADICIONAR</button>    
+                                    </div>
                                 </div>
-                                <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modalCliente"><i class="fas fa-plus-square"></i> ADD</button>
                                 @include('admin.pedido.modal.cliente')
                             </div>
                         </div>
@@ -243,6 +245,49 @@
                         
                     }
                 }); 
+            }); 
+            $(document).on('change', '#_modelo', function(e){
+                e.preventDefault;
+                var id = $('[name=filtrar_modelo]').val();
+                //console.log(id);
+
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route("pedido.produto") }}',
+                    dataType: 'json',
+                    //async: false,
+                    data: {filtrar: $('[name=filtrar_modelo]').val()},
+                    //contentType: "application/json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data){
+                        //var $el = $('[name=estado]');
+                        var data = JSON.parse(JSON.stringify(data));
+                        //var cnpj = data.cpf_cnpj
+                        console.log(data);
+                        if (data != 0) {
+                            $('._adicionarProduto').append(
+                                "<tr>"+
+                                    "<td data-modelo='"+data[0].modelo+"'>"+data[0].modelo+'<input value="'+data[0].id+'" type="hidden" name="produto_id"/>'+"</td>"+
+                                    "<td data-nome_produto='"+data[0].nome_produto+"'>"+data[0].nome_produto+"</td>"+
+                                    "<td data-subGrupo='"+data[1]+"'>"+data[1]+"</td>"+
+                                    "<td>0</td>"+
+                                    "<td>R$0,00</td>"+
+                                    '<td style="width: 210px">'
+                                        +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
+                                        +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
+                                    '</td>'+
+                                "<tr>"
+                            );
+                            //$(this).closest('table').append(row);
+                        } else {
+                            alert("dados não encontrado");
+                        }  
+                        
+                    }
+                }); 
+            });
             }); 
             $(document).on('change', '#_modelo', function(e){
                 e.preventDefault;

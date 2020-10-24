@@ -31,8 +31,9 @@ class PedidoController extends Controller
         $clientes = $this->dadosCliente->paginate(5);
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->all();
+        $produtos =  $this->dadosProduto->paginate(10);
          
-        return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos"));
+        return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "produtos"));
     }
 
     public function adicionarProduto(Request $request)

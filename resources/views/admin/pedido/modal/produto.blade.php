@@ -47,31 +47,43 @@
                         </div> --}}
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-4">
                             <label for="_cor_principal" class="pb-0 mb-0">
-                                Cor Principal:
+                                Cor Primária:
                             </label>
                             <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
-                            @error('cor_principal') is-invalid @enderror" placeholder="Cor Principal" id="_cor_principal">
+                            @error('cor_principal') is-invalid @enderror" placeholder="Cor Primária" id="_cor_principal">
                             @error('cor_principal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2">
+                        <div class="form-group col-md-4">
                             <label for="_cor_secundaria" class="pb-0 mb-0">
                                 Cor Secundária:
                             </label>
                             <input value="{{old('cor_secundaria')}}" type="text" name="cor_secundaria" class="form-control 
-                            @error('cor_secundaria') is-invalid @enderror" placeholder="Cor Secundaria" id="_cor_secundaria">
+                            @error('cor_secundaria') is-invalid @enderror" placeholder="Cor Secundária" id="_cor_secundaria">
                             @error('cor_secundaria')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-2 sem_tamanho">
+                        <div class="form-group col-md-4">
+                            <label for="_cor_terciaria" class="pb-0 mb-0">
+                                Cor Terciária:
+                            </label>
+                            <input value="{{old('cor_terciaria')}}" type="text" name="cor_terciaria" class="form-control 
+                            @error('cor_terciaria') is-invalid @enderror" placeholder="Cor Terciária" id="_cor_terciaria">
+                            @error('cor_terciaria')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        {{--<div class="form-group col-md-2 sem_tamanho">
                             <label for="_tecido" class="pb-0 mb-0">
                                 Quantidade:
                             </label>
@@ -82,11 +94,41 @@
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6">
-                            <label for="_tecido" class="pb-0 mb-0">
-                                Tecido:
+                        </div>
+                        <div class="form-group col-md-4 sem_tamanho">
+                            <p>Valor total: <strong id="valor_total">R$120,20</strong></p>
+                        </div> --}}
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <label for="_tecido_primario" class="pb-0 mb-0">
+                                Tecido Primária:
                             </label>
-                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tipo de tecido" id="_tecido">
+                            <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
+                            @error('cor_principal') is-invalid @enderror" placeholder="Tecido Primário" id="_cor_principal">
+                            @error('cor_principal')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="_tecido_secundario" class="pb-0 mb-0">
+                                Tecido Secundário:
+                            </label>
+                            <input value="{{old('tecido_secundario')}}" type="text" name="tecido_secundario" class="form-control 
+                            @error('tecido_secundario') is-invalid @enderror" placeholder="Tecido Secundário" id="_tecido_secundario">
+                            @error('tecido_secundario')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="_tecido" class="pb-0 mb-0">
+                                Tecido Terciária:
+                            </label>
+                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tecido Terciário" id="_tecido">
                             @error('tecido')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -99,25 +141,49 @@
                     </div>
                     <h3>Serigrafia ou Bordado</h3>
                     <div class="form-row">
-                        <div class="form-group col-md-5">
-                            <label for="_cor_principal" class="pb-0 mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="_frente" class="pb-0 mb-0">
                                Frente:
                             </label>
-                            <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
-                            @error('cor_principal') is-invalid @enderror" placeholder="Cor Principal" id="_cor_principal">
-                            @error('cor_principal')
+                            <input value="{{old('frente')}}" type="text" name="frente" class="form-control 
+                            @error('frente') is-invalid @enderror" placeholder="Frente" id="_frente">
+                            @error('frente')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
-                        <div class="form-group col-md-4">
-                            <label for="_cor_principal" class="pb-0 mb-0">
+                        <div class="form-group col-md-6">
+                            <label for="_costa" class="pb-0 mb-0">
                                 Costa:
                              </label>
-                             <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
-                             @error('cor_principal') is-invalid @enderror" placeholder="Cor Principal" id="_cor_principal">
-                             @error('cor_principal')
+                             <input value="{{old('costa')}}" type="text" name="costa" class="form-control 
+                             @error('costa') is-invalid @enderror" placeholder="Costa" id="_costa">
+                             @error('costa')
+                                 <div class="invalid-feedback">
+                                     {{ $message }}
+                                 </div>
+                             @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="_manga_direita" class="pb-0 mb-0">
+                                Manga Direita:
+                             </label>
+                             <input value="{{old('manga_direita')}}" type="text" name="manga_direita" class="form-control 
+                             @error('manga_direita') is-invalid @enderror" placeholder="Manga direita" id="_manga_direita">
+                             @error('manga_direita')
+                                 <div class="invalid-feedback">
+                                     {{ $message }}
+                                 </div>
+                             @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="_manga_esquerda" class="pb-0 mb-0">
+                                Manga Esquerda:
+                             </label>
+                             <input value="{{old('manga_esquerda')}}" type="text" name="manga_esquerda" class="form-control 
+                             @error('manga_esquerda') is-invalid @enderror" placeholder="Manga esquerda" id="_manga_esquerda">
+                             @error('manga_esquerda')
                                  <div class="invalid-feedback">
                                      {{ $message }}
                                  </div>
@@ -138,12 +204,12 @@
                         <div class="form-group col-md-12">
                             <div class="table-responsive masc">
                                 <table class="table table-bordered">
-                                    <span class="text-dark">MACULINO</span>
+                                    <span class="text-dark">MASCULINO</span>
                                     <thead>
                                         <tr>
                                             @foreach ($tamanhos->tamanhoMasculino() as $tamanhoM)
                                                 <td>
-                                                    {{$tamanhoM->sigla}} <br><span>R$ 12,00</span>
+                                                    {{$tamanhoM->sigla}}
                                                 </td>
                                             @endforeach
                                         </tr>
@@ -153,6 +219,13 @@
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
                                                 <td>
                                                     <input value="{{old('quantidade')}}" type="text" name="quantidadeM[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                        <tr>
+                                            @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
+                                                <td>
+                                                    <input value="{{old('valorUnitarioM')}}" type="text" name="valorUnitarioM[]" class="form-control @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
@@ -182,6 +255,13 @@
                                             @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
                                                 <td>
                                                     <input value="{{old('quantidade')}}" type="text" name="quantidadeF[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
+                                                </td>
+                                            @endfor
+                                        </tr>
+                                         <tr>
+                                            @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
+                                                <td>
+                                                    <input value="{{old('valorUnitarioF')}}" type="text" name="valorUnitarioF[]" class="form-control @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
