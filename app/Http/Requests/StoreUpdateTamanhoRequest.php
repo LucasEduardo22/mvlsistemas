@@ -25,7 +25,7 @@ class StoreUpdateTamanhoRequest extends FormRequest
     {
         $id = $this->segment(3);
         return [
-            'nome' => "required|min:3|max:150|unique:tamanhos,nome,{$id},id",
+            'nome' => "required|min:2|max:150|unique:tamanhos,nome,{$id},id",
             'sigla' => "required|min:1|max:10|unique:tamanhos,sigla,{$id},id",
             //'tipo' => "required",
             'descricao' => "nullable|min:3|max:150",
