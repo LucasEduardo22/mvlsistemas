@@ -138,6 +138,7 @@
             </div>
         </div>
     </div>
+    @include('admin.pedido.modal.produto')
 @stop
 @push('scripts')
     <script>
@@ -248,7 +249,6 @@
             }); 
             $(document).on('change', '#_modelo', function(e){
                 e.preventDefault;
-                var id = $('[name=filtrar_modelo]').val();
                 //console.log(id);
 
                 $.ajax({
@@ -256,7 +256,7 @@
                     url: '{{ route("pedido.produto") }}',
                     dataType: 'json',
                     //async: false,
-                    data: {filtrar: $('[name=filtrar_modelo]').val()},
+                    data: {filtrar: $(this).closest('tr').find('td[data-id]').data('id')},
                     //contentType: "application/json",
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -266,7 +266,8 @@
                         var data = JSON.parse(JSON.stringify(data));
                         //var cnpj = data.cpf_cnpj
                         console.log(data);
-                        if (data != 0) {
+                        if (data != 0) { 
+                            $('#modallistaProduto').modal('hide')
                             $('._adicionarProduto').append(
                                 "<tr>"+
                                     "<td data-modelo='"+data[0].modelo+"'>"+data[0].modelo+'<input value="'+data[0].id+'" type="hidden" name="produto_id"/>'+"</td>"+
@@ -288,10 +289,8 @@
                     }
                 }); 
             });
-            }); 
             $(document).on('change', '#_modelo', function(e){
                 e.preventDefault;
-                var id = $('[name=filtrar_modelo]').val();
                 //console.log(id);
 
                 $.ajax({
