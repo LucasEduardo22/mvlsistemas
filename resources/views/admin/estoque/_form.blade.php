@@ -163,7 +163,7 @@
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanho->id}}">
                                     <p class="text_grid">{{$tamanho->id}}º
-                                        {{$tamanho->sigla.' - '.$tamanho->nome}}
+                                        {{$tamanho->sigla}}
                                     </p>
                                    <div class="form-group">
                                         <label for="_preco_venda1[]">Valor de venda:</label>
@@ -200,7 +200,7 @@
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanhoProduto->tamanho_id}}">
                                     <p class="text_grid">{{$tamanhoProduto->tamanhoProdutos->id}}º
-                                        {{$tamanhoProduto->tamanhoProdutos->sigla.' - '.$tamanhoProduto->tamanhoProdutos->nome}}
+                                        {{$tamanhoProduto->tamanhoProdutos->sigla}}
                                     </p>
                                     <div class="form-group">
                                         <label for="_preco_venda1[]">Valor de venda:</label>

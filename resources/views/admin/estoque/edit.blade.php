@@ -16,7 +16,7 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('estoque.index') }}">Estoque</a>
+            <a href="{{ route('produto.index') }}">Estoque</a>
         </li>
         <li class="breadcrumb-item active">
             <a href="{{ route('estoque.create', $produto->id) }}">{{$produto->nome_produto}}</a>

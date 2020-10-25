@@ -16,7 +16,7 @@
             <a href="{{route('home')}}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{route('estoque.index')}}">Estoques</a>
+            <a href="{{route('produto.index')}}">Estoques</a>
         </li>
     </ol>
     <div class="card">

@@ -94,6 +94,13 @@ class EstoqueController extends Controller
     }
     public function update(StoreUpdateEstoqueRequest $request, $id)
     {
+        $request->merge([
+            "custo_atual" => str_replace(['.'], '', $request->custo_atual),
+            "custo_atual" => str_replace([','],'.', $request->custo_atual),
+            "preco_venda" => str_replace(['.'], '', $request->preco_venda),
+            "preco_venda" => str_replace([','], '.', $request->preco_venda),
+        ]);
+        
         $estoque = $this->dadosEstoque->find($id);
         $dados = $request->all();
         //$dados['estoque_id'] = $estoque->id;

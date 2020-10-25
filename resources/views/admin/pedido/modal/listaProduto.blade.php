@@ -34,20 +34,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($produtos as $produto)
+                                @foreach ($estoques as $estoque)
                                     <tr>
-                                        <td scope="row" data-id="{{$produto->modelo}}" class="modelo_id">{{$produto->modelo}}</td>
-                                        <td scope="row" data-nome="{{$produto->nome_produto}}" class="modelo_id">{{$produto->nome_produto}}</td>
-                                        <td class="modelo_id" data-sub_grupo_id="{{$produto->sub_grupo_id}}" >{{$produto->subGrupo->nome}}</td>
+                                        <td scope="row" data-id="{{$estoque->produto->modelo}}" class="modelo_id">{{$estoque->produto->modelo}}</td>
+                                        <td scope="row" data-nome="{{$estoque->produto->nome_produto}}" class="modelo_id">{{$estoque->produto->nome_produto}}</td>
+                                        <td class="modelo_id" data-sub_grupo_id="{{$estoque->produto->sub_grupo_id}}" >{{$estoque->produto->subGrupo->nome}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
                         <div class="card-footer">
                             @if (isset($filtros))
-                                {!! $produtos->links()!!}
+                                {!! $estoques->links()!!}
                             @else
-                                {!! $produtos->links()!!}
+                                {!! $estoques->links()!!}
                             @endif
                         </div>
                    {{--  @else

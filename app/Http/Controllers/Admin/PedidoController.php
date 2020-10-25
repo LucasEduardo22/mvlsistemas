@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
+use App\Models\Estoque;
 use App\Models\FormaPagamento;
 use App\Models\ItemPedido;
 use App\Models\Pedido;
@@ -20,8 +21,9 @@ class PedidoController extends Controller
     protected $dadosFormaPagamento;
     protected $dadosTamanhoProduto;
     protected $dadosTamanho;
+    protected $dadosEstoque;
 
-    public function __construct(Pedido $pedido, Cliente $cliente, FormaPagamento $formaPagamento, Produto $produto, Tamanho $tamanho, TamanhoProduto $tamanhoProduto)
+    public function __construct(Pedido $pedido, Cliente $cliente, FormaPagamento $formaPagamento, Estoque $estoque, Produto $produto, Tamanho $tamanho, TamanhoProduto $tamanhoProduto)
     {
         $this->dadosPedido = $pedido;
         $this->dadosCliente = $cliente;
@@ -29,6 +31,7 @@ class PedidoController extends Controller
         $this->dadosProduto = $produto;
         $this->dadosTamanhoProduto = $tamanhoProduto;
         $this->dadosTamanho = $tamanho;
+        $this->dadosEstoque = $estoque;
     }
 
     public function index(){
@@ -43,9 +46,9 @@ class PedidoController extends Controller
         $clientes = $this->dadosCliente->paginate(5);
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->all();
-        $produtos =  $this->dadosProduto->paginate(10);
-         
-        return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "produtos"));
+        $estoques =  $this->dadosEstoque->paginate(10);
+
+        return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
     }
 
     public function searchCliente(Request $request){
