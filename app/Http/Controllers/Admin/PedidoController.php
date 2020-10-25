@@ -108,7 +108,7 @@ class PedidoController extends Controller
             }
         }else{
             $produto['success'] = false;
-            $produto['message'] = "Quando o tipo de é venda e necessário selecionar o cliente.";
+            $produto['message'] = "Necessário informar o cliente.";
             return response()->json($produto);
         }
 

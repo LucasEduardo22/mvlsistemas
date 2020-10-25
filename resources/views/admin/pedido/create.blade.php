@@ -128,9 +128,9 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" id="#loader" style="height: 430px;">
-                    <div class="card-body linha-verticalEstoque">
-                        <div class="table-overflow">
+                <div class="card" id="#loader" style="height: 480px;">
+                    <div class="card-body linha-verticalEstoque" style="height: 430px;">
+                        <div class="table-overflow " style="height: 430px;">
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
@@ -146,7 +146,13 @@
                                 </tbody>
                             </table>
                         </div>
+                        <div class="mt-2 mb-2">
+                            <button class="btn btn-primary float-right" name="cancelar" value="2">FINALIZAR</button> 
+                            <button class="btn btn-secondary mr-2 float-right" name="cancelar" value="1">SALVAR</button> 
+                            <button class="btn btn-danger mr-2 float-right" name="cancelar" value="0">CANCELAR</button> 
+                        </div>
                     </div>
+                    
                 </div>
             </div>
         </div>
