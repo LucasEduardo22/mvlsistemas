@@ -189,16 +189,16 @@
                             //$(this).closest('table').append(row);
                         } 
                     } else {
-
-                        $(".messageBox").removeClass('d-none').html(data.message + 
+                        alert(data.message);
+                        /* $(".messageBox").removeClass('d-none').html(data.message + 
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
                                 +'<span aria-hidden="true">&times;</span>'
                                 +"</button>"
-                                );
+                                ); */
 
-                        setTimeout(function(){
+                        /* setTimeout(function(){
                             $('.messageBox').addClass("d-none");
-                        }, 5000);
+                        }, 5000); */
                     }
                     
                 }
@@ -248,15 +248,16 @@
                         } 
                     } else {
 
-                        $(".messageBox").removeClass('d-none').html(data.message + 
+                        /* $(".messageBox").removeClass('d-none').html(data.message + 
                                 '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
                                 +'<span aria-hidden="true">&times;</span>'
                                 +"</button>"
-                                );
+                                ); */
 
-                        setTimeout(function(){
+                        alert(data.message);
+                        /* setTimeout(function(){
                             $('.messageBox').addClass("d-none");
-                        }, 5000);
+                        }, 5000); */
                     }
                    
                     
