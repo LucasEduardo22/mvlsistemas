@@ -15,6 +15,7 @@ class CreateTecidosTable extends Migration
     {
         Schema::create('tecidos', function (Blueprint $table) {
             $table->id();
+            $table->string("nome", 200)->unique();
             $table->timestamps();
         });
     }

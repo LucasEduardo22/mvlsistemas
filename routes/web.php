@@ -50,7 +50,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Cliente
     Route::any('/home/cliente/search', 'Admin\ClienteController@search')->name("cliente.search");
-    Route::any('/cliente/search-pedido', 'Admin\ClienteController@searchCliente')->name('pedido.cliente.searchPedido'); 
     Route::resource('/home/cliente', 'Admin\ClienteController');
 
     //Fornecedor
@@ -96,8 +95,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     //ROTAS PEDIDOS
     Route::get('/home/pedido/index', 'Admin\PedidoController@index')->name('pedido.index');
-    Route::any('/pedido/search-pedido', 'Admin\ClienteController@searchCliente')->name('pedido.search');
+    Route::any('/pedido/search-pedido', 'Admin\PedidoController@searchCliente')->name('pedido.search');
     Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
+    Route::any('/cliente/adicionar-cliente', 'Admin\PedidoController@searchCliente')->name('pedido.cliente.searchPedido'); 
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
 
     //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.

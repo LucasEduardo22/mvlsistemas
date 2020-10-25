@@ -17,12 +17,30 @@ class CreateItemPedidosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pedido_id');
             $table->unsignedBigInteger('produto_id');
-            $table->double("valor_total");
-            $table->double("quantidade");
+            $table->double("valor_unitario")->nullable();
+            $table->double("valor_total")->nullable();
+            $table->double("quantidade")->nullable();
+            $table->string("cor_principal")->nullable();
+            $table->string("cor_secundaria")->nullable();
+            $table->string("cor_terciaria")->nullable();
+            $table->string("frente")->nullable();
+            $table->string("costa")->nullable();
+            $table->string("manga_direita")->nullable();
+            $table->string("manga_esquerda")->nullable();
+            $table->enum('tipo_tamano', ["T", "M", "F", "U", "N"]);
             $table->timestamps();
 
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');
             $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
+        });
+
+        Schema::create('item_pedido_tecidos', function (Blueprint $table) {
+            $table->id();
+            $table->unsignedBigInteger('item_pedido_id');
+            $table->unsignedBigInteger('tecido_id');
+
+            $table->foreign('item_pedido_id')->references('id')->on('item_pedidos')->onDelete('cascade');
+            $table->foreign('tecido_id')->references('id')->on('tecidos')->onDelete('cascade');
         });
     }
 
@@ -33,6 +51,7 @@ class CreateItemPedidosTable extends Migration
      */
     public function down()
     {
+        Schema::dropIfExists('item_pedido_tecidos');
         Schema::dropIfExists('item_pedidos');
     }
 }

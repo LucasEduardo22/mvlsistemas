@@ -32,13 +32,13 @@
                                 <div class="form-group col-md-4">
                                     <label for="inputPassword4 pb-0">Tipo Pedido:</label>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+                                        <input class="form-check-input tipo_pedido" type="radio" name="exampleRadios" id="exampleRadios1" value="V" checked>
                                         <label class="form-check-label" for="exampleRadios1">
                                             Venda
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                                        <input class="form-check-input tipo_pedido" type="radio" name="exampleRadios" id="exampleRadios2" value="O">
                                         <label class="form-check-label" for="exampleRadios2">
                                             Orçamento
                                         </label>
@@ -46,10 +46,10 @@
                                 </div>
                                 <div class="form-group col-md-4">
                                     <label for="inputEmail4">Forma de pagamento:</label>
-                                    <select id="_forma_pagamento" name="forma_pagamento" class="form-control @error('forma_pagamento') is-invalid @enderror">
-                                        <option>Selecione</option>
+                                    <select id="_forma_pagamento" name="forma_pagamento" class="form-control forma_pagamento @error('forma_pagamento') is-invalid @enderror">
+                                        <option value="0">Selecione</option>
                                         @foreach ($formaPagamentos as $formaPagamento)
-                                            <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($formaPagamento->id) ? $formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
+                                            <option value="{{$formaPagamento->id}}" {{-- @if(old('forma_pagamento_id', !empty($formaPagamento->id) ? $formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif --}}>{{$formaPagamento->nome}}</option>
                                         @endforeach
                                     </select>
                                     @error('forma_pagamento_id')
@@ -73,6 +73,10 @@
                                 <div class="form-group col-md-4 pr-2">
                                     <p>Quantidade total: <strong class="text-dark" id="_status">10 peças</strong></p>
                                 </div>
+                                <div class="form-group col-md-4 pr-2">
+                                    <input type="hidden" name="codigo" value="">
+                                    <p>Codigo do pedido: <strong class="text-dark" id="_codigo"></strong></p>
+                                </div>
                             </div>
                             <div class="row float-right">
                                 <div class="col-md-5 d-flex justify-content-start mr-0">
@@ -93,7 +97,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text bg-success" id="search"><i class="fas fa-search"></i></div>
                                             </div>
-                                            <input type="text" class="form-control" id="filtrar" name="filtrar" placeholder = "Código ou CNPJ"> 
+                                            <input type="text" class="form-control" id="filtrar" name="filtrar_cliente" placeholder = "Código ou CNPJ"> 
                                         </div>     
                                     </div>
                                     <div class="pl-0"> 
@@ -122,7 +126,7 @@
                             <table class="table table-striped">
                                 <thead>
                                     <tr>
-                                        <th class="border-top-0" scope="col">#</th>
+                                        <th class="border-top-0" scope="col">Código</th>
                                         <th class="border-top-0" scope="col">Produto</th>
                                         <th class="border-top-0" scope="col">Sub Grup</th>
                                         <th class="border-top-0" scope="col">Quantidade</th>
@@ -142,211 +146,5 @@
     @include('admin.pedido.modal.produto')
 @stop
 @push('scripts')
-    <script>
-        $(document).ready(function($) {
-            $('.cpf_cnpj').mask('00.000.000/0000-00');
-            $('.cep').mask("99999-999");
-            //$('.ie').mask("999.99999-99");
-            $('.telefone').mask('(99) 9999-9999');
-            $('.celular').mask('(99) 99999-9999');
-            $('.sem_tamanho').hide();
-
-            $('input[type=radio]').change(function() {
-                $('input[type=radio]:checked').not(this).prop('checked', false);
-            });
-
-            $('.tipos').change(function(){
-                var campo = $(this).val();
-                console.log(campo );
-                if (campo == "T"){	
-                    $('.tem_tamanho').show();
-                    $('.femin').show();
-                    $('.masc').show();
-                    $('.sem_tamanho').hide();
-                }
-                else if (campo == "M"){
-                    $('.tem_tamanho').show();
-                    $('.femin').hide();
-                    $('.sem_tamanho').hide();
-                    $('.masc').show();
-                }			
-                else if (campo == "F"){
-                    $('.tem_tamanho').show();
-                    $('.femin').show();
-                    $('.sem_tamanho').hide();
-                    $('.masc').hide();
-                }else{
-                    $('.tem_tamanho').hide();
-                    $('.sem_tamanho').show();
-                }			
-            });
-            $(document).on('click', '._selecionar', function(e) {
-                e.preventDefault;
-
-                var id = $(this).closest('tr').find('td[data-id]').data('id');
-
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route("pedido.cliente.searchPedido") }}',
-                    dataType: 'json',
-                    //async: false,
-                    data: {filtrar: $(this).closest('tr').find('td[data-id]').data('id')},
-                    
-                    //contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data){
-                        //var $el = $('[name=estado]');
-                        var data = JSON.parse(JSON.stringify(data));
-                        var cnpj = data.cpf_cnpj
-                        console.log(data);
-                       if (data != 0) {
-                            $('#modalCliente').modal('hide')
-                            $('#nome').html(data.nome);
-                            $('#_cpf_cnpj').text(data.cpf_cnpj).mask('00.000.000/0000-00');
-                            $('#_telefone').html(data.telefone).mask('(99) 9999-9999');
-                            $('#_celular').html(data.celular).mask('(99) 99999-9999');
-                            $('#cidade').html(data.cidade);
-                            $('#estado').html(data.estado);
-                        } else {
-                            alert("dados não encontrado");
-                        }  
-                        
-                    }
-                });
-            });
-            $(document).on('click', '#search', function(e) {
-                e.preventDefault;
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route("pedido.cliente.searchPedido") }}',
-                    dataType: 'json',
-                    //async: false,
-                    data: {filtrar: $('[name=filtrar]').val()},
-                    //contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data){
-                        //var $el = $('[name=estado]');
-                        var data = JSON.parse(JSON.stringify(data));
-                        var cnpj = data.cpf_cnpj
-                        console.log(data);
-                        if (data != 0) {
-                            $('#modalCliente').modal('hide')
-                            $('#nome').html(data.nome);
-                            $('#_cpf_cnpj').text(data.cpf_cnpj).mask('00.000.000/0000-00');
-                            $('#_telefone').html(data.telefone).mask('(99) 9999-9999');
-                            $('#_celular').html(data.celular).mask('(99) 99999-9999');
-                            $('#cidade').html(data.cidade);
-                            $('#estado').html(data.estado);
-                        } else {
-                            alert("dados não encontrado");
-                        }  
-                        
-                    }
-                }); 
-            }); 
-            $(document).on('click', '.modelo_id', function(e){
-                e.preventDefault;
-                //console.log(id);
-
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route("pedido.produto") }}',
-                    dataType: 'json',
-                    //async: false,
-                    data: {filtrar: $(this).closest('tr').find('td[data-id]').data('id')},
-                    //contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data){
-                        //var $el = $('[name=estado]');
-                        var data = JSON.parse(JSON.stringify(data));
-                        //var cnpj = data.cpf_cnpj
-                        console.log(data);
-                        if (data != 0) { 
-                            $('#modallistaProduto').modal('hide')
-                            $('._adicionarProduto').append(
-                                "<tr>"+
-                                    "<td data-modelo='"+data[0].modelo+"'>"+data[0].modelo+'<input value="'+data[0].id+'" type="hidden" name="produto_id"/>'+"</td>"+
-                                    "<td data-nome_produto='"+data[0].nome_produto+"'>"+data[0].nome_produto+"</td>"+
-                                    "<td data-subGrupo='"+data[1]+"'>"+data[1]+"</td>"+
-                                    "<td>0</td>"+
-                                    "<td>R$0,00</td>"+
-                                    '<td style="width: 210px">'
-                                        +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
-                                        +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
-                                    '</td>'+
-                                "<tr>"
-                            );
-                            //$(this).closest('table').append(row);
-                        } else {
-                            alert("dados não encontrado");
-                        }  
-                        
-                    }
-                }); 
-            });
-            $(document).on('change', '#_modelo', function(e){
-                e.preventDefault;
-                //console.log(id);
-
-                $.ajax({
-                    type: 'post',
-                    url: '{{ route("pedido.produto") }}',
-                    dataType: 'json',
-                    //async: false,
-                    data: {filtrar: $('[name=filtrar_modelo]').val()},
-                    //contentType: "application/json",
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(data){
-                        //var $el = $('[name=estado]');
-                        var data = JSON.parse(JSON.stringify(data));
-                        //var cnpj = data.cpf_cnpj
-                        console.log(data);
-                        if (data != 0) {
-                            $('._adicionarProduto').append(
-                                "<tr>"+
-                                    "<td data-modelo='"+data[0].modelo+"'>"+data[0].modelo+'<input value="'+data[0].id+'" type="hidden" name="produto_id"/>'+"</td>"+
-                                    "<td data-nome_produto='"+data[0].nome_produto+"'>"+data[0].nome_produto+"</td>"+
-                                    "<td data-subGrupo='"+data[1]+"'>"+data[1]+"</td>"+
-                                    "<td>0</td>"+
-                                    "<td>R$0,00</td>"+
-                                    '<td style="width: 210px">'
-                                        +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
-                                        +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
-                                    '</td>'+
-                                "<tr>"
-                            );
-                            //$(this).closest('table').append(row);
-                        } else {
-                            alert("dados não encontrado");
-                        }  
-                        
-                    }
-                }); 
-            });
-
-            $("._adicionarProduto").on("click", ".detalhes", function(e){
-                e.preventDefault;
-                var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
-                var nome_produto = $(this).closest('tr').find('td[data-nome_produto]').data('nome_produto');
-                var subgrupo = $(this).closest('tr').find('td[data-subgrupo]').data('subgrupo');
-
-                $('#nome_produto').html(nome_produto);
-                $('.grupo').html(subgrupo);
-                $(".modalProduto").modal('show');
-            });
-            $("._adicionarProduto").on("click", ".remover", function(e){
-                e.preventDefault;
-                $(this).closest('tr').remove(); 
-            });
-        });
-
-    </script>
+@include('admin.pedido.script')
 @endpush

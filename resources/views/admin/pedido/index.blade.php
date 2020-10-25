@@ -22,7 +22,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">  
-            <h1 class="mt-2">Pedidos<a href="{{route('pedido.create')}}" class="btn mr-2 btn-primary float-right"><i class="fas fa-plus-square"></i> CRIA UM NOVO PEDIDO</a></h1>
+            <h1 class="mt-2">Pedidos<a href="{{route('pedido.create')}}" class="btn mr-2 btn-primary float-right"><i class="fas fa-plus-square"></i> CRIAR PEDIDO</a></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
@@ -46,7 +46,6 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0" scope="col">Código</th>
-                                    <th class="border-top-0" scope="col">CNPJ</th>
                                     <th class="border-top-0" scope="col">Cliente</th>
                                     <th class="border-top-0" scope="col">Situação</th>
                                     <th class="border-top-0" scope="col">Quantidade</th>
@@ -63,8 +62,8 @@
                                         <td class="cpf_cnpj">{{$pedido->cpf_cnpj}}</td>
                                         <td class="telefone" style="width: 180px">{{$pedido->telefone}}</td>
                                         <td style="width: 250px">
-                                            <a href="{{route('pedido.edit', $pedido->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('pedido.show', $pedido->id)}}" class="btn btn-success">ver</a>
+                                            <a href="{{-- {{route('pedido.edit', $pedido->id)}} --}}" class="btn btn-info">Edit</a>
+                                            <a href="{{-- {{route('pedido.show', $pedido->id)}} --}}" class="btn btn-success">ver</a>
                                         </td>
                                     </tr>
                                 @endforeach

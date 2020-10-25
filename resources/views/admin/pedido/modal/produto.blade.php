@@ -30,6 +30,10 @@
                                 <label class="form-check-label" for="tipoF">Feminino</label>
                             </div>
                             <div class="form-check form-check-inline">
+                                <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="U">
+                                <label class="form-check-label" for="tipoF">Unissex</label>
+                            </div>
+                            <div class="form-check form-check-inline">
                                 <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="N">
                                 <label class="form-check-label" for="tipoF">Nenhum</label>
                             </div>
@@ -213,7 +217,7 @@
                         <div class="form-group col-md-12">
                             <div class="table-responsive masc">
                                 <table class="table table-bordered">
-                                    <span class="text-dark">MASCULINO</span>
+                                    <span class="text-dark" id="_tipoMU">MASCULINO</span>
                                     <thead>
                                         <tr>
                                             @foreach ($tamanhos->tamanhoMasculino() as $tamanhoM)

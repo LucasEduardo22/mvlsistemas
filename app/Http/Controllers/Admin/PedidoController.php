@@ -38,12 +38,40 @@ class PedidoController extends Controller
 
     public function createPedido()
     {
+
         $clientes = $this->dadosCliente->paginate(5);
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->all();
         $produtos =  $this->dadosProduto->paginate(10);
          
         return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "produtos"));
+    }
+
+    public function searchCliente(Request $request){
+        $request->merge([
+            'filtrar' => str_replace(['.', '/','-'], '', $request->filtrar),
+        ]);
+        $filtrar = $request->filtrar;
+
+        $cliente = $this->dadosCliente->where("id",$filtrar)
+                    ->orWhere('cpf_cnpj', $filtrar)->first();
+        
+        $dados['tipo_venda'] = $request->tipo_pedido;
+        $dados['forma_pagamento_id'] = $request->forma_pagamento_id == 0 ? null : $request->forma_pagamento_id;
+        $dados['cliente_id'] = $cliente->id;
+        $dados['user_id'] = Auth()->user()->id;
+        $dados['status_id'] = 1; //padrão ativo 
+        if($cliente){
+            if(!empty($request->codigo)){
+                $pedido = $this->dadosPedido->find($request->codigo);
+                $pedido->update($dados);
+                $cliente["codigo"] = $pedido->id;
+            }else{
+                $pedido = $this->dadosPedido->create($dados);
+                $cliente["codigo"] = $pedido->id;
+            }
+        } 
+        return response()->json($cliente);
     }
 
     public function adicionarProduto(Request $request)

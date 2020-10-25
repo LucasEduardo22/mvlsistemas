@@ -16,7 +16,7 @@ class CreatePedidosTable extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('cliente_id');
-            $table->unsignedBigInteger('forma_pagamento_id');
+            $table->unsignedBigInteger('forma_pagamento_id')->nullable();
             $table->enum('tipo_venda', ["V", "O"]);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');
