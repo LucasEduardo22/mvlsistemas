@@ -35,7 +35,7 @@
                             </div>
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="N">
-                                <label class="form-check-label" for="tipoF">Nenhum</label>
+                                <label class="form-check-label" for="tipoF">Tamanho único</label>
                             </div>
                         </div>
                     </div>

@@ -31,15 +31,16 @@
                             <div class="form-row">
                                 <div class="form-group col-md-4">
                                     <label for="inputPassword4 pb-0">Tipo Pedido:</label>
+                                    <input type="hidden" name="tipo_pedido_id" value="V">
                                     <div class="form-check">
-                                        <input class="form-check-input tipo_pedido" type="radio" name="exampleRadios" id="exampleRadios1" value="V" checked>
-                                        <label class="form-check-label" for="exampleRadios1">
+                                        <input class="form-check-input tipo_pedido" type="radio" name="_tipo_pedido_id" id="_tipo_pedido1" value="V" checked>
+                                        <label class="form-check-label" for="_tipo_pedido1">
                                             Venda
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input tipo_pedido" type="radio" name="exampleRadios" id="exampleRadios2" value="O">
-                                        <label class="form-check-label" for="exampleRadios2">
+                                        <input class="form-check-input tipo_pedido" type="radio" name="_tipo_pedido_id" id="_tipo_pedido2" value="O">
+                                        <label class="form-check-label" for="_tipo_pedido2">
                                             Orçamento
                                         </label>
                                     </div>
@@ -75,13 +76,20 @@
                                 </div>
                                 <div class="form-group col-md-4 pr-2">
                                     <input type="hidden" name="codigo" value="">
-                                    <p>Codigo do pedido: <strong class="text-dark" id="_codigo"></strong></p>
+                                    <p>Pedido: <strong class="text-dark" id="_codigo"></strong></p>
                                 </div>
                             </div>
+                             <div class="alert alert-danger d-none messageBox" role="alert">
+                                 
+                             </div>  
                             <div class="row float-right">
                                 <div class="col-md-5 d-flex justify-content-start mr-0">
+
                                     <label for="_modelo" class="pb-0 pr-2 mb-0">Modelo:</label>
-                                    <input type="text" name="filtrar_modelo" class="form-control pt-0" id="_modelo" value="{{old("modelo")}}">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text text-white bg-secondary" id="search_modelo"><i class="fas fa-search"></i></div>
+                                    </div>
+                                    <input type="text" name="filtrar_modelo" class="form-control" id="_modelo" value="{{old("modelo")}}">
                                 </div>
                                 <button class="btn btn-primary float-right" data-toggle="modal" data-target="#modallistaProduto">ADICIONAR PRODUTO</button>
                                 @include('admin.pedido.modal.listaProduto')
@@ -120,7 +128,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card" style="height: 430px;">
+                <div class="card" id="#loader" style="height: 430px;">
                     <div class="card-body linha-verticalEstoque">
                         <div class="table-overflow">
                             <table class="table table-striped">

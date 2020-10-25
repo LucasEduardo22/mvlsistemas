@@ -16,7 +16,7 @@ class CreateItemPedidosTable extends Migration
         Schema::create('item_pedidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('pedido_id');
-            $table->unsignedBigInteger('produto_id');
+            $table->unsignedBigInteger('estoque_id');
             $table->double("valor_unitario")->nullable();
             $table->double("valor_total")->nullable();
             $table->double("quantidade")->nullable();
@@ -31,7 +31,7 @@ class CreateItemPedidosTable extends Migration
             $table->timestamps();
 
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');
-            $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
+            $table->foreign('estoque_id')->references('id')->on('estoques')->onDelete('cascade');
         });
 
         Schema::create('item_pedido_tecidos', function (Blueprint $table) {

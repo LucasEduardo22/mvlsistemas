@@ -64,7 +64,7 @@
                 <div class="row">
                     <label class="col-sm-3 control-label">Valor de Venda:</label>
                     <div class="col-sm-6">
-                        <input value="{{old('preco_venda', !empty($estoque->preco_venda) ? $estoque->preco_venda : '')}}" type="text" name="preco_venda" placeholder="" class="form-control dinheiro @error('preco_venda') is-invalid @enderror" id="_preco_venda" />
+                        <input value="{{old('preco_venda', !empty($estoque->preco_venda) ? number_format( $estoque->preco_venda , 2, ',', '.') : '')}}" type="text" name="preco_venda" placeholder="" class="form-control dinheiro @error('preco_venda') is-invalid @enderror" id="_preco_venda" />
                         @error('preco_venda')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -96,7 +96,7 @@
                 <div class="row">
                     <label class="col-sm-3 control-label">Valor de Custo:</label>
                     <div class="col-sm-6">
-                        <input value="{{old('custo_atual', !empty($estoque->custo_atual) ? $estoque->custo_atual : '')}}" type="text" name="custo_atual" placeholder="" class="form-control dinheiro @error('custo_atual') is-invalid @enderror" id="_custo_atual" />
+                        <input value="{{old('custo_atual', !empty($estoque->custo_atual) ? number_format($estoque->custo_atual , 2, ',', '.') : '')}}" type="text" name="custo_atual" placeholder="" class="form-control dinheiro @error('custo_atual') is-invalid @enderror" id="_custo_atual" />
                         @error('custo_atual')
                             <div class="invalid-feedback">
                                 {{ $message }}

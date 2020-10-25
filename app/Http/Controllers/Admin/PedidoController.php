@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
 use App\Models\FormaPagamento;
+use App\Models\ItemPedido;
 use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Tamanho;
@@ -76,20 +77,44 @@ class PedidoController extends Controller
 
     public function adicionarProduto(Request $request)
     {
-        $dados = $request->filtrar;
-        if(!empty($dados)){ 
-            $produto = $this->dadosProduto->where('id', $dados)
-                        ->orWhere('modelo', $dados)->first();
-            if(!empty($produto)){
-                $subGrupo = $produto->subGrupo->nome;
-                if(!empty($produto->estoque)){ 
-                    $tamanhoProduto = $this->dadosTamanhoProduto->where('estoque_id', $produto->estoque->id)->get();
-                    return response()->json([$produto, $subGrupo, $tamanhoProduto]);
-                }else{
-                    return response()->json([$produto,$subGrupo]);
+        $filtro = $request->filtrar;
+        $dados['tipo_venda'] = $request->tipo_pedido;
+        $dados['pedido_id'] = $request->pedido_id;
+
+        // Verifica o tipo de pedido, se for venda cadastrar na base:
+        if ($request->tipo_pedido == "O" || $request->pedido_id != null) {
+            
+            if(!empty($filtro)){ 
+                $produto = $this->dadosProduto->where('id', $filtro)
+                            ->orWhere('modelo', $filtro)->first();
+                if(!empty($produto)){
+                    $subGrupo = $produto->subGrupo;
+                    $produto["sub_grupo"] = $subGrupo->nome;
+    
+                    if(!empty($produto->estoque)){ 
+                        //$tamanhoProduto = $this->dadosTamanhoProduto->where('estoque_id', $produto->estoque->id)->get();
+    
+                        $dados['estoque_id'] = $produto->estoque->id;
+                        $produto["success"] = true;
+                        if ($request->tipo_pedido == "V") {
+                            $itensPedidos = ItemPedido::create($dados);
+                            $produto["itemPedidos_id"] = $itensPedidos->id;
+                        }
+                        return response()->json($produto);
+                    }else{
+                        $produto['success'] = false;
+                        $produto['message'] = "Produto indicado não se encontra em estoque.";
+                        return response()->json($produto);
+                    }
                 }
             }
-            
+        }else{
+            $produto['success'] = false;
+            $produto['message'] = "Quando o tipo de é venda e necessário selecionar o cliente.";
+            return response()->json($produto);
         }
+
+
+        
     }
 }
