@@ -20,4 +20,6 @@ class Cliente extends Model
 
         return $result;
     }
+
+   
 }

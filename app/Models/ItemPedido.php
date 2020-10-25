@@ -11,4 +11,5 @@ class ItemPedido extends Model
         'quantidade', "cor_principal", 'cor_secundaria', 'cor_terciaria',
         'frente', 'costa', 'manga_direita', 'manga_esquerda', 'tipo_tamano'
     ];
+
 }

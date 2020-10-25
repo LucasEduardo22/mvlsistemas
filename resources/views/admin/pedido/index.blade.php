@@ -48,8 +48,7 @@
                                     <th class="border-top-0" scope="col">Código</th>
                                     <th class="border-top-0" scope="col">Cliente</th>
                                     <th class="border-top-0" scope="col">Situação</th>
-                                    <th class="border-top-0" scope="col">Quantidade</th>
-                                    <th class="border-top-0" scope="col">Valor</th>
+                                    <th class="border-top-0" scope="col">Vedendor</th>
                                     <th class="border-top-0" scope="col">Ações</th>
                                 </tr>
                             </thead>
@@ -57,10 +56,9 @@
                                 @foreach ($pedidos as $pedido)
                                     <tr>
                                         <th scope="row">{{$pedido->id}}</th>
-                                        <th scope="row">{{$pedido->nome}}</th>
-                                        <th scope="row">{{$pedido->razao_social}}</th>
-                                        <td class="cpf_cnpj">{{$pedido->cpf_cnpj}}</td>
-                                        <td class="telefone" style="width: 180px">{{$pedido->telefone}}</td>
+                                        <th>{{$pedido->cliente->nome}}</th>
+                                        <th>{{$pedido->status->nome}}</th>
+                                        <th>{{$pedido->vendedor->name}}</th>
                                         <td style="width: 250px">
                                             <a href="{{-- {{route('pedido.edit', $pedido->id)}} --}}" class="btn btn-info">Edit</a>
                                             <a href="{{-- {{route('pedido.show', $pedido->id)}} --}}" class="btn btn-success">ver</a>
