@@ -55,6 +55,8 @@
                     @endif --}}
                 </div>
             </div>
+            <div class="alert alert-danger d-none messageBox" role="alert">
+            </div> 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>

@@ -80,10 +80,8 @@ class PedidoController extends Controller
         $filtro = $request->filtrar;
         $dados['tipo_venda'] = $request->tipo_pedido;
         $dados['pedido_id'] = $request->pedido_id;
-
         // Verifica o tipo de pedido, se for venda cadastrar na base:
         if ($request->tipo_pedido == "O" || $request->pedido_id != null) {
-            
             if(!empty($filtro)){ 
                 $produto = $this->dadosProduto->where('id', $filtro)
                             ->orWhere('modelo', $filtro)->first();

@@ -169,26 +169,37 @@
                     //var $el = $('[name=estado]');
                     var data = JSON.parse(JSON.stringify(data));
                     //var cnpj = data.cpf_cnpj
-                    console.log(data.sub_grupo['nome']);
-                    if (data != 0) { 
-                        $('#modallistaProduto').modal('hide')
-                        $('._adicionarProduto').append(
-                            "<tr>"+
-                                "<td data-modelo='"+data.modelo+"'>"+data.modelo+'<input value="'+data.id+'" type="hidden" name="produto_id"/>'+"</td>"+
-                                "<td data-nome_produto='"+data.nome_produto+"'>"+data.nome_produto+"</td>"+
-                                "<td data-subGrupo='"+data.sub_grupo['nome']+"'>"+data.sub_grupo['nome']+"</td>"+
-                                "<td>0</td>"+
-                                "<td>R$0,00</td>"+
-                                '<td style="width: 210px">'
-                                    +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
-                                    +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
-                                '</td>'+
-                            "<tr>"
-                        );
-                        //$(this).closest('table').append(row);
+                    console.log(data);
+                    if (data.success == true) {
+                        if (data != 0) {
+                            $('#modallistaProduto').modal('hide')
+                            $('._adicionarProduto').append(
+                                "<tr>"+
+                                    "<td data-modelo='"+data.modelo+"'>"+data.modelo+'<input value="'+data.id+'" type="hidden" name="produto_id"/>'+"</td>"+
+                                    "<td data-nome_produto='"+data.nome_produto+"'>"+data.nome_produto+"</td>"+
+                                    "<td data-subGrupo='"+data.sub_grupo['nome']+"'>"+data.sub_grupo['nome']+"</td>"+
+                                    "<td>0</td>"+
+                                    "<td>R$0,00</td>"+
+                                    '<td style="width: 210px">'
+                                        +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
+                                        +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
+                                    '</td>'+
+                                "<tr>"
+                            );
+                            //$(this).closest('table').append(row);
+                        } 
                     } else {
-                        alert("dados não encontrado");
-                    }  
+
+                        $(".messageBox").removeClass('d-none').html(data.message + 
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                                +'<span aria-hidden="true">&times;</span>'
+                                +"</button>"
+                                );
+
+                        setTimeout(function(){
+                            $('.messageBox').addClass("d-none");
+                        }, 5000);
+                    }
                     
                 }
             }); 
