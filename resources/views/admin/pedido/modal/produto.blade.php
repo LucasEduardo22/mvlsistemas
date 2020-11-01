@@ -127,22 +127,22 @@
                     </div>
                     <div class="form-row sem_tamanho">
                         <div class="form-group col-md-2 sem_tamanho">
-                            <label for="_tecido" class="pb-0 mb-0">
+                            <label for="_quantidadeSemtamanho" class="pb-0 mb-0">
                                 Quantidade:
                             </label>
-                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tipo de tecido" id="_tecido">
-                            @error('tecido')
+                            <input value="{{old('quantidadeSemtamanho')}}" type="text" name="quantidadeSemtamanho" class="form-control @error('quantidadeSemtamanho') is-invalid @enderror" placeholder="" id="_quantidadeSemtamanho">
+                            @error('quantidadeSemtamanho')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
                             @enderror
                         </div>
                         <div class="form-group col-md-2 sem_tamanho">
-                            <label for="_tecido" class="pb-0 mb-0">
+                            <label for="_valorSemtamanho" class="pb-0 mb-0">
                                 Valor Unitario:
                             </label>
-                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tipo de tecido" id="_tecido">
-                            @error('tecido')
+                            <input value="{{old('valorSemtamanho')}}" type="text" name="valorSemtamanho" class="form-control dinheiro @error('valorSemtamanho') is-invalid @enderror" placeholder="" id="_valorSemtamanho">
+                            @error('valorSemtamanho')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -150,7 +150,7 @@
                         </div>
                     </div>
                     <div class="form-group col-md-4 sem_tamanho">
-                        <p>Valor total: <strong id="valor_total">R$120,20</strong></p>
+                        <p>Valor total: <strong id="valor_totalS"></strong></p>
                     </div>
                     <h3>Serigrafia ou Bordado</h3>
                     <div class="form-row">
@@ -209,13 +209,16 @@
                     <h3 class="tem_tamanho">Tamanhos</h3>
                     <div class="form-row tem_tamanho">
                         <div class="form-group col-md-5">
-                            <p>Quantidade total: <strong id="nome_produto">10 Peças</strong></p>
+                            <input type="hidden" id="_quantidadeTotal" name="" value="">
+                            <p>Quantidade total: <strong id="quantidadeTotal"></strong></p>
                         </div>
                         <div class="form-group col-md-4">
-                            <p>Valor total: <strong id="nome_produto">R$120,20</strong></p>
+                            <input type="hidden" id="_valorTotal" name="" value="">
+                            <p>Valor total: <strong id="valorTotal"></strong></p>
                         </div>
                         <div class="form-group col-md-12">
                             <div class="table-responsive masc">
+                                <input type="hidden" id="totalTamanhoM" value="{{$tamanhos->tamanhoMasculino()->count()}}">
                                 <table class="table table-bordered">
                                     <span class="text-dark" id="_tipoMU">MASCULINO</span>
                                     <thead>
@@ -230,21 +233,28 @@
                                     <tbody>
                                         <tr>
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
-                                                <td>
-                                                    <input value="{{old('quantidade')}}" type="text" name="quantidadeM[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
+                                                <td class="_nomeValor">
+                                                    <input type="hidden" name="nomeQtdM" value="quatidadetamanho{{$i}}">
+                                                    <input value="{{old('quantidadeM')}}"  id="qtdM{{$i}}" type="text" name="quantidadeM[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
                                                 </td>
                                             @endfor
                                         </tr>
                                         <tr>
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
-                                                <td>
-                                                    <input value="{{old('valorUnitarioM')}}" type="text" name="valorUnitarioM[]" class="form-control @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
+                                                <td class="_nomeValor" data-id{{$i}}="{{$i}}">
+                                                    <input type="hidden" name="nomeValorM" class="_valorUnitarioM" name="valortamanho{{$i}}">
+                                                    <input value="{{old('valorUnitarioM')}}" id="valorUnitarioM{{$i}}" type="text" name="valorUnitarioM[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
                                         <tr>
                                             <th scope="row">Total:</th>
-                                            <td colspan="2">0</td>
+                                            <td colspan="2" class="totalM">
+                                                0
+                                                <input type="hidden" name="totalM">
+                                            </td>
+                                            <th scope="row">Valor total:</th>
+                                            <td colspan="2" class="valorM dinheiro">R$ <input type="hidden" name="totalM"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -252,6 +262,7 @@
                         </div>
                         <div class="form-group col-md-12 femin">
                             <div class="table-responsive">
+                                <input type="hidden" id="totalTamanhoF" value="{{$tamanhos->tamanhoFeminino()->count()}}">
                                 <table class="table table-bordered">
                                     <span class="text-dark">FEMININO</span>
                                     <thead>
@@ -264,23 +275,27 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                         <tr>
+                                         <tr class="_nomeValor">
                                             @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
                                                 <td>
-                                                    <input value="{{old('quantidade')}}" type="text" name="quantidadeF[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
+                                                    <input value="{{old('quantidade')}}" id="qtdF{{$i}}" type="text" name="quantidadeF[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
                                                 </td>
                                             @endfor
                                         </tr>
-                                         <tr>
+                                        <tr class="_nomeValor">
                                             @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
                                                 <td>
-                                                    <input value="{{old('valorUnitarioF')}}" type="text" name="valorUnitarioF[]" class="form-control @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
+                                                    <input value="{{old('valorUnitarioF')}}" id="valorUnitarioF{{$i}}" type="text" name="valorUnitarioF[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
                                         <tr>
                                             <th scope="row">Total:</th>
-                                            <td colspan="2">0</td>
+                                            <td colspan="2" class="totalF">
+                                               
+                                            </td>
+                                            <th scope="row">Valor total:</th>
+                                            <td colspan="2" class="valorF dinheiro">R$ <input type="hidden" name="totalF"></td>
                                         </tr>
                                     </tbody>
                                 </table>

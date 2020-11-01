@@ -17,7 +17,7 @@ class CreateFormaPagamentosTable extends Migration
             $table->id();
             $table->string("nome", 100);
             $table->integer("parcelas")->nullable();
-            $table->integer("juros_parcelas")->nullable();
+            $table->double("juros_parcelas", 10,2)->nullable();
             $table->timestamps();
         });
     }

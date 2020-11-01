@@ -104,7 +104,7 @@
     <script src="{{ asset('js/custom.js') }}"></script>
     <script src="https://cdnjs.com/libraries/jquery.mask"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
-
+    <script type="text/javascript" src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js" ></script>
     <script>
         // Função para formatar 1 em 01
         const zeroFill = n => {

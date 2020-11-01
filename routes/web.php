@@ -33,6 +33,9 @@ Route::group(['middleware' => 'auth'], function () {
     //Departamento
     Route::resource('/home/departamento', 'Admin\DepartamentoController');
 
+    //Forma de Pagamento
+    Route::resource('/home/forma-pagamento', 'Admin\FormaPagamentoController');
+
     //Grupo
     Route::resource('/home/grupo', 'Admin\GrupoController');
 

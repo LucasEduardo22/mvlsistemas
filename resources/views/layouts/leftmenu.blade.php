@@ -39,8 +39,7 @@
                     <a href="{{route('fornecedor.index')}}">
                         Fornecedores
                     </a>
-                </li>
-                
+                </li>               
                 <li>
                     <a href="{{route('produto.index')}}">
                         Produtos
@@ -104,6 +103,11 @@
                 <span class="im im-icon-Arrow-Right imicon"></span>
             </a>
             <ul class="sub-menu list-unstyled">
+                <li>
+                    <a href="{{route('forma-pagamento.index')}}">
+                        Forma de pagamento
+                    </a>
+                </li>
                 <li>
                     <a href="{{route('usuario.index')}}">
                         Usuários

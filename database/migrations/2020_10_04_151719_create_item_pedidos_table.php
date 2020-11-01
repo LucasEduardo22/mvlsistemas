@@ -17,8 +17,8 @@ class CreateItemPedidosTable extends Migration
             $table->id();
             $table->unsignedBigInteger('pedido_id');
             $table->unsignedBigInteger('estoque_id');
-            $table->double("valor_unitario")->nullable();
-            $table->double("valor_total")->nullable();
+            $table->double("valor_unitario", 10,2)->nullable();
+            $table->double("valor_total", 10,2)->nullable();
             $table->double("quantidade")->nullable();
             $table->string("cor_principal")->nullable();
             $table->string("cor_secundaria")->nullable();

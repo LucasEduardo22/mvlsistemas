@@ -65,7 +65,7 @@ class PedidoController extends Controller
         $dados['cliente_id'] = $cliente->id;
         $dados['user_id'] = Auth()->user()->id;
         $dados['status_id'] = 1; //padrão ativo 
-        if($cliente){
+        /* if($cliente){
             if(!empty($request->codigo)){
                 $pedido = $this->dadosPedido->find($request->codigo);
                 $pedido->update($dados);
@@ -74,7 +74,7 @@ class PedidoController extends Controller
                 $pedido = $this->dadosPedido->create($dados);
                 $cliente["codigo"] = $pedido->id;
             }
-        } 
+        }  */
         return response()->json($cliente);
     }
 
@@ -97,10 +97,10 @@ class PedidoController extends Controller
     
                         $dados['estoque_id'] = $produto->estoque->id;
                         $produto["success"] = true;
-                        if ($request->tipo_pedido == "V") {
+                        /* if ($request->tipo_pedido == "V") {
                             $itensPedidos = ItemPedido::create($dados);
                             $produto["itemPedidos_id"] = $itensPedidos->id;
-                        }
+                        } */
                         return response()->json($produto);
                     }else{
                         $produto['success'] = false;

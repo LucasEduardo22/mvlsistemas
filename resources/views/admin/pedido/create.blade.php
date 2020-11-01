@@ -158,6 +158,9 @@
         </div>
     </div>
     @include('admin.pedido.modal.produto')
+    <div class="modal" tabindex="-1" role="dialog" id="loading"></div>
+    {{-- <div id="loading"></div> --}}
+
 @stop
 @push('scripts')
 @include('admin.pedido.script')
