@@ -102,6 +102,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
     Route::any('/cliente/adicionar-cliente', 'Admin\PedidoController@searchCliente')->name('pedido.cliente.searchPedido'); 
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
+    Route::post('/home/pedido/adicionar-poduto-detalhes', 'Admin\PedidoController@detalhesProduto')->name('detalhes.produto');
+    Route::post('/home/pedido/adicionar-poduto-recuperar-detalhes', 'Admin\PedidoController@recuperarDetalhesProduto')->name('recuperar.detalhes.produto');
 
     //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');

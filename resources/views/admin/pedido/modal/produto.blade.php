@@ -40,10 +40,13 @@
                         </div>
                     </div>
                     <div class="form-row">
-                        <div class="form-group col-md-5">
+                        <div class="form-group col-md-2">
+                            <p>Modelo: <strong id="nome_modelo"></strong><input type="hidden" id="_modeloId" name="modeloId"></p>
+                        </div>
+                        <div class="form-group col-md-6">
                             <p>Produto: <strong id="nome_produto">Nenhum Produto foi selecionado</strong></p>
                         </div>
-                        <div class="form-group col-md-4">
+                        <div class="form-group col-md-3">
                             <p>Sub Grupo: <strong id="subgrupo" class="grupo">Nenhum Produto foi selecionadoe</strong></p>
                         </div>
                         {{-- <div class="form-group col-md-3">
@@ -93,8 +96,8 @@
                             <label for="_tecido_primario" class="pb-0 mb-0">
                                 Tecido Primária:
                             </label>
-                            <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
-                            @error('cor_principal') is-invalid @enderror" placeholder="Tecido Primário" id="_cor_principal">
+                            <input value="{{old('tecido_principal')}}" type="text" name="tecido_principal" class="form-control 
+                            @error('tecido_principal') is-invalid @enderror" placeholder="Tecido Primário" id="_tecido_principal">
                             @error('cor_principal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -114,11 +117,11 @@
                             @enderror
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="_tecido" class="pb-0 mb-0">
+                            <label for="_tecido_terciario" class="pb-0 mb-0">
                                 Tecido Terciária:
                             </label>
-                            <input value="{{old('tecido')}}" type="text" name="tecido" class="form-control @error('tecido') is-invalid @enderror" placeholder="Tecido Terciário" id="_tecido">
-                            @error('tecido')
+                            <input value="{{old('tecido_terciario')}}" type="text" name="tecido_terciario" class="form-control @error('tecido_terciario') is-invalid @enderror" placeholder="Tecido Terciário" id="_tecido_terciario">
+                            @error('tecido_terciario')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -306,6 +309,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <button type="button" id="_salvar" class="btn btn-secondary" data-dismiss="modal">ADD</button>
             </div>
         </div>
     </div>

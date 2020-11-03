@@ -15,7 +15,7 @@
             var valorUniF = []
             var quatidadetamanho = []
             var valortamanho = []
-            
+            var modelo = $('#_modeloId').val()
             var total = 0;
             var totalf = 0;
             var quantidade = 0;
@@ -30,11 +30,17 @@
                 totalQuantidade += Number(qtdM);
                 if(valorM != "" && qtdM != ""){
                     valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM.replace(/\./g, "").replace(/,/g, ".")})
+
                 }else{
                     valorUni.push({quatidadetamanho: 0, valortamanho: 0})
                 }
             }  
-            
+            //$('[name="produto_id'+modelo+'"]').push(valorUni);
+
+            /* $('[name="produto_id'+modelo+'"]').each(function () {
+                produtoId.push($(this).val());
+            });  */
+
             $(valorUni).each(function (key, value) {
                 var qtd = valorUni[key].quatidadetamanho
                 var valor = valorUni[key].valortamanho
@@ -73,8 +79,9 @@
             if (totalf > 0 || totalQuantidadef > 0) {
                 $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                 $('.totalF').html(totalQuantidadef);
-            }           
+            }       
             
+
             $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
             $('#quantidadeTotal').html(totalQuantidade + " Peças");
         })
@@ -134,6 +141,110 @@
         });
 
         //filtra através da tabela cliente
+        $(document).on('click', '#_salvar', function(e) {
+            e.preventDefault;
+
+            var token = Math.random().toString(16).substr(2);
+            
+            var _modelo = $('#_modeloId').val()
+            var valorUni = []
+            var valorUniF = []
+            var quantidade = 0;
+            var valor = 0;
+            
+            $('#produto_id'+_modelo).val(token);
+  
+             // Loop tamanho masculino
+            for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
+                var valorM = $('#valorUnitarioM'+index).val();
+                var qtdM = $('#qtdM'+index).val();
+                if(valorM != "" && qtdM != ""){
+                    valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM.replace(/\./g, "").replace(/,/g, ".")})
+
+                }else{
+                    valorUni.push({quatidadetamanho: 0, valortamanho: 0})
+                }
+
+                $('#valorUnitarioM'+index).val("");
+                $('#qtdM'+index).val("");
+            }  
+
+            // Loop tamanho feminino
+            for (let index = 0; index < $('#totalTamanhoF').val(); index++) {
+                var valorF = $('#valorUnitarioF'+index).val();
+                var qtdF = $('#qtdF'+index).val();
+                if(valorF != "" && qtdF != ""){
+                    valorUniF.push({quatidadetamanho: qtdF, valortamanho: valorF.replace(/\./g, "").replace(/,/g, ".")})
+                }else{
+                    valorUniF.push({quatidadetamanho: 0, valortamanho: 0})
+                }
+                $('#valorUnitarioF'+index).val("");
+                $('#qtdF'+index).val("");
+            }  
+           
+
+            $.ajax({
+                type: 'post',
+                url: '{{ route("detalhes.produto") }}',
+                dataType: 'json',
+                //async: false,
+                data: {
+                        //detalhes: $('[name="produto_id'+_modelo+'"]').val(),
+                        token: token,
+                        modelo:$('#_modeloId').val(),
+                        cor_principal: $('[name="cor_principal"]').val(),
+                        cor_secundaria: $('[name="cor_secundaria"]').val(),
+                        cor_terciaria: $('[name="cor_terciaria"]').val(),
+                        tecido_principal: $('[name="tecido_principal"]').val(),
+                        tecido_secundario: $('[name="tecido_secundario"]').val(),
+                        tecido_terciario: $('[name="tecido_terciario"]').val(),
+                        quantidadeSemtamanho: $('[name="quantidadeSemtamanho"]').val(),
+                        valorSemtamanho: $('[name="valorSemtamanho"]').val(),
+                        frente: $('[name="frente"]').val(),
+                        costa: $('[name="costa"]').val(),
+                        manga_direita: $('[name="manga_direita"]').val(),
+                        manga_esquerda: $('[name="manga_esquerda"]').val(),
+                        tipo: $('[name="tipo"]').val(),
+                        tamanhoM: valorUni,
+                        tamanhoF: valorUniF,
+                        //alorUnitarioM:$('[name="valorUnitarioM[]"]').val(),
+                    },
+                
+                //contentType: "application/json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data){
+                    //var $el = $('[name=estado]');
+                    var data = JSON.parse(JSON.stringify(data));
+                    var cnpj = data.cpf_cnpj
+                    console.log(data);
+                   
+                    
+                }
+            });
+
+            $('[name="cor_principal"]').val('');
+            $('[name="cor_secundaria"]').val('');
+            $('[name="cor_terciaria"]').val('');
+            $('[name="tecido_principal"]').val('');
+            $('[name="tecido_secundario"]').val('');
+            $('[name="tecido_terciario"]').val('');
+            $('[name="quantidadeSemtamanho"]').val('');
+            $('[name="valorSemtamanho"]').val('');
+            $('[name="frente"]').val('');
+            $('[name="costa"]').val('');
+            $('[name="manga_direita"]').val('');
+            $('[name="manga_esquerda"]').val('');
+            $('[name="tipo"]').val('');
+            $(".valorM").html("");
+            $(".totalM").html("");
+            $("#valorTotal").html("");
+            $('#quantidadeTotal').html("");
+            $(".valorF").html("");
+            $('.totalF').html("");
+        });
+        //filtra através da tabela cliente
         $(document).on('click', '._selecionar', function(e) {
             e.preventDefault;
 
@@ -191,6 +302,7 @@
            // alert(tipo_pedido); 
             e.preventDefault;           
             $.ajax({
+                
                 type: 'post',
                 url: '{{ route("pedido.cliente.searchPedido") }}',
                 dataType: 'json',
@@ -278,6 +390,7 @@
                                 "<tr>"
                             );
                             //$(this).closest('table').append(row);
+                            $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
                             loading_hide();
                         } 
                     } else {
@@ -340,6 +453,7 @@
                                     '</td>'+
                                 "<tr>"
                             );
+                            $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
                             loading_hide();
                             //$(this).closest('table').append(row);
                         } 
@@ -367,10 +481,80 @@
             var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
             var nome_produto = $(this).closest('tr').find('td[data-nome_produto]').data('nome_produto');
             var subgrupo = $(this).closest('tr').find('td[data-subgrupo]').data('subgrupo');
+            var produtoId = []//$('[name="produto_id'+modelo+'"]').val();
+            var token = $('#produto_id'+modelo).val();
 
+            console.log(token);
             $('#nome_produto').html(nome_produto);
             $('.grupo').html(subgrupo);
+            $('#nome_modelo').html(modelo);
+            $('#_modeloId').val(modelo);
+           if (token != "") {
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route("recuperar.detalhes.produto") }}',
+                    dataType: 'json',
+                   
+                    //async: false,
+                    data: {
+                            //detalhes: $('[name="produto_id'+_modelo+'"]').val(),
+                            token: token,
+                        },
+                    
+                    //contentType: "application/json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data){
+                        //var $el = $('[name=estado]');
+                        var data = JSON.parse(JSON.stringify(data));
+                        console.log(data);
+    
+                        if(data.success == true){
+                            $('[name="cor_principal"]').val(data.cor_principal);
+                            $('[name="cor_secundaria"]').val(data.cor_secundaria);
+                            $('[name="cor_terciaria"]').val(data.cor_terciaria);
+                            $('[name="tecido_principal"]').val(data.tecido_principal);
+                            $('[name="tecido_secundario"]').val(data.tecido_secundario);
+                            $('[name="tecido_terciario"]').val(data.tecido_terciario);
+                            $('[name="quantidadeSemtamanho"]').val(data.quantidadeSemtamanho);
+                            $('[name="valorSemtamanho"]').val(data.valorSemtamanho);
+                            $('[name="frente"]').val(data.frente);
+                            $('[name="costa"]').val(data.costa);
+                            $('[name="manga_direita"]').val(data.manga_direita);
+                            $('[name="manga_esquerda"]').val(data.manga_esquerda);
+                            $('[name="tipo"]').val(data.tipo);
+    
+                            var tamanhoF =  data.tamanhoF;
+                            for (let index = 0; index < tamanhoF.length; index++) {
+                                const element = tamanhoF[index];
+                                console.log(element.quatidadetamanho);
+    
+                                if (element.quatidadetamanho != 0) {
+                                    $('#valorUnitarioF'+index).val(element.valortamanho.replace(".", ",")); 
+                                    $('#qtdF'+index).val(element.quatidadetamanho);
+                                }
+                                
+                            }
+    
+                            var tamanhoM =  data.tamanhoM;
+                            for (let index = 0; index < tamanhoM.length; index++) {
+                                const element = tamanhoF[index];
+    
+                                if (element.quatidadetamanho != 0) {
+                                    $('#valorUnitarioM'+index).val(element.valortamanho.replace(".", ",")); 
+                                    $('#qtdM'+index).val(element.quatidadetamanho);
+                                }
+                            }
+                        }
+                       
+                        
+                    }
+                });
+            } 
+
             $(".modalProduto").modal('show');
+            
         });
         $("._adicionarProduto").on("click", ".remover", function(e){
             e.preventDefault;

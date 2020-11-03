@@ -53,11 +53,13 @@ class EstoqueController extends Controller
 
         $produto = $this->dadosProduto->find($id);
         $dados = $request->all();
+        
         $dados['produto_id'] = $produto->id;
+        $dados['preco_venda'] = $request->preco_venda != '' ?? null;
+        $dados['custo_atual'] = $request->custo_atual != '' ?? null;
         $dados['estoque_atual'] = $request->estoque_inicial;
         $dados['status_id'] = 1;
 
-        
         if(!$produto){
             return redirect()->back();
         }
@@ -94,6 +96,7 @@ class EstoqueController extends Controller
     }
     public function update(StoreUpdateEstoqueRequest $request, $id)
     {
+        
         $request->merge([
             "custo_atual" => str_replace(['.'], '', $request->custo_atual),
             "custo_atual" => str_replace([','],'.', $request->custo_atual),
@@ -105,6 +108,8 @@ class EstoqueController extends Controller
         $dados = $request->all();
         //$dados['estoque_id'] = $estoque->id;
         $dados['estoque_atual'] = $request->estoque_inicial;
+        $dados['preco_venda'] = $request->preco_venda != '' ?? null;
+        $dados['custo_atual'] = $request->custo_atual != '' ?? null;
         $dados['status_id'] = 1;
         if(!$estoque){
             return redirect()->back();

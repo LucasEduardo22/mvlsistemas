@@ -118,4 +118,33 @@ class PedidoController extends Controller
 
         
     }
+
+    public function detalhesProduto(Request $request)
+    {
+        //guarda detalhe do produto;
+        $token = $request->token;
+        $dados = $request->all();
+        $request->session()->put($token, $dados);    
+        
+        $produto['success'] = true;
+        $produto['message'] = "detalhes adicionado.";
+        return response()->json($produto);
+    }
+
+    public function recuperarDetalhesProduto(Request $request)
+    {
+        //dd($request->all());
+        //guarda detalhe do produto;
+        $token = $request->token;
+
+        $detalhes = $request->session()->get($token);    
+        //dd($detalhes);
+        // Deletando uma sessão específica:
+        $request->session()->forget($token);
+
+        $detalhes['success'] = true;
+        $detalhes['message'] = "detalhes adicionado.";
+
+        return response()->json($detalhes);
+    }
 }
