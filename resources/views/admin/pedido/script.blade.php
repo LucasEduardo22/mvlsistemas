@@ -75,7 +75,7 @@
                     total += totalf;
                 }
             });
-            console.log(totalf);
+            //console.log(totalf);
             if (totalf > 0 || totalQuantidadef > 0) {
                 $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                 $('.totalF').html(totalQuantidadef);
@@ -145,13 +145,14 @@
             e.preventDefault;
 
             var token = Math.random().toString(16).substr(2);
-            
+            var total = 0
             var _modelo = $('#_modeloId').val()
-            var valorUni = []
-            var valorUniF = []
+            var valorUni = [];
+            var valorUniF = [];
+            var valorTotal = [];
             var quantidade = 0;
             var valor = 0;
-            
+            var totalQuantidade = 0;
             $('#produto_id'+_modelo).val(token);
   
              // Loop tamanho masculino
@@ -160,6 +161,7 @@
                 var qtdM = $('#qtdM'+index).val();
                 if(valorM != "" && qtdM != ""){
                     valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM.replace(/\./g, "").replace(/,/g, ".")})
+                    totalQuantidade += Number(qtdM);
 
                 }else{
                     valorUni.push({quatidadetamanho: 0, valortamanho: 0})
@@ -175,13 +177,57 @@
                 var qtdF = $('#qtdF'+index).val();
                 if(valorF != "" && qtdF != ""){
                     valorUniF.push({quatidadetamanho: qtdF, valortamanho: valorF.replace(/\./g, "").replace(/,/g, ".")})
+                    totalQuantidade += Number(qtdF);
                 }else{
                     valorUniF.push({quatidadetamanho: 0, valortamanho: 0})
                 }
                 $('#valorUnitarioF'+index).val("");
                 $('#qtdF'+index).val("");
             }  
-           
+
+            $(valorUni).each(function (key, value) {
+                var qtdm = valorUni[key].quatidadetamanho
+                var valorm = valorUni[key].valortamanho
+                if (valorm != 0 && qtdm != 0) {
+                    total += Number(qtdm) * Number(valorm);
+                }
+            });
+            $(valorUniF).each(function (key, value) {
+                var qtdf = valorUniF[key].quatidadetamanho
+                var valorf = valorUniF[key].valortamanho
+                if (valorf != 0 && qtdf != 0) {
+                    total += Number(qtdf) * Number(valorf);
+                }
+            });
+
+            $("#qtd_item"+_modelo).html(totalQuantidade);
+            $("#valor_item"+_modelo).html(total);
+
+            var qtd_total = Number($('[name="qtd_total"]').val());
+            var valor_total = Number($('[name="valor_total"]').val());
+
+            var filtrar =  $(".modeloId").val();
+            if(valorTotal.length == 0){
+                valorTotal.push({modelo: _modelo, qtd_total: qtd_total, valor_total});
+                qtd_total = totalQuantidade;
+                valor_total = total
+            }else{
+                for (let index = 0; index < valorTotal.length; index++) {
+                    const element = valorTotal[index];
+                    if (element.modelo ==  _modelo) {
+                        qtd_total = totalQuantidade;
+                        valor_total = total
+                    } else {
+                        qtd_total += totalQuantidade
+                        valor_total += total
+                    }
+                }
+            }
+
+            $('[name="qtd_total"]').val(qtd_total);
+            $('[name="valor_total"]').val(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+            $("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+            $('#_qtd_itens').html(qtd_total + " Peças");
 
             $.ajax({
                 type: 'post',
@@ -218,7 +264,7 @@
                     //var $el = $('[name=estado]');
                     var data = JSON.parse(JSON.stringify(data));
                     var cnpj = data.cpf_cnpj
-                    console.log(data);
+                    //console.log(data);
                    
                     
                 }
@@ -273,7 +319,7 @@
                     //var $el = $('[name=estado]');
                     var data = JSON.parse(JSON.stringify(data));
                     var cnpj = data.cpf_cnpj
-                    console.log(data);
+                    //console.log(data);
                    if (data != 0) {
                         $('#modalCliente').modal('hide')
                         $('#nome').html(data.nome);
@@ -324,7 +370,7 @@
                     //var $el = $('[name=estado]');
                     var data = JSON.parse(JSON.stringify(data));
                     var cnpj = data.cpf_cnpj
-                    console.log(data.codigo);
+                    //console.log(data.codigo);
                     if (data != 0) {
                         $('#modalCliente').modal('hide')
                         $('#nome').html(data.nome);
@@ -372,7 +418,7 @@
                     //var $el = $('[name=estado]');
                     var data = JSON.parse(JSON.stringify(data));
                     //var cnpj = data.cpf_cnpj
-                    console.log(data);
+                    //console.log(data);
                     if (data.success == true) {
                         if (data != 0) {
                             $('#modallistaProduto').modal('hide')
@@ -381,8 +427,8 @@
                                     "<td data-modelo='"+data.modelo+"'>"+data.modelo+'<input value="'+data.id+'" type="hidden" name="produto_id"/>'+"</td>"+
                                     "<td data-nome_produto='"+data.nome_produto+"'>"+data.nome_produto+"</td>"+
                                     "<td data-subGrupo='"+data.sub_grupo['nome']+"'>"+data.sub_grupo['nome']+"</td>"+
-                                    "<td>0</td>"+
-                                    "<td>R$0,00</td>"+
+                                    "<td id='qtd_item"+data.modelo+"'>0</td>"+
+                                    "<td id='valor_item"+data.modelo+"'>R$0,00</td>"+
                                     '<td style="width: 210px">'
                                         +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
                                         +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
@@ -437,7 +483,7 @@
                     //var $el = $('[name=estado]');
                     var data = JSON.parse(JSON.stringify(data));
                     //var cnpj = data.cpf_cnpj
-                    console.log(data);
+                    //console.log(data);
                     if (data.success == true) {
                         if (data != 0) {
                             $('._adicionarProduto').append(
@@ -445,10 +491,11 @@
                                     "<td data-modelo='"+data.modelo+"'>"+data.modelo+'<input value="'+data.id+'" type="hidden" name="produto_id"/>'+"</td>"+
                                     "<td data-nome_produto='"+data.nome_produto+"'>"+data.nome_produto+"</td>"+
                                     "<td data-subGrupo='"+data.sub_grupo['nome']+"'>"+data.sub_grupo['nome']+"</td>"+
-                                    "<td>0</td>"+
-                                    "<td>R$0,00</td>"+
+                                    "<td id='qtd_item"+data.modelo+"'>0</td>"+
+                                    "<td id='valor_item"+data.modelo+"'>R$0,00</td>"+
                                     '<td style="width: 210px">'
                                         +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
+                                        + '<input value="'+data.modelo+'" type="hidden" class="modeloId"/>'
                                         +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
                                     '</td>'+
                                 "<tr>"
@@ -484,7 +531,7 @@
             var produtoId = []//$('[name="produto_id'+modelo+'"]').val();
             var token = $('#produto_id'+modelo).val();
 
-            console.log(token);
+            //console.log(token);
             $('#nome_produto').html(nome_produto);
             $('.grupo').html(subgrupo);
             $('#nome_modelo').html(modelo);
@@ -508,7 +555,7 @@
                     success: function(data){
                         //var $el = $('[name=estado]');
                         var data = JSON.parse(JSON.stringify(data));
-                        console.log(data);
+                        //console.log(data);
     
                         if(data.success == true){
                             $('[name="cor_principal"]').val(data.cor_principal);
@@ -526,26 +573,46 @@
                             $('[name="tipo"]').val(data.tipo);
     
                             var tamanhoF =  data.tamanhoF;
+                            var totalQuantidadef = 0;
+                            var totalQuantidadeM = 0;
+                            var totalQuantidade = 0;
+                            var totalf = 0;
+                            var totalM = 0;
+                            var total = 0;
+
                             for (let index = 0; index < tamanhoF.length; index++) {
                                 const element = tamanhoF[index];
-                                console.log(element.quatidadetamanho);
-    
                                 if (element.quatidadetamanho != 0) {
                                     $('#valorUnitarioF'+index).val(element.valortamanho.replace(".", ",")); 
                                     $('#qtdF'+index).val(element.quatidadetamanho);
+                                    totalQuantidadef += Number(element.quatidadetamanho)
+                                    totalf += Number(element.quatidadetamanho) * Number(element.valortamanho);
+            
                                 }
-                                
                             }
     
                             var tamanhoM =  data.tamanhoM;
                             for (let index = 0; index < tamanhoM.length; index++) {
-                                const element = tamanhoF[index];
+                                const element = tamanhoM[index];
     
                                 if (element.quatidadetamanho != 0) {
                                     $('#valorUnitarioM'+index).val(element.valortamanho.replace(".", ",")); 
                                     $('#qtdM'+index).val(element.quatidadetamanho);
+                                    totalQuantidadeM += Number(element.quatidadetamanho)
+                                    totalM += Number(element.quatidadetamanho) * Number(element.valortamanho);
+                                    
+                                    
                                 }
                             }
+                            totalQuantidade = totalQuantidadeM +  totalQuantidadef
+                            total = totalM + totalf;
+
+                            $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                            $('.totalF').html(totalQuantidadef);
+                            $(".valorM").html(totalM.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                            $(".totalM").html(totalQuantidadeM);
+                            $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                            $('#quantidadeTotal').html(totalQuantidade + " Peças");
                         }
                        
                         
