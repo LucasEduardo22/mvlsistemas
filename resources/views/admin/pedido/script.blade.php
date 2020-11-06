@@ -201,33 +201,28 @@
             });
 
             $("#qtd_item"+_modelo).html(totalQuantidade);
-            $("#valor_item"+_modelo).html(total);
+            $("#valor_item"+_modelo).html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
 
-            var qtd_total = Number($('[name="qtd_total"]').val());
-            var valor_total = Number($('[name="valor_total"]').val());
+            $('[name="qtd_total'+_modelo+'"]').val(totalQuantidade);
+            $('[name="valor_total'+_modelo+'"]').val(total);
 
-            var filtrar =  $(".modeloId").val();
-            if(valorTotal.length == 0){
-                valorTotal.push({modelo: _modelo, qtd_total: qtd_total, valor_total});
-                qtd_total = totalQuantidade;
-                valor_total = total
-            }else{
-                for (let index = 0; index < valorTotal.length; index++) {
-                    const element = valorTotal[index];
-                    if (element.modelo ==  _modelo) {
-                        qtd_total = totalQuantidade;
-                        valor_total = total
-                    } else {
-                        qtd_total += totalQuantidade
-                        valor_total += total
-                    }
-                }
-            }
+         
+            //declaro uma var para somar o total tela pedido
+            var qtd_total = 0;
+            var valor_total = 0;
+            //faço um foreach percorrendo todos os inputs com a class soma e faço a soma na var criada acima
+            $(".qtd_produto").each(function(){
+                qtd_total = qtd_total + Number($(this).val());  
+            });
 
-            $('[name="qtd_total"]').val(qtd_total);
-            $('[name="valor_total"]').val(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+            $(".valor_produto").each(function(){
+               valor_total = valor_total + Number($(this).val());  
+            });
+
+            console.log(qtd_total);
+            //$("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+            $('#_qtd_itens').html(qtd_total + " Peças"); 
             $("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
-            $('#_qtd_itens').html(qtd_total + " Peças");
 
             $.ajax({
                 type: 'post',
@@ -427,8 +422,8 @@
                                     "<td data-modelo='"+data.modelo+"'>"+data.modelo+'<input value="'+data.id+'" type="hidden" name="produto_id"/>'+"</td>"+
                                     "<td data-nome_produto='"+data.nome_produto+"'>"+data.nome_produto+"</td>"+
                                     "<td data-subGrupo='"+data.sub_grupo['nome']+"'>"+data.sub_grupo['nome']+"</td>"+
-                                    "<td id='qtd_item"+data.modelo+"'>0</td>"+
-                                    "<td id='valor_item"+data.modelo+"'>R$0,00</td>"+
+                                    "<td id='qtd_item"+data.modelo+"'></td>"+
+                                    "<td id='valor_item"+data.modelo+"'></td>"+
                                     '<td style="width: 210px">'
                                         +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
                                         +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
@@ -437,6 +432,8 @@
                             );
                             //$(this).closest('table').append(row);
                             $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
+                            $('#itens').append('<input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">');
+                            $('#itens').append('<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0">');
                             loading_hide();
                         } 
                     } else {
@@ -491,8 +488,8 @@
                                     "<td data-modelo='"+data.modelo+"'>"+data.modelo+'<input value="'+data.id+'" type="hidden" name="produto_id"/>'+"</td>"+
                                     "<td data-nome_produto='"+data.nome_produto+"'>"+data.nome_produto+"</td>"+
                                     "<td data-subGrupo='"+data.sub_grupo['nome']+"'>"+data.sub_grupo['nome']+"</td>"+
-                                    "<td id='qtd_item"+data.modelo+"'>0</td>"+
-                                    "<td id='valor_item"+data.modelo+"'>R$0,00</td>"+
+                                    "<td id='qtd_item"+data.modelo+"'></td>"+
+                                    "<td id='valor_item"+data.modelo+"'></td>"+
                                     '<td style="width: 210px">'
                                         +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
                                         + '<input value="'+data.modelo+'" type="hidden" class="modeloId"/>'
@@ -501,6 +498,8 @@
                                 "<tr>"
                             );
                             $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
+                            $('#itens').append('<input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">');
+                            $('#itens').append('<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0">');
                             loading_hide();
                             //$(this).closest('table').append(row);
                         } 
@@ -625,6 +624,38 @@
         });
         $("._adicionarProduto").on("click", ".remover", function(e){
             e.preventDefault;
+            var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
+            var token = $('#produto_id'+modelo).val();
+
+            if (token != "") {
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route("deleta.detalhes.produto") }}',
+                    dataType: 'json',
+                
+                    //async: false,
+                    data: {
+                            //detalhes: $('[name="produto_id'+_modelo+'"]').val(),
+                            token: token,
+                        },
+                    
+                    //contentType: "application/json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data){
+                        //var $el = $('[name=estado]');
+                        var data = JSON.parse(JSON.stringify(data));
+                        //console.log(data);
+
+                        if(data.success == true){
+                           alert(data.message);
+                        }
+                    
+                        
+                    }
+                });
+            } 
             $(this).closest('tr').remove(); 
         });
 

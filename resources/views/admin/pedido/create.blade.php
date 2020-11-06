@@ -69,11 +69,10 @@
                                     <p>Situção: <strong class="text-success" id="_status">Pendente</strong></p>
                                 </div>
                                 <div class="form-group col-md-4">
-                                    <input type="hidden" name="qtd_total" value="0">
                                     <p>Preço total: <strong class="text-dark" id="_qtd_itens"></strong></p>
                                 </div>
                                 <div class="form-group col-md-4 pr-2">
-                                    <input type="hidden" name="valor_total" value="0">
+                                    
                                     <p>Quantidade total: <strong class="text-dark" id="_valor_itens"></strong></p>
                                 </div>
                                 <div class="form-group col-md-4 pr-2">

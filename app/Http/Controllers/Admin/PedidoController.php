@@ -140,10 +140,24 @@ class PedidoController extends Controller
         $detalhes = $request->session()->get($token);    
         //dd($detalhes);
         // Deletando uma sessão específica:
-        $request->session()->forget($token);
+        //$request->session()->forget($token);
 
         $detalhes['success'] = true;
         $detalhes['message'] = "detalhes adicionado.";
+
+        return response()->json($detalhes);
+    }
+
+    public function deletaDetalhesProduto(Request $request)
+    {
+        $token = $request->token;
+        $detalhes = $request->session()->get($token);    
+
+        // Deletando uma sessão específica:
+        $request->session()->forget($token);
+
+        $detalhes['success'] = true;
+        $detalhes['message'] = "deletato com sucesso.";
 
         return response()->json($detalhes);
     }

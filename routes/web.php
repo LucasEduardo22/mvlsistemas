@@ -104,6 +104,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
     Route::post('/home/pedido/adicionar-poduto-detalhes', 'Admin\PedidoController@detalhesProduto')->name('detalhes.produto');
     Route::post('/home/pedido/adicionar-poduto-recuperar-detalhes', 'Admin\PedidoController@recuperarDetalhesProduto')->name('recuperar.detalhes.produto');
+    Route::post('/home/pedido/adicionar-poduto-deleta-detalhes', 'Admin\PedidoController@deletaDetalhesProduto')->name('deleta.detalhes.produto');
 
     //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.
     Route::post('/estado/search', 'Admin\EnderecoController@searchEstado')->name('endereco.estado.search');
