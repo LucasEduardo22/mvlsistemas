@@ -492,14 +492,12 @@
                                     "<td id='valor_item"+data.modelo+"'></td>"+
                                     '<td style="width: 210px">'
                                         +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
-                                        + '<input value="'+data.modelo+'" type="hidden" class="modeloId"/>'
+                                        + '<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0"> <input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">'
                                         +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
                                     '</td>'+
                                 "<tr>"
                             );
                             $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
-                            $('#itens').append('<input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">');
-                            $('#itens').append('<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0">');
                             loading_hide();
                             //$(this).closest('table').append(row);
                         } 
@@ -647,9 +645,23 @@
                         //var $el = $('[name=estado]');
                         var data = JSON.parse(JSON.stringify(data));
                         //console.log(data);
-
+                        //declaro uma var para somar o total tela pedido
+                        var qtd_total = 0;
+                        var valor_total = 0;
+          
                         if(data.success == true){
-                           alert(data.message);
+                            //faço um foreach percorrendo todos os inputs com a class soma e faço a soma na var criada acima
+                            $(".qtd_produto").each(function(){
+                                qtd_total = qtd_total + Number($(this).val());  
+                            });
+
+                            $(".valor_produto").each(function(){
+                                valor_total = valor_total + Number($(this).val());  
+                            });
+                            alert(data.message);
+                            //$("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                            $('#_qtd_itens').html(qtd_total + " Peças"); 
+                            $("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                         }
                     
                         
