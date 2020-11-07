@@ -103,6 +103,11 @@
             var tipo_pedido = $(this).val();
             $('[name="tipo_pedido_id"]').val(tipo_pedido)
         })
+
+        $('.tipos').change(function(){
+            var tipo = $(this).val();
+            $('[name="tipo"]').val(tipo)
+        })
         
 
         $('.tipos').change(function(){
@@ -142,7 +147,7 @@
 
         //filtra através da tabela cliente
         $(document).on('click', '#_salvar', function(e) {
-            e.preventDefault;
+            e.preventDefault();
 
             var token = Math.random().toString(16).substr(2);
             var total = 0
@@ -154,6 +159,7 @@
             var valor = 0;
             var totalQuantidade = 0;
             $('#produto_id'+_modelo).val(token);
+            $('[name="tokenProduto[]"]').val(token);
   
              // Loop tamanho masculino
             for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
@@ -199,6 +205,15 @@
                     total += Number(qtdf) * Number(valorf);
                 }
             });
+
+            if ($('[name="tipo"]').val() == "N") {
+                var valorSTotal = $('[name="valorSemtamanho"]').val()
+                totalQuantidade = $('[name="quantidadeSemtamanho"]').val();
+
+                totalS = Number(valorSTotal.replace(/\./g, "").replace(/,/g, ".")) * totalQuantidade;
+                total = Number(valorSTotal.replace(/\./g, "").replace(/,/g, "."));
+
+            }
 
             $("#qtd_item"+_modelo).html(totalQuantidade);
             $("#valor_item"+_modelo).html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
@@ -284,10 +299,13 @@
             $('#quantidadeTotal').html("");
             $(".valorF").html("");
             $('.totalF').html("");
+            $('#valor_totalS').html("");
         });
+
+
         //filtra através da tabela cliente
         $(document).on('click', '._selecionar', function(e) {
-            e.preventDefault;
+            e.preventDefault();
 
             var id = $(this).closest('tr').find('td[data-id]').data('id');
 
@@ -324,12 +342,13 @@
                         $('#cidade').html(data.cidade);
                         $('#estado').html(data.estado);
                         $('[name="codigo"]').val(data.id);
+                        $('[name="client_id"]').val(data.id);
+                        $('[name="filtrar_cliente"]').val("");
                         loading_hide();
                         //$('#_codigo').html(data.id);
                     } else {
                         loading_hide();
                         alert("dados não encontrado");
-
                     }  
                     
                 }
@@ -341,7 +360,7 @@
             var tipo_pedido = $(".forma_pagamento option:selected").val();
             /* var id =  $('[name=filtrar_cliente]').val()*/
            // alert(tipo_pedido); 
-            e.preventDefault;           
+            e.preventDefault();           
             $.ajax({
                 
                 type: 'post',
@@ -375,7 +394,8 @@
                         $('#cidade').html(data.cidade);
                         $('#estado').html(data.estado);
                         $('[name="codigo"]').val(data.id);
-                        //$('#_codigo').html(data.id);
+                        $('[name="client_id"]').val(data.id);
+                        $('[name="filtrar_cliente"]').val("");
                         loading_hide();
 
                     } else {
@@ -389,7 +409,7 @@
 
         //filtra através da tabela produto
         $(document).on('click', '.modelo_id', function(e){
-            e.preventDefault;
+            e.preventDefault();
             //console.log(id);
 
             $.ajax({
@@ -426,14 +446,14 @@
                                     "<td id='valor_item"+data.modelo+"'></td>"+
                                     '<td style="width: 210px">'
                                         +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
+                                        + '<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0"> <input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">'
                                         +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
                                     '</td>'+
                                 "<tr>"
                             );
-                            //$(this).closest('table').append(row);
-                            $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
-                            $('#itens').append('<input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">');
-                            $('#itens').append('<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0">');
+                            $('[name="filtrar_modelo"]').val("");
+                            $('#itens').append('<input value="" class="produto_item" name="tokenProduto[]" type="hidden" id="produto_id'+data.modelo+'"/>');
+                           /*  $('#itens').append('<input type="hidden" id="_tokenProduto" name="tokenProduto[]">'); */
                             loading_hide();
                         } 
                     } else {
@@ -456,7 +476,7 @@
 
         //filtra a através do campo modelo
         $(document).on('click', '#search_modelo', function(e){
-            e.preventDefault;
+            e.preventDefault();
             //console.log(id);
             //var codigo_pedido = $('[name="codigo"]').val();
             $.ajax({
@@ -491,23 +511,20 @@
                                     "<td id='qtd_item"+data.modelo+"'></td>"+
                                     "<td id='valor_item"+data.modelo+"'></td>"+
                                     '<td style="width: 210px">'
-                                        +'<button href="" class="btn btn-primary detalhes" data-toggle="modal" >detalhes</button>'
+                                        +'<button href="" class="btn btn-primary text-light detalhes" data-toggle="modal" >detalhes</button>'
                                         + '<input type="hidden"  class="valor_produto" name="valor_total'+data.modelo+'" value="0"> <input type="hidden" class="qtd_produto" name="qtd_total'+data.modelo+'" value="0">'
-                                        +'<button href="" class="ml-1 btn btn-danger remover"><i class="fas fa-trash"></i></button>'+
+                                        +'<button href="" class="ml-1 btn btn-danger text-light remover"><i class="fas fa-trash"></i></button>'+
                                     '</td>'+
                                 "<tr>"
                             );
-                            $('#itens').append('<input value="" type="hidden" id="produto_id'+data.modelo+'"/>');
+                            $('#itens').append('<input value="" class="produto_item" name="tokenProduto[]" type="hidden" id="produto_id'+data.modelo+'"/>');
+                           /*  $('#itens').append('<input type="hidden" id="_tokenProduto" name="tokenProduto[]">'); */
+                            $('[name="filtrar_modelo"]').val("");
                             loading_hide();
                             //$(this).closest('table').append(row);
                         } 
                     } else {
 
-                        /* $(".messageBox").removeClass('d-none').html(data.message + 
-                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
-                                +'<span aria-hidden="true">&times;</span>'
-                                +"</button>"
-                                ); */
                         loading_hide();
                         alert(data.message);
                         /* setTimeout(function(){
@@ -521,7 +538,7 @@
         });
 
         $("._adicionarProduto").on("click", ".detalhes", function(e){
-            e.preventDefault;
+            e.preventDefault();
             var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
             var nome_produto = $(this).closest('tr').find('td[data-nome_produto]').data('nome_produto');
             var subgrupo = $(this).closest('tr').find('td[data-subgrupo]').data('subgrupo');
@@ -620,8 +637,9 @@
             $(".modalProduto").modal('show');
             
         });
+
         $("._adicionarProduto").on("click", ".remover", function(e){
-            e.preventDefault;
+            e.preventDefault();
             var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
             var token = $('#produto_id'+modelo).val();
 
@@ -669,6 +687,7 @@
                 });
             } 
             $(this).closest('tr').remove(); 
+            $('#produto_id'+modelo).remove();
         });
 
         //função para mostrar o loading

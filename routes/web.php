@@ -100,6 +100,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/pedido/index', 'Admin\PedidoController@index')->name('pedido.index');
     Route::any('/pedido/search-pedido', 'Admin\PedidoController@searchCliente')->name('pedido.search');
     Route::get('/home/pedido/create', 'Admin\PedidoController@createPedido')->name('pedido.create');
+    Route::post('/home/pedido/store', 'Admin\PedidoController@storePedido')->name('pedido.store');
     Route::any('/cliente/adicionar-cliente', 'Admin\PedidoController@searchCliente')->name('pedido.cliente.searchPedido'); 
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
     Route::post('/home/pedido/adicionar-poduto-detalhes', 'Admin\PedidoController@detalhesProduto')->name('detalhes.produto');

@@ -51,6 +51,11 @@ class PedidoController extends Controller
         return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
     }
 
+    public function storePedido(Request $request)
+    {
+        dd($request->all());
+    }
+    
     public function searchCliente(Request $request){
         $request->merge([
             'filtrar' => str_replace(['.', '/','-'], '', $request->filtrar),

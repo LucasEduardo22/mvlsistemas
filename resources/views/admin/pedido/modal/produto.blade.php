@@ -17,24 +17,25 @@
                         </div> --}}
                         <div class="form-group col-md-6">
                             <label for="_modelo">Tipo de tamanho:</label><br>
+                            <input type="hidden" name="tipo">
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="T" checked>
+                                <input class="form-check-input tipos" type="radio" name="tipos" id="tipo" value="T" checked>
                                 <label class="form-check-label" for="tipoT">Todos</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="M">
+                                <input class="form-check-input tipos" type="radio" name="tipos" id="tipo" value="M">
                                 <label class="form-check-label" for="tipoM">Masculino</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="F">
+                                <input class="form-check-input tipos" type="radio" name="tipos" id="tipo" value="F">
                                 <label class="form-check-label" for="tipoF">Feminino</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="U">
+                                <input class="form-check-input tipos" type="radio" name="tipos" id="tipo" value="U">
                                 <label class="form-check-label" for="tipoF">Unissex</label>
                             </div>
                             <div class="form-check form-check-inline">
-                                <input class="form-check-input tipos" type="radio" name="tipo" id="tipo" value="N">
+                                <input class="form-check-input tipos" type="radio" name="tipos" id="tipo" value="N">
                                 <label class="form-check-label" for="tipoF">Tamanho único</label>
                             </div>
                         </div>
@@ -309,7 +310,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" id="_salvar" class="btn btn-secondary" data-dismiss="modal">ADD</button>
+                <button type="button" id="_salvar" class="btn btn-primary" data-dismiss="modal">Salvar</button>
             </div>
         </div>
     </div>
