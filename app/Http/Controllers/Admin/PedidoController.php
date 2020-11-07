@@ -53,7 +53,7 @@ class PedidoController extends Controller
 
     public function storePedido(Request $request)
     {
-        dd($request->all());
+        //dd($request->all());
     }
     
     public function searchCliente(Request $request){
