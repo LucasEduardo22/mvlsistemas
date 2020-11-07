@@ -29,7 +29,7 @@
                                 <select id="_forma_pagamento" name="forma_pagamento" class="form-control forma_pagamento @error('forma_pagamento') is-invalid @enderror">
                                     <option value="0">Selecione</option>
                                     @foreach ($formaPagamentos as $formaPagamento)
-                                        <option value="{{$formaPagamento->id}}" {{-- @if(old('forma_pagamento_id', !empty($formaPagamento->id) ? $formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif --}}>{{$formaPagamento->nome}}</option>
+                                        <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($formaPagamento->id) ? $formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
                                     @endforeach
                                 </select>
                                 @error('forma_pagamento_id')
@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <input type="hidden" name="client_id">
+                        <input type="hidden" name="cliente_id">
                         <ul class="list-unstyled">
                             <li>Cliente: <strong id="nome"></strong></li>
                             <li>CNPJ: <strong id="_cpf_cnpj"></strong></li>

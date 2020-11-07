@@ -19,4 +19,5 @@ class Pedido extends Model
     public function vendedor(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
 }

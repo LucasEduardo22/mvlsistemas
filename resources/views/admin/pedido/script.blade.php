@@ -145,7 +145,7 @@
             }			
         });
 
-        //filtra através da tabela cliente
+        //Modelo
         $(document).on('click', '#_salvar', function(e) {
             e.preventDefault();
 
@@ -159,7 +159,7 @@
             var valor = 0;
             var totalQuantidade = 0;
             $('#produto_id'+_modelo).val(token);
-            $('[name="tokenProduto[]"]').val(token);
+            //$('[name="tokenProduto[]"]').append(token);
   
              // Loop tamanho masculino
             for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
@@ -210,9 +210,7 @@
                 var valorSTotal = $('[name="valorSemtamanho"]').val()
                 totalQuantidade = $('[name="quantidadeSemtamanho"]').val();
 
-                totalS = Number(valorSTotal.replace(/\./g, "").replace(/,/g, ".")) * totalQuantidade;
-                total = Number(valorSTotal.replace(/\./g, "").replace(/,/g, "."));
-
+                total = Number(valorSTotal.replace(/\./g, "").replace(/,/g, ".")) * totalQuantidade;
             }
 
             $("#qtd_item"+_modelo).html(totalQuantidade);
@@ -292,7 +290,7 @@
             $('[name="costa"]').val('');
             $('[name="manga_direita"]').val('');
             $('[name="manga_esquerda"]').val('');
-            $('[name="tipo"]').val('');
+            $('[name="tipo"]').val('T');
             $(".valorM").html("");
             $(".totalM").html("");
             $("#valorTotal").html("");
@@ -342,7 +340,7 @@
                         $('#cidade').html(data.cidade);
                         $('#estado').html(data.estado);
                         $('[name="codigo"]').val(data.id);
-                        $('[name="client_id"]').val(data.id);
+                        $('[name="cliente_id"]').val(data.id);
                         $('[name="filtrar_cliente"]').val("");
                         loading_hide();
                         //$('#_codigo').html(data.id);
@@ -394,7 +392,7 @@
                         $('#cidade').html(data.cidade);
                         $('#estado').html(data.estado);
                         $('[name="codigo"]').val(data.id);
-                        $('[name="client_id"]').val(data.id);
+                        $('[name="cliente_id"]').val(data.id);
                         $('[name="filtrar_cliente"]').val("");
                         loading_hide();
 
@@ -452,8 +450,8 @@
                                 "<tr>"
                             );
                             $('[name="filtrar_modelo"]').val("");
-                            $('#itens').append('<input value="" class="produto_item" name="tokenProduto[]" type="hidden" id="produto_id'+data.modelo+'"/>');
-                           /*  $('#itens').append('<input type="hidden" id="_tokenProduto" name="tokenProduto[]">'); */
+                            $('#itens').append('<input value="" name="tokenProduto[]" name="tokenProduto[]" class="produto_item" type="hidden" id="produto_id'+data.modelo+'"/>');
+                            /* $('#itens').append('<input type="hidden" id="_tokenProduto" name="tokenProduto[]">'); */
                             loading_hide();
                         } 
                     } else {
@@ -517,8 +515,8 @@
                                     '</td>'+
                                 "<tr>"
                             );
-                            $('#itens').append('<input value="" class="produto_item" name="tokenProduto[]" type="hidden" id="produto_id'+data.modelo+'"/>');
-                           /*  $('#itens').append('<input type="hidden" id="_tokenProduto" name="tokenProduto[]">'); */
+                            $('#itens').append('<input value="" name="tokenProduto[]" class="produto_item" type="hidden" id="produto_id'+data.modelo+'"/>');
+                            /* $('#itens').append('<input type="hidden" id="_tokenProduto" name="tokenProduto[]">'); */
                             $('[name="filtrar_modelo"]').val("");
                             loading_hide();
                             //$(this).closest('table').append(row);
@@ -593,7 +591,9 @@
                             var totalf = 0;
                             var totalM = 0;
                             var total = 0;
-
+                            var valorSemtamanho = data.valorSemtamanho;
+                            var quantidadeSemtamanho = data.quantidadeSemtamanho;
+                            var totalS = Number(valorSemtamanho.replace(/\./g, "").replace(/,/g, ".")) * Number(quantidadeSemtamanho);
                             for (let index = 0; index < tamanhoF.length; index++) {
                                 const element = tamanhoF[index];
                                 if (element.quatidadetamanho != 0) {
@@ -627,6 +627,7 @@
                             $(".totalM").html(totalQuantidadeM);
                             $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                             $('#quantidadeTotal').html(totalQuantidade + " Peças");
+                            $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                         }
                        
                         

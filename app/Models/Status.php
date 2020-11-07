@@ -11,4 +11,6 @@ class Status extends Model
 
     const ATIVO = 1;
     const PENDENTE = 2;
+    const ORDENPRODUCAO = 3;
+    const CANCELADO = 4;
 }

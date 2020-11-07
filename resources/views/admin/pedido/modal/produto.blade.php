@@ -17,7 +17,7 @@
                         </div> --}}
                         <div class="form-group col-md-6">
                             <label for="_modelo">Tipo de tamanho:</label><br>
-                            <input type="hidden" name="tipo">
+                            <input type="hidden" value="T" name="tipo">
                             <div class="form-check form-check-inline">
                                 <input class="form-check-input tipos" type="radio" name="tipos" id="tipo" value="T" checked>
                                 <label class="form-check-label" for="tipoT">Todos</label>
@@ -229,6 +229,7 @@
                                         <tr>
                                             @foreach ($tamanhos->tamanhoMasculino() as $tamanhoM)
                                                 <td>
+                                                    <input type="hidden" name="tamanhoM[]" value="{{$tamanhoM->id}}">
                                                     {{$tamanhoM->sigla}}
                                                 </td>
                                             @endforeach
@@ -238,7 +239,6 @@
                                         <tr>
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
                                                 <td class="_nomeValor">
-                                                    <input type="hidden" name="nomeQtdM" value="quatidadetamanho{{$i}}">
                                                     <input value="{{old('quantidadeM')}}"  id="qtdM{{$i}}" type="text" name="quantidadeM[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
                                                 </td>
                                             @endfor
@@ -246,7 +246,6 @@
                                         <tr>
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
                                                 <td class="_nomeValor" data-id{{$i}}="{{$i}}">
-                                                    <input type="hidden" name="nomeValorM" class="_valorUnitarioM" name="valortamanho{{$i}}">
                                                     <input value="{{old('valorUnitarioM')}}" id="valorUnitarioM{{$i}}" type="text" name="valorUnitarioM[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
@@ -273,6 +272,7 @@
                                         <tr>
                                             @foreach ($tamanhos->tamanhoFeminino() as $tamanhoF)
                                                 <td>
+                                                    <input type="hidden" name="tamanhoF[]" value="{{$tamanhoF->id}}">
                                                     {{$tamanhoF->sigla}}
                                                 </td>
                                             @endforeach
@@ -296,7 +296,6 @@
                                         <tr>
                                             <th scope="row">Total:</th>
                                             <td colspan="2" class="totalF">
-                                               
                                             </td>
                                             <th scope="row">Valor total:</th>
                                             <td colspan="2" class="valorF dinheiro">R$ <input type="hidden" name="totalF"></td>

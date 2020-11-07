@@ -9,6 +9,7 @@ use App\Models\Produto;
 use App\Models\Tamanho;
 use App\Models\TamanhoProduto;
 use App\Models\Unidade;
+use App\Models\Tecido;
 use Illuminate\Http\Request;
 
 class EstoqueController extends Controller

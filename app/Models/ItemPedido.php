@@ -12,4 +12,8 @@ class ItemPedido extends Model
         'frente', 'costa', 'manga_direita', 'manga_esquerda', 'tipo_tamano'
     ];
 
+    
+    public function tecidos(){
+        return $this->belongsToMany(Tecido::class, "item_pedido_tecidos");
+    }
 }
