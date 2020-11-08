@@ -41,11 +41,11 @@ class ItemPedido extends Model
     {
         $tipoTamanho = ItemPedido::where('id', $id)->first();
         if($tipoTamanho->tipo_tamano == "N"){
-            $quantidade = $tipoTamanho->valor_unitario;
+            $valor = $tipoTamanho->valor_unitario;
         }else{
-            $quantidade = $tipoTamanho->tamanhosItensPedidos->sum('valor_unitario');
+            $valor = $tipoTamanho->tamanhosItensPedidos->sum('valor_unitario');
         }
 
-        return $quantidade;
+        return $valor;
     }
 }

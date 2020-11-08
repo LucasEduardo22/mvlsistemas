@@ -1,5 +1,4 @@
 <script>
-
     $(document).ready(function($) {
 
         $('.cpf_cnpj').mask('00.000.000/0000-00');
@@ -146,7 +145,7 @@
         });
 
         //Modelo
-        $(document).on('click', '#_salvar', function(e) {
+        $(document).on('click', '._salvar', function(e) {
             e.preventDefault();
 
             var token = Math.random().toString(16).substr(2);
@@ -554,7 +553,16 @@
             var subgrupo = $(this).closest('tr').find('td[data-subgrupo]').data('subgrupo');
             var produtoId = []//$('[name="produto_id'+modelo+'"]').val();
             var token = $('#produto_id'+modelo).val();
+            alert(token);
+            var tamanhoM = [];
+            var tamanhoF = [];
+            $("._tamanhoM").each(function(){
+                tamanhoM.push($(this).val());  
+            });
 
+            $("._tamanhoF").each(function(){
+                tamanhoF.push($(this).val());  
+            });
             //console.log(token);
             $('#nome_produto').html(nome_produto);
             $('.grupo').html(subgrupo);
@@ -570,6 +578,8 @@
                     data: {
                             //detalhes: $('[name="produto_id'+_modelo+'"]').val(),
                             token: token,
+                            tamanhoM: tamanhoM,
+                            tamanhoF: tamanhoF,
                         },
                     
                     //contentType: "application/json",
@@ -579,7 +589,7 @@
                     success: function(data){
                         //var $el = $('[name=estado]');
                         var data = JSON.parse(JSON.stringify(data));
-                        //console.log(data);
+                       console.log(data);
     
                         if(data.success == true){
                             $('[name="cor_principal"]').val(data.cor_principal);
@@ -677,7 +687,6 @@
                                 $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                             }
                         }
-                       
                         
                     }
                 });

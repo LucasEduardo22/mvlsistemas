@@ -55,7 +55,7 @@
                             </div>
                             <div class="form-group col-md-4 pr-2">
                                 <input type="hidden" name="codigo" value="{{$pedido->cliente->id}}">
-                                <p>Pedido: <strong class="text-dark" id="_codigo"></strong></p>
+                                <p>Pedido: <strong class="text-dark" id="_codigo">{{$pedido->id}}</strong></p>
                             </div>
                         </div>
                          <div class="alert alert-danger d-none messageBox" role="alert">
@@ -124,14 +124,15 @@
                             <tbody class="_adicionarProduto">
                                 @foreach ($pedido->itensPedido as $itensPedido)
                                     <tr>
-                                        <td scope="row">{{$itensPedido->estoque->produto->modelo}}</td>
+                                        <td data-modelo='{{$itensPedido->estoque->produto->modelo}}' scope="row">{{$itensPedido->estoque->produto->modelo}}</td>
                                         <td>{{$itensPedido->estoque->produto->nome_produto}}</th>
                                         <td>{{$itensPedido->estoque->produto->subGrupo->nome}}</td>
                                         <td>{{$itensPedido->quantidade($itensPedido->id)}}</td>
                                         <td>{{'R$ '.number_format($itensPedido->valor($itensPedido->id), 2, ',', '.')}}</td>
                                         <td style="width: 250px">
                                             <button href="" class="btn btn-primary text-light detalhes" data-toggle="modal" >detalhes</button> 
-                                            <input type="hidden"  class="valor_produto" name="valor_total{{$itensPedido->estoque->produto->modelo}}" value="0"> <input type="hidden" class="qtd_produto{{$itensPedido->estoque->produto->modelo}}" name="qtd_total" value="0">
+                                            <input type="hidden"  class="valor_produto" name="valor_total{{$itensPedido->estoque->produto->modelo}}" value="{{$itensPedido->valor($itensPedido->id)}}"> 
+                                            <input type="hidden" class="qtd_produto" name="qtd_total{{$itensPedido->estoque->produto->modelo}}" value="{{$itensPedido->quantidade($itensPedido->id)}}">
                                             <button href="" class="ml-1 btn btn-danger text-light remover"><i class="fas fa-trash"></i></button>
                                         </td>
                                     </tr>
@@ -151,5 +152,9 @@
     </div>
     @include('admin.pedido.modal.editProduto')
     <div class="modal" tabindex="-1" role="dialog" id="loading"></div>
-    <div id="itens"></div>
+    <div id="itens">
+        @foreach ($pedido->itensPedido as $itensPedido)
+            <input name="tokenProduto[]" value="{{$itensPedido->id}}" class="produto_item" type="hidden" id="produto_id{{$itensPedido->estoque->produto->modelo}}"/>
+        @endforeach
+    </div>
 </div>

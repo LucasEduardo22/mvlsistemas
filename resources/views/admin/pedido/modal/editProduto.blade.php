@@ -229,7 +229,7 @@
                                         <tr>
                                             @foreach ($tamanhos->tamanhoMasculino() as $tamanhoM)
                                                 <td>
-                                                    <input type="hidden" name="tamanhoM[]" value="{{$tamanhoM->id}}">
+                                                    <input type="hidden" class="_tamanhoM" name="tamanhoM[]" value="{{$tamanhoM->id}}">
                                                     {{$tamanhoM->sigla}}
                                                 </td>
                                             @endforeach
@@ -272,7 +272,7 @@
                                         <tr>
                                             @foreach ($tamanhos->tamanhoFeminino() as $tamanhoF)
                                                 <td>
-                                                    <input type="hidden" name="tamanhoF[]" value="{{$tamanhoF->id}}">
+                                                    <input type="hidden" class="_tamanhoF" name="tamanhoF[]" value="{{$tamanhoF->id}}">
                                                     {{$tamanhoF->sigla}}
                                                 </td>
                                             @endforeach
@@ -308,8 +308,8 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-                <button type="button" id="_salvar" class="btn btn-primary" data-dismiss="modal">Salvar</button>
+                <button type="button" class="btn btn-secondary _salvar" data-dismiss="modal">Fechar</button>
+                <button type="button" id="" class="btn btn-primary _salvar"  data-dismiss="modal">Salvar</button>
             </div>
         </div>
     </div>
