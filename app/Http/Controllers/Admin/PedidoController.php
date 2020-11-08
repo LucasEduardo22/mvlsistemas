@@ -59,8 +59,6 @@ class PedidoController extends Controller
     public function editPedido($id)
     {
         $pedido = $this->dadosPedido->find($id);
-        dd($pedido);
-
         $clientes = $this->dadosCliente->paginate(5);
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->all();
@@ -86,7 +84,7 @@ class PedidoController extends Controller
             $clientes["status_id"] = Status::PENDENTE;
         }else{
             //$clientes["status_id"] = Status::CANCELADO;
-            return redirect()->route('pedido.index')->with('success', "Pedido cancelado com sucesso".$count);
+            return redirect()->route('pedido.index')->with('success', "Pedido cancelado com sucesso");
         }
        // dd($clientes, $request->all());
         //Salvar dados na tabela pedido.
@@ -190,7 +188,7 @@ class PedidoController extends Controller
                 } 
                 
             }
-            return redirect()->route('pedido.index')->with('success', "Pedido atualizado com sucesso.. quantidade".$count);
+            return redirect()->route('pedido.index')->with('success', "Pedido atualizado com sucesso..");
         }else{
             return redirect()->back();
         }

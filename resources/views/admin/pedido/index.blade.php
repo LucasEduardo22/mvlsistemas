@@ -60,7 +60,9 @@
                                         <th>{{$pedido->status->nome}}</th>
                                         <th>{{$pedido->vendedor->name}}</th>
                                         <td style="width: 250px">
-                                            <a href="{{-- {{route('pedido.edit', $pedido->id)}} --}}" class="btn btn-info">Edit</a>
+                                            @if ($pedido->status_id != 3)
+                                                <a href="{{route('pedido.edit', $pedido->id)}}" class="btn btn-info">Edit</a>  
+                                            @endif
                                             <a href="{{-- {{route('pedido.show', $pedido->id)}} --}}" class="btn btn-success">ver</a>
                                         </td>
                                     </tr>

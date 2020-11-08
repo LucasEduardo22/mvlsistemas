@@ -48,13 +48,13 @@
                                 <p>Situção: <strong class="text-success" id="_status">Pendente</strong></p>
                             </div>
                             <div class="form-group col-md-4">
-                                <p>Preço total: <strong class="text-dark" id="_valor_itens"  ></strong></p>
+                                <p>Preço total: <strong class="text-dark" id="_valor_itens"></strong></p>
                             </div>
                             <div class="form-group col-md-4 pr-2">
                                 <p>Quantidade total: <strong class="text-dark" id="_qtd_itens"></strong></p>
                             </div>
                             <div class="form-group col-md-4 pr-2">
-                                <input type="hidden" name="codigo" value="">
+                                <input type="hidden" name="codigo" value="{{$pedido->cliente->id}}">
                                 <p>Pedido: <strong class="text-dark" id="_codigo"></strong></p>
                             </div>
                         </div>
@@ -95,14 +95,14 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <input type="hidden" name="cliente_id">
+                        <input type="hidden" value="{{$pedido->cliente->id}}" name="cliente_id">
                         <ul class="list-unstyled">
-                            <li>Cliente: <strong id="nome"></strong></li>
-                            <li>CNPJ: <strong id="_cpf_cnpj"></strong></li>
-                            <li>Telefone: <strong id="_telefone"></strong></li>
-                            <li>Celular: <strong class=""  id="_celular"></strong></li>
-                            <li>Cidade: <strong  id="cidade"></strong></li>
-                            <li>Estado: <strong id="estado"></strong></li>
+                            <li>Cliente: <strong id="nome">{{$pedido->cliente->nome}}</strong></li>
+                            <li>CNPJ: <strong id="_cpf_cnpj">{{$pedido->cliente->cpf_cnpj}}</strong></li>
+                            <li>Telefone: <strong id="_telefone">{{$pedido->cliente->telefone}}</strong></li>
+                            <li>Celular: <strong class=""  id="_celular">{{$pedido->cliente->celular}}</strong></li>
+                            <li>Cidade: <strong  id="cidade">{{$pedido->cliente->cidade}}</strong></li>
+                            <li>Estado: <strong id="estado">{{$pedido->cliente->estado}}</strong></li>
                         </ul>
                     </div>
                 </div>
@@ -122,6 +122,20 @@
                                 </tr>
                             </thead>
                             <tbody class="_adicionarProduto">
+                                @foreach ($pedido->itensPedido as $itensPedido)
+                                    <tr>
+                                        <td scope="row">{{$itensPedido->estoque->produto->modelo}}</td>
+                                        <td>{{$itensPedido->estoque->produto->nome_produto}}</th>
+                                        <td>{{$itensPedido->estoque->produto->subGrupo->nome}}</td>
+                                        <td>{{$itensPedido->quantidade($itensPedido->id)}}</td>
+                                        <td>{{'R$ '.number_format($itensPedido->valor($itensPedido->id), 2, ',', '.')}}</td>
+                                        <td style="width: 250px">
+                                            <button href="" class="btn btn-primary text-light detalhes" data-toggle="modal" >detalhes</button> 
+                                            <input type="hidden"  class="valor_produto" name="valor_total{{$itensPedido->estoque->produto->modelo}}" value="0"> <input type="hidden" class="qtd_produto{{$itensPedido->estoque->produto->modelo}}" name="qtd_total" value="0">
+                                            <button href="" class="ml-1 btn btn-danger text-light remover"><i class="fas fa-trash"></i></button>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -137,6 +151,5 @@
     </div>
     @include('admin.pedido.modal.editProduto')
     <div class="modal" tabindex="-1" role="dialog" id="loading"></div>
-    {{-- <div id="loading"></div> --}}
     <div id="itens"></div>
 </div>
