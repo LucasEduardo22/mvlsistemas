@@ -56,6 +56,19 @@ class PedidoController extends Controller
         return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
     }
 
+    public function editPedido($id)
+    {
+        $pedido = $this->dadosPedido->find($id);
+        dd($pedido);
+
+        $clientes = $this->dadosCliente->paginate(5);
+        $tamanhos = $this->dadosTamanho;
+        $formaPagamentos =  $this->dadosFormaPagamento->all();
+        $estoques =  $this->dadosEstoque->paginate(10);
+
+        return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
+    }
+
     public function storePedido(Request $request)
     {
         $count = 0;
@@ -115,27 +128,37 @@ class PedidoController extends Controller
                         $tecido1 = $this->dadosTecido->create(["nome" => $detalhes['tecido_principal']]);
                         $tecido[] = $tecido1->id;
                     }else{
-                        $tecido[] = $tecido_id1->id;
+                        if ($detalhes['tecido_principal'] != null) {
+                            $tecido[] = $tecido_id1->id;
+                        }
                     }
 
                     if(empty($tecido_id2) && $detalhes['tecido_secundario'] != null){
                         $tecido2 = $this->dadosTecido->create(["nome" => $detalhes['tecido_secundario']]);
                         $tecido[] = $tecido2->id;
                     }else{
-                        $tecido[] = $tecido_id2->id;
+                        if ($detalhes['tecido_secundario'] != null) {
+                            $tecido[] = $tecido_id2->id;
+                        }
+                        
                     }
 
-                    if(empty($tecido_id3) && $detalhes['tecido_secundario'] != null){
+                    if(empty($tecido_id3) && $detalhes['tecido_terciario'] != null){
                         $tecido3 = $this->dadosTecido->create(["nome" => $detalhes['tecido_terciario']]);
                         $tecido[] = $tecido3->id;
                     }else{
-                        $tecido[] = $tecido_id3->id;
+                        if ($detalhes['tecido_terciario'] != null) {
+                            $tecido[] = $tecido_id3->id;
+                        }
                     }
 
                     
                     //Salva os dados na tabela Item.
                     $itensPedidos = ItemPedido::create($itemPedidos);
-                    $itensPedidos->tecidos()->attach($tecido);
+                    if ($detalhes['tecido_principal'] != null || $detalhes['tecido_secundario'] != null || $detalhes['tecido_terciario'] != null){
+                        $itensPedidos->tecidos()->attach($tecido);
+                    }
+                   
 
                     if($detalhes['tipo'] != "N"){
                         // Tamanho masclino
@@ -182,12 +205,14 @@ class PedidoController extends Controller
         $cliente = $this->dadosCliente->where("id",$filtrar)
                     ->orWhere('cpf_cnpj', $filtrar)->first();
         
-        $dados['tipo_venda'] = $request->tipo_pedido;
-        $dados['forma_pagamento_id'] = $request->forma_pagamento_id == 0 ? null : $request->forma_pagamento_id;
-        $dados['cliente_id'] = $cliente->id;
-        $dados['user_id'] = Auth()->user()->id;
-        $dados['status_id'] = 1; //padrão ativo 
-        
+        if(!empty($cliente)){
+            $cliente['success'] = true;
+
+
+        }else{
+            $cliente['success'] = false;
+            $cliente['message'] = "Cliente não encontrado";
+        }
         return response()->json($cliente);
     }
 
@@ -196,11 +221,13 @@ class PedidoController extends Controller
         $filtro = $request->filtrar;
         $dados['tipo_venda'] = $request->tipo_pedido;
         $dados['pedido_id'] = $request->pedido_id;
+
         // Verifica o tipo de pedido, se for venda cadastrar na base:
         if ($request->tipo_pedido == "O" || $request->pedido_id != null) {
             if(!empty($filtro)){ 
                 $produto = $this->dadosProduto->where('id', $filtro)
                             ->orWhere('modelo', $filtro)->first();
+                
                 if(!empty($produto)){
                     $subGrupo = $produto->subGrupo;
                     $produto["sub_grupo"] = $subGrupo->nome;
@@ -220,6 +247,10 @@ class PedidoController extends Controller
                         $produto['message'] = "Produto indicado não se encontra em estoque.";
                         return response()->json($produto);
                     }
+                }else{
+                    $produto['success'] = false;
+                    $produto['message'] = "Produto não encontrado";
+                    return response()->json($produto);
                 }
             }
         }else{

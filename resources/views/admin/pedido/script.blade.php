@@ -298,6 +298,12 @@
             $(".valorF").html("");
             $('.totalF').html("");
             $('#valor_totalS').html("");
+            $('#tipoT').prop("checked", true);
+            $('#_tipoMU').html("MASCULINO");	
+            $('.tem_tamanho').show();
+            $('.femin').show();
+            $('.masc').show();
+            $('.sem_tamanho').hide();
         });
 
 
@@ -383,7 +389,8 @@
                     var data = JSON.parse(JSON.stringify(data));
                     var cnpj = data.cpf_cnpj
                     //console.log(data.codigo);
-                    if (data != 0) {
+                    if (data.success == true) {
+                        if (data != 0) {
                         $('#modalCliente').modal('hide')
                         $('#nome').html(data.nome);
                         $('#_cpf_cnpj').text(data.cpf_cnpj).mask('00.000.000/0000-00');
@@ -395,11 +402,16 @@
                         $('[name="cliente_id"]').val(data.id);
                         $('[name="filtrar_cliente"]').val("");
                         loading_hide();
-
-                    } else {
+                        } else {
+                            loading_hide();
+                            alert("dados não encontrado");
+                        }  
+                     } else {
                         loading_hide();
-                        alert("dados não encontrado");
-                    }  
+                        alert(data.message);
+                     }
+
+                    
                     
                 }
             }); 
@@ -476,8 +488,9 @@
         $(document).on('click', '#search_modelo', function(e){
             e.preventDefault();
             //console.log(id);
-            //var codigo_pedido = $('[name="codigo"]').val();
-            $.ajax({
+            var filtrar = $('[name=filtrar_modelo]').val();
+            if(filtrar != ""){
+                $.ajax({
                 type: 'post',
                 url: '{{ route("pedido.produto") }}',
                 dataType: 'json',
@@ -522,7 +535,6 @@
                             //$(this).closest('table').append(row);
                         } 
                     } else {
-
                         loading_hide();
                         alert(data.message);
                         /* setTimeout(function(){
@@ -532,7 +544,7 @@
                    
                     
                 }
-            });
+            });}
         });
 
         $("._adicionarProduto").on("click", ".detalhes", function(e){
@@ -583,7 +595,7 @@
                             $('[name="manga_direita"]').val(data.manga_direita);
                             $('[name="manga_esquerda"]').val(data.manga_esquerda);
                             $('[name="tipo"]').val(data.tipo);
-    
+
                             var tamanhoF =  data.tamanhoF;
                             var totalQuantidadef = 0;
                             var totalQuantidadeM = 0;
@@ -591,43 +603,79 @@
                             var totalf = 0;
                             var totalM = 0;
                             var total = 0;
+                            var totalS = 0
                             var valorSemtamanho = data.valorSemtamanho;
                             var quantidadeSemtamanho = data.quantidadeSemtamanho;
-                            var totalS = Number(valorSemtamanho.replace(/\./g, "").replace(/,/g, ".")) * Number(quantidadeSemtamanho);
-                            for (let index = 0; index < tamanhoF.length; index++) {
-                                const element = tamanhoF[index];
-                                if (element.quatidadetamanho != 0) {
-                                    $('#valorUnitarioF'+index).val(element.valortamanho.replace(".", ",")); 
-                                    $('#qtdF'+index).val(element.quatidadetamanho);
-                                    totalQuantidadef += Number(element.quatidadetamanho)
-                                    totalf += Number(element.quatidadetamanho) * Number(element.valortamanho);
-            
+                            if (data.tipo != "N") {
+                                for (let index = 0; index < tamanhoF.length; index++) {
+                                    const element = tamanhoF[index];
+                                    if (element.quatidadetamanho != 0) {
+                                        $('#valorUnitarioF'+index).val(element.valortamanho.replace(".", ",")); 
+                                        $('#qtdF'+index).val(element.quatidadetamanho);
+                                        totalQuantidadef += Number(element.quatidadetamanho)
+                                        totalf += Number(element.quatidadetamanho) * Number(element.valortamanho);
+                                    }
                                 }
-                            }
-    
-                            var tamanhoM =  data.tamanhoM;
-                            for (let index = 0; index < tamanhoM.length; index++) {
-                                const element = tamanhoM[index];
-    
-                                if (element.quatidadetamanho != 0) {
-                                    $('#valorUnitarioM'+index).val(element.valortamanho.replace(".", ",")); 
-                                    $('#qtdM'+index).val(element.quatidadetamanho);
-                                    totalQuantidadeM += Number(element.quatidadetamanho)
-                                    totalM += Number(element.quatidadetamanho) * Number(element.valortamanho);
+                                var tamanhoM =  data.tamanhoM;
+                                for (let index = 0; index < tamanhoM.length; index++) {
+                                    const element = tamanhoM[index];
                                     
-                                    
+                                    if (element.quatidadetamanho != 0) {
+                                        $('#valorUnitarioM'+index).val(element.valortamanho.replace(".", ",")); 
+                                        $('#qtdM'+index).val(element.quatidadetamanho);
+                                        totalQuantidadeM += Number(element.quatidadetamanho)
+                                        totalM += Number(element.quatidadetamanho) * Number(element.valortamanho);
+                                    }
                                 }
+                            } else {
+                                totalS = Number(valorSemtamanho.replace(/\./g, "").replace(/,/g, ".")) * Number(quantidadeSemtamanho);
                             }
-                            totalQuantidade = totalQuantidadeM +  totalQuantidadef
-                            total = totalM + totalf;
 
-                            $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
-                            $('.totalF').html(totalQuantidadef);
-                            $(".valorM").html(totalM.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
-                            $(".totalM").html(totalQuantidadeM);
-                            $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
-                            $('#quantidadeTotal').html(totalQuantidade + " Peças");
-                            $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                            if (data.tipo == "N") {
+                                $('#tipoN').prop("checked", true);
+                                $('.tem_tamanho').hide();
+                                $('.sem_tamanho').show();
+                            }else if (data.tipo == "T") {
+                                $('#tipoT').prop("checked", true);
+                                $('#_tipoMU').html("MASCULINO");	
+                                $('.tem_tamanho').show();
+                                $('.femin').show();
+                                $('.masc').show();
+                                $('.sem_tamanho').hide();
+                            }else if (data.tipo == "M") {
+                                $('#tipoM').prop("checked", true);
+                                $('#_tipoMU').html("MASCULINO");
+                                $('.tem_tamanho').show();
+                                $('.femin').hide();
+                                $('.sem_tamanho').hide();
+                                $('.masc').show();
+                            }else if (data.tipo == "F") {
+                                $('#tipoF').prop("checked", true);
+                                $('.tem_tamanho').show();
+                                $('.femin').show();
+                                $('.sem_tamanho').hide();
+                                $('.masc').hide();
+                            }else if (data.tipo == "U") {
+                                $('#tipoU').prop("checked", true);
+                                $('#_tipoMU').html("UNISSEX");
+                                $('.tem_tamanho').show();
+                                $('.femin').hide();
+                                $('.sem_tamanho').hide();
+                                $('.masc').show();
+                            }
+
+                            
+                            if (totalQuantidadeM != 0 || totalQuantidadef != 0 || total != 0) {
+                                totalQuantidade = totalQuantidadeM +  totalQuantidadef
+                                total = totalM + totalf;
+                                $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                                $('.totalF').html(totalQuantidadef);
+                                $(".valorM").html(totalM.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                                $(".totalM").html(totalQuantidadeM);                                    
+                                $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                                $('#quantidadeTotal').html(totalQuantidade + " Peças");
+                                $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                            }
                         }
                        
                         

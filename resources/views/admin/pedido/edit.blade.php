@@ -16,16 +16,16 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('pedido.index') }}">Pedido</a>
+            <a href="{{ route('pedido.create') }}">Pedido</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('pedido.create') }}">Create</a>
+            <a href="{{ route('pedido.edit', $pedido->id) }}">Editar</a>
         </li>
     </ol>
-    <form action="{{route('pedido.store')}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
+    <form action="{{route('pedido.update', $pedido->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
         @method('POST')
         @csrf
-        @include('admin.pedido._partials.form')
+        @include('admin.pedido._partials.editFrom')
     </form>
 @stop
 @push('scripts')
