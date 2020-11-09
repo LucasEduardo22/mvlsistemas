@@ -125,8 +125,8 @@
                                 @foreach ($pedido->itensPedido as $itensPedido)
                                     <tr>
                                         <td data-modelo='{{$itensPedido->estoque->produto->modelo}}' scope="row">{{$itensPedido->estoque->produto->modelo}}</td>
-                                        <td>{{$itensPedido->estoque->produto->nome_produto}}</th>
-                                        <td>{{$itensPedido->estoque->produto->subGrupo->nome}}</td>
+                                        <td data-nome_produto='{{$itensPedido->estoque->produto->nome_produto}}'>{{$itensPedido->estoque->produto->nome_produto}}</th>
+                                        <td data-subgrupo='{{$itensPedido->estoque->produto->subGrupo->nome}}'>{{$itensPedido->estoque->produto->subGrupo->nome}}</td>
                                         <td>{{$itensPedido->quantidade($itensPedido->id)}}</td>
                                         <td>{{'R$ '.number_format($itensPedido->valor($itensPedido->id), 2, ',', '.')}}</td>
                                         <td style="width: 250px">

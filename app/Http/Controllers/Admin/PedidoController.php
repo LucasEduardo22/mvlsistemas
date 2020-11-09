@@ -266,6 +266,7 @@ class PedidoController extends Controller
         //guarda detalhe do produto;
         $token = $request->token;
         $dados = $request->all();
+        $dados['success'] = true;
         $request->session()->put($token, $dados);    
         
         $produto['success'] = true;
@@ -282,19 +283,21 @@ class PedidoController extends Controller
         $detalhes = [];
         $tamanhoM = [];
         $tamanhoF = [];
-        $detalhes['success'] = true;
         $detalhes['message'] = "detalhes adicionado.";
         if(!$itemPedido){
             //dd($itemPedido);
             $detalhes = $request->session()->get($token);    
+            $detalhes['success'] = true;
+            return response()->json($detalhes);
         }else{
             // Lista os detalhes que foram salvo na Base de dados.
             $tecido = [];
             foreach ($itemPedido->tecidos as $key => $value) {
                 $tecido[] = $value->nome;
             }
+            $detalhes['success'] = true;
             $detalhes['modelo'] = $itemPedido->estoque->produto->modelo;
-            $detalhes['cor_principal'] = $itemPedido->estoque->produto->nome_produto;
+            $detalhes['cor_principal'] = $itemPedido->cor_principal;
             $detalhes['cor_secundaria'] = $itemPedido->cor_secundaria;
             $detalhes['cor_terciaria'] = $itemPedido->cor_terciaria;
             $detalhes['tecido_principal'] = count($tecido) >= 1 ? $tecido[0] : null;
@@ -327,10 +330,11 @@ class PedidoController extends Controller
                 $detalhes['tamanhoM'] = $tamanhoM;
                 $detalhes['tamanhoF'] = $tamanhoF;
             }
+            return response()->json($detalhes);
         }
         
 
-        return response()->json($detalhes);
+       
     }
 
     public function deletaDetalhesProduto(Request $request)
