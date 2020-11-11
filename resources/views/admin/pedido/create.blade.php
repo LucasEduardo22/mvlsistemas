@@ -29,5 +29,5 @@
     </form>
 @stop
 @push('scripts')
-@include('admin.pedido.script')
+    @include('admin.pedido.script')
 @endpush

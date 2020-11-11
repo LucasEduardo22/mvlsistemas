@@ -145,7 +145,7 @@
         });
 
         //Modelo
-        $(document).on('click', '._salvar', function(e) {
+        $(document).on('click', '#_salvar', function(e) {
             e.preventDefault();
 
             var token = Math.random().toString(16).substr(2);
