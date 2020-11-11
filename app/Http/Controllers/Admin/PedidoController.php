@@ -56,17 +56,6 @@ class PedidoController extends Controller
         return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
     }
 
-    public function editPedido($id)
-    {
-        $pedido = $this->dadosPedido->find($id);
-        $clientes = $this->dadosCliente->paginate(5);
-        $tamanhos = $this->dadosTamanho;
-        $formaPagamentos =  $this->dadosFormaPagamento->all();
-        $estoques =  $this->dadosEstoque->paginate(10);
-
-        return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
-    }
-
     public function storePedido(Request $request)
     {
         $count = 0;
@@ -193,6 +182,25 @@ class PedidoController extends Controller
             return redirect()->back();
         }
     }
+    
+
+    public function editPedido($id)
+    {
+        $pedido = $this->dadosPedido->find($id);
+        $clientes = $this->dadosCliente->paginate(5);
+        $tamanhos = $this->dadosTamanho;
+        $formaPagamentos =  $this->dadosFormaPagamento->all();
+        $estoques =  $this->dadosEstoque->paginate(10);
+
+        return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
+    }
+
+    public function updatePedido(Request  $request, $id)
+    {
+        $pedido = $this->dadosPedido->find($id);
+        dd($pedido);
+    }
+
     
     public function searchCliente(Request $request){
         $request->merge([

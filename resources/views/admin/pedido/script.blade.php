@@ -553,7 +553,7 @@
             var subgrupo = $(this).closest('tr').find('td[data-subgrupo]').data('subgrupo');
             var produtoId = []//$('[name="produto_id'+modelo+'"]').val();
             var token = $('#produto_id'+modelo).val();
-            alert(token);
+            
             var tamanhoM = [];
             var tamanhoF = [];
             $("._tamanhoM").each(function(){
