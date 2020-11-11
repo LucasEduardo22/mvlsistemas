@@ -29,7 +29,7 @@
     </form>
 @stop
 @push('scripts')
-    @include('admin.pedido.script-edit')
+    {{-- @include('admin.pedido.script-edit') --}}
     <script>
         $(document).ready(function($) {
             $("#_codigo").maskMoney({precision: 3, decimal: ''});
