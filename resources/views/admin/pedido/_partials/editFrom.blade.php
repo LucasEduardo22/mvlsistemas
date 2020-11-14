@@ -27,9 +27,9 @@
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Forma de pagamento:</label>
                                 <select id="_forma_pagamento" name="forma_pagamento" class="form-control forma_pagamento @error('forma_pagamento') is-invalid @enderror">
-                                    <option value="0">Selecione</option>
-                                    @foreach ($formaPagamentos as $formaPagamento)
-                                        <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($formaPagamento->id) ? $formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
+                                    <option value="">Selecione</option>
+                                    @foreach ($formaPagamentos as $formaPagamento) 
+                                        <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($pedido->formaPagamento->id) ? $pedido->formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
                                     @endforeach
                                 </select>
                                 @error('forma_pagamento_id')
@@ -127,8 +127,8 @@
                                         <td data-modelo='{{$itensPedido->estoque->produto->modelo}}' scope="row">{{$itensPedido->estoque->produto->modelo}}</td>
                                         <td data-nome_produto='{{$itensPedido->estoque->produto->nome_produto}}'>{{$itensPedido->estoque->produto->nome_produto}}</th>
                                         <td data-subgrupo='{{$itensPedido->estoque->produto->subGrupo->nome}}'>{{$itensPedido->estoque->produto->subGrupo->nome}}</td>
-                                        <td>{{$itensPedido->quantidade($itensPedido->id)}}</td>
-                                        <td>{{'R$ '.number_format($itensPedido->valor($itensPedido->id), 2, ',', '.')}}</td>
+                                        <td id='qtd_item{{$itensPedido->estoque->produto->modelo}}'>{{$itensPedido->quantidade($itensPedido->id)}}</td>
+                                        <td id='valor_item{{$itensPedido->estoque->produto->modelo}}'>{{'R$ '.number_format($itensPedido->valor($itensPedido->id), 2, ',', '.')}}</td>
                                         <td style="width: 250px">
                                             <button href="" class="btn btn-primary text-light detalhes" data-toggle="modal" >detalhes</button> 
                                             <input type="hidden"  class="valor_produto" name="valor_total{{$itensPedido->estoque->produto->modelo}}" value="{{$itensPedido->valor($itensPedido->id)}}"> 

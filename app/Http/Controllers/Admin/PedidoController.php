@@ -40,7 +40,7 @@ class PedidoController extends Controller
     }
 
     public function index(){
-        $pedidos = $this->dadosPedido->paginate(5);
+        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->paginate(5);
 
         return view('admin.pedido.index', compact("pedidos"));
     }
@@ -48,10 +48,10 @@ class PedidoController extends Controller
     public function createPedido()
     {
 
-        $clientes = $this->dadosCliente->paginate(5);
+        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->paginate(5);
         $tamanhos = $this->dadosTamanho;
-        $formaPagamentos =  $this->dadosFormaPagamento->all();
-        $estoques =  $this->dadosEstoque->paginate(10);
+        $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
+        $estoques =  $this->dadosEstoque->orderBy('id', 'desc')->paginate(10);
 
         return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
     }
@@ -62,7 +62,7 @@ class PedidoController extends Controller
         $user = auth()->user()->id;
         
         $clientes["cliente_id"] = $request->cliente_id;
-        $clientes["forma_pagamento"] = $request->forma_pagamento;
+        $clientes["forma_pagamento_id"] = $request->forma_pagamento;
         $clientes["tipo_venda"] = $request->tipo_pedido_id;
         $clientes["user_id"] = $user;
         
@@ -187,9 +187,10 @@ class PedidoController extends Controller
     public function editPedido($id)
     {
         $pedido = $this->dadosPedido->find($id);
-        $clientes = $this->dadosCliente->paginate(5);
+        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->paginate(5);
         $tamanhos = $this->dadosTamanho;
-        $formaPagamentos =  $this->dadosFormaPagamento->all();
+        $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
+
         $estoques =  $this->dadosEstoque->paginate(10);
 
         return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
@@ -198,7 +199,165 @@ class PedidoController extends Controller
     public function updatePedido(Request  $request, $id)
     {
         $pedido = $this->dadosPedido->find($id);
-        dd($pedido);
+        $count = 0;
+        $user = auth()->user()->id;
+        
+        $clientes["cliente_id"] = $request->cliente_id;
+        $clientes["forma_pagamento_id"] = $request->forma_pagamento;
+        $clientes["tipo_venda"] = $request->tipo_pedido_id;
+        $clientes["user_id"] = $user;
+        
+        //Verifica qual botão foi selecionado
+        if ($request->status_id == 2) {
+            $clientes["status_id"] = Status::ORDENPRODUCAO;
+        }elseif($request->status_id == 1){
+            $clientes["status_id"] = Status::PENDENTE;
+        }else{
+            $clientes["status_id"] = Status::CANCELADO;
+            return redirect()->route('pedido.index')->with('success', "Pedido cancelado com sucesso");
+        }
+       // dd($clientes, $request->all());
+        //Salvar dados na tabela pedido.
+        $pedido->update($clientes); 
+        if(!empty($request->tokenProduto)){
+            for ($i=0; $i < count($request->tokenProduto); $i++){
+                $count ++;
+                $token = $request->tokenProduto[$i];
+                $tecidos_id = [];
+                $detalhes = $request->session()->get($token);   
+               //dd($detalhes);
+               if(!empty($detalhes)){
+                    $produto = $this->dadosProduto->where('modelo', $detalhes['modelo'])->first();
+                   if(!empty($produto->estoque)){   
+   
+                       $estoque_id = $produto->estoque->id;
+                       
+                       $itemPedidos["pedido_id"] = $pedido->id;
+                       $itemPedidos["estoque_id"] = $estoque_id;
+                       $itemPedidos["cor_principal"] = $detalhes['cor_principal'];
+                       $itemPedidos["cor_secundaria"] = $detalhes['cor_secundaria'];
+                       $itemPedidos["cor_terciaria"] = $detalhes['cor_terciaria'];
+                       $itemPedidos["frente"] = $detalhes['frente'];
+                       $itemPedidos["costa"] = $detalhes['costa'];
+                       $itemPedidos["manga_direita"] = $detalhes['manga_direita'];
+                       $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
+                       $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
+                       //dd($detalhes['valorSemtamanho']);
+                      if($detalhes['tipo'] == "N"){
+                           $itemPedidos["valor_unitario"] = str_replace([','], '.', $detalhes['valorSemtamanho']);
+                           $itemPedidos["quantidade"] = $detalhes['quantidadeSemtamanho'];
+                       }
+   
+                       // Salva os tecido na tabela tecido
+                       $tecido_id1 = $this->dadosTecido->where("nome", $detalhes['tecido_principal'])->first();
+                       $tecido_id2 = $this->dadosTecido->where("nome", $detalhes['tecido_secundario'])->first();
+                       $tecido_id3 = $this->dadosTecido->where("nome", $detalhes['tecido_terciario'])->first();
+                       
+                       $itensPedido_id = ItemPedido::where('pedido_id',$pedido->id)->where('estoque_id', $estoque_id)->first();
+                       
+                       if(!empty($itensPedido_id)){
+                           //Salva os dados na tabela Item.
+                           $itensPedido_id->update($itemPedidos);
+                           $itensPedidos = $itensPedido_id;
+                         
+                           if(!empty($itensPedido_id->tecidos)){
+                                foreach ($itensPedidos->tecidos as $key => $value) {
+                                    $tecidos_id[] = $value->nome;
+                                }
+                           }
+                           
+                       }else{
+                           //Salva os dados na tabela Item.
+                           $itensPedidos = ItemPedido::create($itemPedidos);
+                       }
+   
+                       if(empty($tecido_id1) && $detalhes['tecido_principal'] != null){
+                           $tecido1 = $this->dadosTecido->create(["nome" => $detalhes['tecido_principal']]);
+                           $tecido[] = $tecido1->id;
+                       }else{
+                           if ($detalhes['tecido_principal'] != null) {
+                               $tecido_id1->update(["nome" => $detalhes['tecido_principal']]);
+                               $tecido[] = $tecido_id1->id;
+                               if(count($tecidos_id) >= 1 && !empty($tecidos_id[1])){
+                                   $detalhes['tecido_principal'] = null;
+                               }
+                           }
+                       }
+                       
+                       if(empty($tecido_id2) && $detalhes['tecido_secundario'] != null){
+                           $tecido2 = $this->dadosTecido->create(["nome" => $detalhes['tecido_secundario']]);
+                           $tecido[] = $tecido2->id;
+                       }else{
+                           if ($detalhes['tecido_secundario'] != null) {
+                               $tecido_id2->update(["nome" => $detalhes['tecido_secundario']]);
+                               $tecido[] = $tecido_id2->id;
+                               if(count($tecidos_id) >= 2 && !empty($tecidos_id[2])){
+                                   $detalhes['tecido_secundario'] = null;
+                               }
+                           }
+                           
+                       }
+                       
+                       if(empty($tecido_id3) && $detalhes['tecido_terciario'] != null){
+                           $tecido3 = $this->dadosTecido->create(["nome" => $detalhes['tecido_terciario']]);
+                           $tecido[] = $tecido3->id;
+                       }else{
+                           if ($detalhes['tecido_terciario'] != null) {
+                               $tecido_id3->update(["nome" => $detalhes['tecido_terciario']]);
+                               $tecido[] = $tecido_id3->id;
+                               if(count($tecidos_id) >=3 && !empty($tecidos_id[3])){
+                                   $detalhes['tecido_terciario'] = null;
+                               }
+                           }
+                       }
+                       
+                       if ($detalhes['tecido_principal'] != null || $detalhes['tecido_secundario'] != null || $detalhes['tecido_terciario'] != null){
+                            $itensPedidos->tecidos()->attach($tecido);
+                       }
+                      
+                       if($detalhes['tipo'] != "N"){
+                           // Tamanho masclino
+                           foreach ($request->tamanhoM as $c => $tamanho_idM) {
+                               $detalhesTamanho = $detalhes["tamanhoM"][$c];
+                               $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idM)->where('estoque_id', $produto->estoque->id)->first();
+                               $novoM = tamanhoItensPedidos::where('item_pedido_id',$itensPedidos->id)->where('tamanho_produto_id', $tamanhoProduto->id)->first();
+   
+                               if(empty($novoM)){
+                                   $novoM = new tamanhoItensPedidos;
+                               }
+
+                               $novoM->item_pedido_id = $itensPedidos->id;
+                               $novoM->tamanho_produto_id = $tamanhoProduto->id;
+                               $novoM->valor_unitario = $detalhesTamanho["valortamanho"] != 0 ? $detalhesTamanho["valortamanho"] : null;
+                               $novoM->quantidade = $detalhesTamanho["quatidadetamanho"] != 0 ? $detalhesTamanho["quatidadetamanho"] : null;
+                               $novoM->save();
+                           }
+                           //Feminino
+                           foreach ($request->tamanhoF as $c => $tamanho_idF) {
+                               $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idF)->where('estoque_id', $produto->estoque->id)->first();
+                               $detalhesTamanhoF = $detalhes["tamanhoF"][$c];
+                               $novoF = tamanhoItensPedidos::where('item_pedido_id',$itensPedidos->id)->where('tamanho_produto_id', $tamanhoProduto->id)->first();
+                              
+                               if(empty($novoF)){
+                                   $novoF = new tamanhoItensPedidos;
+                               }
+   
+                               $novoF->item_pedido_id = $itensPedidos->id;
+                               $novoF->tamanho_produto_id = $tamanhoProduto->id;
+                               $novoF->valor_unitario = $detalhesTamanhoF["valortamanho"] != 0 ? $detalhesTamanhoF["valortamanho"] : null;;
+                               $novoF->quantidade = $detalhesTamanhoF["quatidadetamanho"] != 0 ? $detalhesTamanhoF["quatidadetamanho"] : null;
+                               $novoF->save();
+                           }
+                           
+                       }
+                   }else{
+                       return redirect()->back();
+                   } 
+                }
+                
+            }
+            return redirect()->route('pedido.index')->with('success', "Pedido atualizado com sucesso..");
+        }
     }
 
     

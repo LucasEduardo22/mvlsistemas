@@ -211,7 +211,7 @@
 
                 total = Number(valorSTotal.replace(/\./g, "").replace(/,/g, ".")) * totalQuantidade;
             }
-
+            alert(_modelo);
             $("#qtd_item"+_modelo).html(totalQuantidade);
             $("#valor_item"+_modelo).html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
 

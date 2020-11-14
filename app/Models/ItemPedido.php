@@ -43,7 +43,13 @@ class ItemPedido extends Model
         if($tipoTamanho->tipo_tamano == "N"){
             $valor = $tipoTamanho->valor_unitario;
         }else{
-            $valor = $tipoTamanho->tamanhosItensPedidos->sum('valor_unitario');
+            $valor_unitario = $tipoTamanho->tamanhosItensPedidos;
+            $valor = 0;
+            foreach ($valor_unitario as $key => $value) {
+                $valor += $value->valor_unitario * $value->quantidade;
+            }
+            
+            
         }
 
         return $valor;
