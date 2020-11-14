@@ -24,6 +24,10 @@ class Pedido extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function user(){
+        return $this->hasOne(User::class, "id", 'user_id');
+    }
+
     public function formaPagamento(){
         return $this->hasOne(FormaPagamento::class, "id", 'forma_pagamento_id');
     }

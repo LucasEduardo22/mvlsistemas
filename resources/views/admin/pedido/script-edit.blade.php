@@ -211,7 +211,6 @@
 
                 total = Number(valorSTotal.replace(/\./g, "").replace(/,/g, ".")) * totalQuantidade;
             }
-            alert(_modelo);
             $("#qtd_item"+_modelo).html(totalQuantidade);
             $("#valor_item"+_modelo).html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
 
@@ -231,7 +230,6 @@
                valor_total = valor_total + Number($(this).val());  
             });
 
-            console.log(qtd_total);
             //$("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
             $('#_qtd_itens').html(qtd_total + " Peças"); 
             $("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));

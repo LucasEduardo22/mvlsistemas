@@ -29,7 +29,7 @@
                                 <select id="_forma_pagamento" name="forma_pagamento" class="form-control forma_pagamento @error('forma_pagamento') is-invalid @enderror">
                                     <option value="0">Selecione</option>
                                     @foreach ($formaPagamentos as $formaPagamento)
-                                        <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($formaPagamento->id) ? $formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
+                                        <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($pedido->formaPagamento->id) ? $pedido->formaPagamento->id : '') == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
                                     @endforeach
                                 </select>
                                 @error('forma_pagamento_id')

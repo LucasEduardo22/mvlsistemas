@@ -4,7 +4,7 @@
             <div class="card-group linha-horizontal">
                 <div class="card">
                     <div class="card-body linha-vertical">
-                        <p class="float-right">Vendedor: {{ Auth::user()->name }}</p>
+                        <p class="float-right">Vendedor: {{ $pedido->user->name }}</p>
                         <h5 class="card-title text-center">CRIAR PEDIDO</h5>
                         <div class="separator-breadcrumb pt-1 pb-2 border-dark border-top"></div>
                         <div class="form-row">
