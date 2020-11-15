@@ -103,6 +103,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/home/pedido/store', 'Admin\PedidoController@storePedido')->name('pedido.store');
     Route::get('/home/pedido/{id}/editar', 'Admin\PedidoController@editPedido')->name('pedido.edit');
     Route::post('/home/pedido/{id}/update', 'Admin\PedidoController@updatePedido')->name('pedido.update');
+    Route::post('/home/pedido/{id}/show', 'Admin\PedidoController@showPedido')->name('pedido.show');
     Route::any('/cliente/adicionar-cliente', 'Admin\PedidoController@searchCliente')->name('pedido.cliente.searchPedido'); 
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
     Route::post('/home/pedido/adicionar-poduto-detalhes', 'Admin\PedidoController@detalhesProduto')->name('detalhes.produto');

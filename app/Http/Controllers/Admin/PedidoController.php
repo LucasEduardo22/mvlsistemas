@@ -360,6 +360,12 @@ class PedidoController extends Controller
         }
     }
 
+    public function showPedido($id)
+    {
+        $pedido = $this->dadosPedido->find($id);
+        return view('admin.pedido.edit', compact("pedido"));
+    }
+
     
     public function searchCliente(Request $request){
         $request->merge([
