@@ -22,7 +22,7 @@ class AviamentoController extends Controller
      */
     public function index()
     {
-        $aviamentos = $this->dadosAviamento->paginate();
+        $aviamentos = $this->dadosAviamento->simplePaginate();
 
         return view('admin.estoque.aviamento.index', compact('aviamentos'));
     }

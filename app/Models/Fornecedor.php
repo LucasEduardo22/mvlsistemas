@@ -15,7 +15,7 @@ class Fornecedor extends Model
                     ];
     public function search($filtro = null){
         $result = $this->where('id', $filtro )
-                ->orWhere('nome', 'LIKE', "%{$filtro}%")->paginate(15);
+                ->orWhere('nome', 'LIKE', "%{$filtro}%")->simplePaginate(15);
 
         return $result;
     }

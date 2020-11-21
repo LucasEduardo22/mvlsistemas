@@ -41,7 +41,7 @@ class PedidoController extends Controller
     }
 
     public function index(){
-        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->simplePaginate(5);
+        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->simplesimplePaginate(5);
 
         return view('admin.pedido.index', compact("pedidos"));
     }
@@ -188,11 +188,11 @@ class PedidoController extends Controller
     public function editPedido($id)
     {
         $pedido = $this->dadosPedido->find($id);
-        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->simplePaginate(5);
+        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->get();
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
 
-        $estoques =  $this->dadosEstoque->simplePaginate(10);
+        $estoques =  $this->dadosEstoque->get();
 
         return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
     }

@@ -22,7 +22,7 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes = $this->dadosCliente->paginate();
+        $clientes = $this->dadosCliente->simplePaginate();
 
         return view('admin.cliente.index', compact('clientes'));
     }

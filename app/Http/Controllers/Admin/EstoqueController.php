@@ -27,7 +27,7 @@ class EstoqueController extends Controller
 
     public function index()
     {
-        $estoques = $this->dadosEstoque->paginate();
+        $estoques = $this->dadosEstoque->simplePaginate();
 
         return view('admin.estoque.index', compact('estoques'));
     }
@@ -56,8 +56,8 @@ class EstoqueController extends Controller
         $dados = $request->all();
         
         $dados['produto_id'] = $produto->id;
-        $dados['preco_venda'] = $request->preco_venda != '' ?? null;
-        $dados['custo_atual'] = $request->custo_atual != '' ?? null;
+        $dados['preco_venda'] =  $dados['preco_venda'] != '' ? $dados['preco_venda'] : null;
+        $dados['custo_atual'] =  $dados['custo_atual'] != '' ? $dados['custo_atual'] : null;
         $dados['estoque_atual'] = $request->estoque_inicial;
         $dados['status_id'] = 1;
 
@@ -107,10 +107,11 @@ class EstoqueController extends Controller
         
         $estoque = $this->dadosEstoque->find($id);
         $dados = $request->all();
+        
         //$dados['estoque_id'] = $estoque->id;
         $dados['estoque_atual'] = $request->estoque_inicial;
-        $dados['preco_venda'] = $request->preco_venda != '' ?? null;
-        $dados['custo_atual'] = $request->custo_atual != '' ?? null;
+        $dados['preco_venda'] =  $dados['preco_venda'] != '' ? $dados['preco_venda'] : null;
+        $dados['custo_atual'] =  $dados['custo_atual'] != '' ? $dados['custo_atual'] : null;
         $dados['status_id'] = 1;
         if(!$estoque){
             return redirect()->back();

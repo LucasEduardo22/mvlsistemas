@@ -22,7 +22,7 @@ class UnidadeController extends Controller
      */
     public function index()
     {
-        $unidades = $this->dadosUnidade->paginate();
+        $unidades = $this->dadosUnidade->simplePaginate();
 
         return view('admin.estoque.unidade.index', compact('unidades'));
     }

@@ -22,7 +22,7 @@ class FornecedorController extends Controller
      */
     public function index()
     {
-        $fornecedors = $this->dadosFornecedor->paginate();
+        $fornecedors = $this->dadosFornecedor->simplePaginate();
 
         return view('admin.fornecedor.index', compact('fornecedors'));
     }

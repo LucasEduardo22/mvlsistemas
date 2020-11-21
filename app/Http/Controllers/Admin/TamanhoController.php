@@ -22,7 +22,7 @@ class TamanhoController extends Controller
      */
     public function index()
     {
-        $tamanhos = $this->dadosTamanho->paginate();
+        $tamanhos = $this->dadosTamanho->simplePaginate();
 
         return view('admin.estoque.tamanho.index', compact('tamanhos'));
     }

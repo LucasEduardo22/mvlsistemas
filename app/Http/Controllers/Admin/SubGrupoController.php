@@ -25,7 +25,7 @@ class SubGrupoController extends Controller
      */
     public function index()
     {
-        $subGrupos = $this->dadosSubGrupo->paginate();
+        $subGrupos = $this->dadosSubGrupo->simplePaginate();
 
         return view('admin.estoque.sub-grupo.index', compact('subGrupos'));
     }

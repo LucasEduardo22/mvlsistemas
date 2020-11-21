@@ -24,7 +24,7 @@ class ProdutoController extends Controller
 
     public function index()
     {
-        $produtos = $this->dadosProduto->paginate();
+        $produtos = $this->dadosProduto->simplePaginate();
 
         return view('admin.estoque.produto.index', compact('produtos'));
     }
@@ -32,7 +32,7 @@ class ProdutoController extends Controller
     public function create()
     {
         $subGrupos = $this->dadosSubGrupo->get();
-        $aviamentos = $this->dadosAviamento->paginate(4);
+        $aviamentos = $this->dadosAviamento->simplePaginate(4);
         return view('admin.estoque.produto.create', compact('subGrupos', 'aviamentos'));
     }
     public function store(StoreUpdateProdutoRequest $request)

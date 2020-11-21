@@ -25,7 +25,7 @@ class GrupoController extends Controller
      */
     public function index()
     {
-        $grupos = $this->dadosGrupo->paginate();
+        $grupos = $this->dadosGrupo->simplePaginate();
 
         return view('admin.estoque.grupo.index', compact('grupos'));
     }

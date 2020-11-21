@@ -68,11 +68,11 @@ abstract class BaseRepository
      * @param array $columns
      * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
-    public function paginate($perPage, $columns = ['*'])
+    public function simplePaginate($perPage, $columns = ['*'])
     {
         $query = $this->allQuery();
 
-        return $query->paginate($perPage, $columns);
+        return $query->simplePaginate($perPage, $columns);
     }
 
     /**

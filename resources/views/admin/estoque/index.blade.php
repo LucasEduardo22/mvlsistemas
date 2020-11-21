@@ -23,7 +23,7 @@
         <!-- Content Header (Page header) -->
         <section class="content-header">  
             <h1 class="mt-2">estoques
-                <a href="{{route('produto.index')}}" class="btn btn-primary mb-5 pb-5 float-right">
+                <a href="{{route('produto.index')}}" class="btn btn-primary float-right">
                     <i class="fas fa-plus-square"></i> ADICIONAR UM NOVO PRODUTO
                 </a>
             </h1>

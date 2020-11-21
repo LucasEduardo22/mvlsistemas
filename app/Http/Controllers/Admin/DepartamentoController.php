@@ -22,7 +22,7 @@ class DepartamentoController extends Controller
      */
     public function index()
     {
-        $departamentos = $this->dadosDepartamento->paginate();
+        $departamentos = $this->dadosDepartamento->simplePaginate();
 
         return view('admin.estoque.departamento.index', compact('departamentos'));
     }

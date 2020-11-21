@@ -22,7 +22,7 @@ class TipoProdutoController extends Controller
      */
     public function index()
     {
-        $tipoProdutos = $this->dadosTipoProduto->paginate();
+        $tipoProdutos = $this->dadosTipoProduto->simplePaginate();
 
         return view('admin.estoque.tipoProduto.index', compact('tipoProdutos'));
     }

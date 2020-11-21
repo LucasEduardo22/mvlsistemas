@@ -22,7 +22,7 @@ class StatusController extends Controller
      */
     public function index()
     {
-        $status = $this->dadosStatus->paginate();
+        $status = $this->dadosStatus->simplePaginate();
 
         return view('admin.estoque.status.index', compact('status'));
     }

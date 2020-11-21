@@ -10,7 +10,7 @@ class Produto extends Model
 
     public function search($filtro = null){
         $result = $this->where('modelo', $filtro )
-                ->orWhere('nome_produto', 'LIKE', "%{$filtro}%")->paginate(15);
+                ->orWhere('nome_produto', 'LIKE', "%{$filtro}%")->simplePaginate(15);
         return $result;
     }
     

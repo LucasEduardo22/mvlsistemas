@@ -28,7 +28,7 @@ class FichaTecnicaController extends Controller
      */
     public function index()
     {
-        $fichaTecnicas = $this->dadosFichaTecnica->paginate();
+        $fichaTecnicas = $this->dadosFichaTecnica->simplePaginate();
 
         return view('admin.estoque.ficha-tecnica.index', compact('fichaTecnicas'));
     }
@@ -41,7 +41,7 @@ class FichaTecnicaController extends Controller
     public function create($id)
     {
         $produto = $this->dadosProduto->find($id);
-        $aviamentos= $this->dadosAviamentos->paginate(25);
+        $aviamentos= $this->dadosAviamentos->simplePaginate(25);
         return view('admin.estoque.produto.ficha-tecnica.create', compact('produto', "aviamentos"));
     }
 
@@ -108,7 +108,7 @@ class FichaTecnicaController extends Controller
     public function edit($id)
     {
         $produto = $this->dadosProduto->find($id);
-        $aviamentos= $this->dadosAviamentos->paginate(25);
+        $aviamentos= $this->dadosAviamentos->simplePaginate(25);
         return view('admin.estoque.produto.ficha-tecnica.edit', compact('produto', "aviamentos"));
     }
 

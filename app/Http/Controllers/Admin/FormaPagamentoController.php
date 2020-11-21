@@ -22,7 +22,7 @@ class FormaPagamentoController extends Controller
      */
     public function index()
     {
-        $formaPagamentos = $this->dadosFormaPagamento->paginate();
+        $formaPagamentos = $this->dadosFormaPagamento->simplePaginate();
 
         return view('admin.formaPagamento.index', compact('formaPagamentos'));
     }
