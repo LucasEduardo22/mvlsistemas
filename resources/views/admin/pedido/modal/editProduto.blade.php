@@ -95,7 +95,7 @@
                     <div class="form-row">
                         <div class="form-group col-md-4">
                             <label for="_tecido_primario" class="pb-0 mb-0">
-                                Tecido Primária:
+                                Tecido Primário:
                             </label>
                             <input value="{{old('tecido_principal')}}" type="text" name="tecido_principal" class="form-control 
                             @error('tecido_principal') is-invalid @enderror" placeholder="Tecido Primário" id="_tecido_principal">
@@ -119,7 +119,7 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="_tecido_terciario" class="pb-0 mb-0">
-                                Tecido Terciária:
+                                Tecido Terciário:
                             </label>
                             <input value="{{old('tecido_terciario')}}" type="text" name="tecido_terciario" class="form-control @error('tecido_terciario') is-invalid @enderror" placeholder="Tecido Terciário" id="_tecido_terciario">
                             @error('tecido_terciario')
