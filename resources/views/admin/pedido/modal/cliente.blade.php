@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal fade bd-example-modal-xl" tabindex="-1" id="modalCliente" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+<div class="modal _modalCliente fade bd-example-modal-xl" tabindex="-1" id="modalCliente" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl">
       <div class="modal-content">
             <div class="modal-header">
@@ -9,23 +9,10 @@
                 </button>
             </div>
           <div class="modal-body">
-            <div class = "col-md-12">
-                <form action="{{route('cliente.search')}}" method="post">
-                    @csrf
-                    <div class = "row">
-                        <div class= "col-md-10">    
-                            <input type="text" class="form-control" id="filtrar" value="{{$filtros['filtrar'] ?? ''}}" name="filtrar" placeholder = "pesquisar por"> 
-                        </div>
-                        <div class= "col-md-2">
-                            <button type="submit" class= "btn btn-success btn-block" >Pesquisar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <div class="col-md-12">
                 <div class="table-responsive">
                     {{-- @if ($clientes->count() != 0) --}}
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="_cliente">
                             <thead>
                                 <tr>
                                     <th class="border-top-0" scope="col">Código</th>
@@ -45,19 +32,13 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="card-footer">
-                            @if (isset($filtros))
-                                {!! $clientes->links()!!}
-                            @else
-                                {!! $clientes->links()!!}
-                            @endif
-                        </div>
+                       
                    {{--  @else
                         <h1>Ops ainda não foi cadastrado nenhum cliente</h1>
                     @endif --}}
                 </div>
             </div>
-            <div class="modal-footer">
+            <div class="modal-footer ">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
             </div>
         </div>

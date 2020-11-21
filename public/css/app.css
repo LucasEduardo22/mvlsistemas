@@ -2069,19 +2069,11 @@ pre code {
   outline: 0;
   box-shadow: 0 0 0 0 rgba(114, 124, 245, 0.25);
 }
-.form-control::-webkit-input-placeholder {
-  color: #e9ecf0;
-  opacity: 1;
-}
 .form-control::-moz-placeholder {
   color: #e9ecf0;
   opacity: 1;
 }
 .form-control:-ms-input-placeholder {
-  color: #e9ecf0;
-  opacity: 1;
-}
-.form-control::-ms-input-placeholder {
   color: #e9ecf0;
   opacity: 1;
 }
@@ -4604,12 +4596,10 @@ input[type=button].btn-block {
 }
 @media (min-width: 576px) {
   .card-columns {
-    -webkit-column-count: 3;
-       -moz-column-count: 3;
-            column-count: 3;
-    -webkit-column-gap: 1.25rem;
-       -moz-column-gap: 1.25rem;
-            column-gap: 1.25rem;
+    -moz-column-count: 3;
+         column-count: 3;
+    -moz-column-gap: 1.25rem;
+         column-gap: 1.25rem;
     orphans: 1;
     widows: 1;
   }
@@ -12817,19 +12807,11 @@ body {
   box-shadow: none;
 }
 
-input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
-  color: #bfc5ca !important;
-}
-
 input::-moz-placeholder, textarea::-moz-placeholder {
   color: #bfc5ca !important;
 }
 
 input:-ms-input-placeholder, textarea:-ms-input-placeholder {
-  color: #bfc5ca !important;
-}
-
-input::-ms-input-placeholder, textarea::-ms-input-placeholder {
   color: #bfc5ca !important;
 }
 

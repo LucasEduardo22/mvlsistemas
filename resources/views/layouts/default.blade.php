@@ -13,9 +13,10 @@
     <!-- global css -->
     <link type="text/css" href="{{ asset('css/app.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
     <link rel="stylesheet" href="{{ asset('vendors/perfect-scrollbar/css/perfect-scrollbar.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/custom.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/estilo.css') }}">
+
     <style>
         #demo {
             position: relative;
@@ -102,9 +103,10 @@
     {{--<script src="http://utatti.github.io/perfect-scrollbar/prettify.js"></script>
     --}}
     <script src="{{ asset('js/custom.js') }}"></script>
-    <script src="https://cdnjs.com/libraries/jquery.mask"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.js"></script>
     <script type="text/javascript" src="https://cdn.rawgit.com/plentz/jquery-maskmoney/master/dist/jquery.maskMoney.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js" ></script>
     <script>
         // Função para formatar 1 em 01
         const zeroFill = n => {

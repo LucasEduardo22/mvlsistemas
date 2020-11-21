@@ -41,7 +41,7 @@ class PedidoController extends Controller
     }
 
     public function index(){
-        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->paginate(5);
+        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->simplePaginate(5);
 
         return view('admin.pedido.index', compact("pedidos"));
     }
@@ -49,10 +49,10 @@ class PedidoController extends Controller
     public function createPedido()
     {
 
-        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->paginate(5);
+        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->get();
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
-        $estoques =  $this->dadosEstoque->orderBy('id', 'desc')->paginate(10);
+        $estoques =  $this->dadosEstoque->orderBy('id', 'desc')->get();
 
         return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
     }
@@ -188,11 +188,11 @@ class PedidoController extends Controller
     public function editPedido($id)
     {
         $pedido = $this->dadosPedido->find($id);
-        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->paginate(5);
+        $clientes = $this->dadosCliente->orderBy('nome', 'asc')->simplePaginate(5);
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
 
-        $estoques =  $this->dadosEstoque->paginate(10);
+        $estoques =  $this->dadosEstoque->simplePaginate(10);
 
         return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
     }

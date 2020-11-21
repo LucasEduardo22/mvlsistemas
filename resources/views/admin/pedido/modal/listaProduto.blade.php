@@ -9,23 +9,10 @@
                 </button>
             </div>
           <div class="modal-body">
-            <div class = "col-md-12">
-                <form action="{{route('produto.search')}}" method="post">
-                    @csrf
-                    <div class = "row">
-                        <div class= "col-md-10">    
-                            <input type="text" class="form-control" id="filtrar" value="{{$filtros['filtrar'] ?? ''}}" name="filtrar" placeholder = "pesquisar por"> 
-                        </div>
-                        <div class= "col-md-2">
-                            <button type="submit" class= "btn btn-success btn-block" >Pesquisar</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
             <div class="col-md-12">
                 <div class="table-responsive">
                     {{-- @if ($produtos->count() != 0) --}}
-                        <table class="table table-striped">
+                        <table class="table table-striped" id="_listaProduto">
                             <thead>
                                 <tr>
                                     <th class="border-top-0" scope="col">Modelo</th>
@@ -43,13 +30,6 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <div class="card-footer">
-                            @if (isset($filtros))
-                                {!! $estoques->links()!!}
-                            @else
-                                {!! $estoques->links()!!}
-                            @endif
-                        </div>
                    {{--  @else
                         <h1>Ops ainda não foi cadastrado nenhum produto</h1>
                     @endif --}}

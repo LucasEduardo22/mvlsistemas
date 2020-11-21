@@ -1,5 +1,40 @@
 <script>
     $(document).ready(function($) {
+        $('#_cliente').dataTable( {
+            "language": {
+                    "search": "Pesquisar por nome:",
+                    "paginate": {
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    },
+                    "lengthMenu": 
+                        "Mostrar <select>" +
+                            "<option value='5'>5</option>" +
+                            "<option value='10'>10</option>" +
+                            "<option value='15'>15</option>" +
+                            "<option value='20'>20</option>" +
+                        "</select> registro"
+                }
+            });
+
+        $('#_listaProduto').dataTable( {
+            "language": {
+                    "search": "Pesquisar por nome:",
+                    "paginate": {
+                        "next": "Próxima",
+                        "previous": "Anterior"
+                    },
+                    "lengthMenu": 
+                        "Mostrar <select>" +
+                            "<option value='5'>5</option>" +
+                            "<option value='10'>10</option>" +
+                            "<option value='15'>15</option>" +
+                            "<option value='20'>20</option>" +
+                        "</select> registro"
+                }
+            });
+        $('#_cliente_info').remove();
+        $('#_listaProduto_info').remove();
 
         $('.cpf_cnpj').mask('00.000.000/0000-00');
         $('.cep').mask("99999-999");
