@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cliente;
+use App\Models\Empresa;
 use App\Models\Estoque;
 use App\Models\FormaPagamento;
 use App\Models\ItemPedido;
@@ -363,7 +364,9 @@ class PedidoController extends Controller
     public function showPedido($id)
     {
         $pedido = $this->dadosPedido->find($id);
-        return view('admin.pedido.edit', compact("pedido"));
+        $empresa = Empresa::first();
+        
+        return view('admin.pedido.show', compact("pedido", "empresa"));
     }
 
     

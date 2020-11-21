@@ -64,7 +64,7 @@
                                                 <a href="{{route('pedido.edit', $pedido->id)}}" class="btn btn-info">Edit</a>  
                                             @endif
                                             @if ($pedido->status_id == 3)
-                                                <a href="{{-- {{route('pedido.show', $pedido->id)}} --}}" class="btn btn-success">ver</a>
+                                                <a href="{{route('pedido.show', $pedido->id)}}" class="btn btn-success">ver</a>
                                             @endif
                                         </td>
                                     </tr>
