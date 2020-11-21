@@ -41,7 +41,7 @@ class PedidoController extends Controller
     }
 
     public function index(){
-        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->simplesimplePaginate(5);
+        $pedidos = $this->dadosPedido->orderBy('id', 'desc')->simplePaginate(5);
 
         return view('admin.pedido.index', compact("pedidos"));
     }
