@@ -26,7 +26,7 @@
                             </div>
                             <div class="form-group col-md-4">
                                 <label for="inputEmail4">Forma de pagamento:</label>
-                                <select id="_forma_pagamento" name="forma_pagamento" class="form-control forma_pagamento @error('forma_pagamento') is-invalid @enderror">
+                                <select id="_forma_pagamento" name="forma_pagamento" class="form-control forma_pagamento @error('forma_pagamento') is-invalid @enderror" required>
                                     <option value="">Selecione</option>
                                     @foreach ($formaPagamentos as $formaPagamento) 
                                         <option value="{{$formaPagamento->id}}" @if(old('forma_pagamento_id', !empty($pedido->formaPagamento->id) ? $pedido->formaPagamento->id : '' ) == $formaPagamento->id ) selected="" @endif>{{$formaPagamento->nome}}</option>
@@ -155,6 +155,8 @@
     <div id="itens">
         @foreach ($pedido->itensPedido as $itensPedido)
             <input name="tokenProduto[]" value="{{$itensPedido->id}}" class="produto_item" type="hidden" id="produto_id{{$itensPedido->estoque->produto->modelo}}"/>
+            <input name="deletaProduto[]" value="N" class="produto_item" type="hidden" id="item{{$itensPedido->estoque->produto->modelo}}"/>
+            <input name="itemProduto[]" value="{{$itensPedido->id}}" class="produto_item" type="hidden"/>
         @endforeach
     </div>
 </div>

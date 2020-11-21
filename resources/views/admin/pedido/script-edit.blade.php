@@ -632,7 +632,7 @@
                             $('[name="tecido_secundario"]').val(data.tecido_secundario);
                             $('[name="tecido_terciario"]').val(data.tecido_terciario);
                             $('[name="quantidadeSemtamanho"]').val(data.quantidadeSemtamanho);
-                            $('[name="valorSemtamanho"]').val(data.valorSemtamanho);
+                            $('[name="valorSemtamanho"]').val(data.valorSemtamanho.replace(".", ","));
                             $('[name="frente"]').val(data.frente);
                             $('[name="costa"]').val(data.costa);
                             $('[name="manga_direita"]').val(data.manga_direita);
@@ -733,6 +733,7 @@
             e.preventDefault();
             var modelo = $(this).closest('tr').find('td[data-modelo]').data('modelo');
             var token = $('#produto_id'+modelo).val();
+            $('#item'+modelo).val("S");
 
             if (token != "") {
                 $.ajax({

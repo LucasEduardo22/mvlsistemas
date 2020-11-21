@@ -199,6 +199,7 @@ class PedidoController extends Controller
 
     public function updatePedido(Request  $request, $id)
     {
+        
         $pedido = $this->dadosPedido->find($id);
         $count = 0;
         $user = auth()->user()->id;
@@ -217,9 +218,21 @@ class PedidoController extends Controller
             $clientes["status_id"] = Status::CANCELADO;
             return redirect()->route('pedido.index')->with('success', "Pedido cancelado com sucesso");
         }
+
        // dd($clientes, $request->all());
         //Salvar dados na tabela pedido.
         $pedido->update($clientes); 
+        $deletaItem = $request->deletaProduto;
+        $itemProduto = $request->itemProduto;
+
+        foreach ($deletaItem as $key => $value) {
+            if($value == "S"){
+                $itemPedido = ItemPedido::find($itemProduto[$key]);
+                $itemPedido->delete();
+                $request->session()->forget($request->tokenProduto[$key]);
+            }
+        }
+
         if(!empty($request->tokenProduto)){
             for ($i=0; $i < count($request->tokenProduto); $i++){
                 $count ++;
@@ -518,7 +531,7 @@ class PedidoController extends Controller
         $token = $request->token;
         $detalhes = $request->session()->get($token);    
 
-        // Deletando uma sessão específica:
+       // Deletando uma sessão específica:
         $request->session()->forget($token);
 
         $detalhes['success'] = true;
