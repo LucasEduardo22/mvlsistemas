@@ -308,7 +308,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary _salvar" data-dismiss="modal">Fechar</button>
                 <button type="button" id="" class="btn btn-primary _salvar"  data-dismiss="modal">Salvar</button>
             </div>
         </div>
