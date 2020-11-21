@@ -229,7 +229,6 @@ class PedidoController extends Controller
             if($value == "S"){
                 $itemPedido = ItemPedido::find($itemProduto[$key]);
                 $itemPedido->delete();
-                $request->session()->forget($request->tokenProduto[$key]);
             }
         }
 
