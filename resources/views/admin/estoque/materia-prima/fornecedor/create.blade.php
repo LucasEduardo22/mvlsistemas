@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Meteria Prima @parent
+    Matéria Prima @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,7 +16,7 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('materia-prima.index') }}">Materia Primas</a>
+            <a href="{{ route('materia-prima.index') }}">Matéria Prima</a>
         </li>
         <li class="breadcrumb-item active">
             <a href="{{ route('materia-prima.fornecedor.create', $materiaPrima->id) }}">Fornernecedor</a>
@@ -27,7 +27,7 @@
         <section class="content-header">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                  <a class="nav-link" href="#">Meteria Prima</a>
+                  <a class="nav-link" href="#">Matéria Prima</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link active" href="">Fornernecedor</a>

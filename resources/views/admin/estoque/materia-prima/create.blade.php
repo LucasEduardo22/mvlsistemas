@@ -16,7 +16,7 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('materia-prima.index') }}">Materia Primas</a>
+            <a href="{{ route('materia-prima.index') }}">Matéria Prima</a>
         </li>
         <li class="breadcrumb-item active">
             <a href="{{ route('materia-prima.create') }}">Create</a>
@@ -27,7 +27,7 @@
         <section class="content-header">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link active" href="#">Meteria Prima</a>
+                    <a class="nav-link active" href="#">Matéria Prima</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="">Fornernecedor</a>

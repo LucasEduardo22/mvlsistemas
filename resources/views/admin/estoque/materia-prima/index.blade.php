@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Materia-primas @parent
+    Matéria Prima @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -17,13 +17,13 @@
             <a href="{{route('home')}}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{route('materia-prima.index')}}">Materia-primas</a>
+            <a href="{{route('materia-prima.index')}}">Matéria Prima</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">  
-            <h1 class="mt-2">Materia-primas<a href="{{route('materia-prima.create')}}" class="btn btn-primary float-right mr-2"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+            <h1 class="mt-2">Matéria Prima<a href="{{route('materia-prima.create')}}" class="btn btn-primary float-right mr-2"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
@@ -38,7 +38,7 @@
                 </div>
             </div>
         </div>
-        <div class="card-body">
+        <div class="card-body"
             <div class="col-md-12">
                 <div class="table-responsive">
                     @if ($materiaPrimas->count() != 0)
@@ -46,7 +46,7 @@
                             <thead>
                                 <tr>
                                     <th class="border-top-0" scope="col">#</th>
-                                    <th class="border-top-0" scope="col">Materia Prima</th>
+                                    <th class="border-top-0" scope="col">Matéria Prima</th>
                                     <th class="border-top-0" scope="col">Grupo</th>
                                     <th class="border-top-0" scope="col">Quantidade</th>
                                     <th class="border-top-0" scope="col">Valor de Compra</th>
@@ -60,13 +60,13 @@
                                         <td scope="row">{{$materiaPrima->id}}</td>
                                         <td style="widtd: 300px">{{$materiaPrima->nome}}</td>
                                         <td>{{$materiaPrima->tipoProduto->nome}}</td>
-                                        <td>{{$materiaPrima->estoque_atua ?? "0"}}</td>
+                                        <td>{{$materiaPrima->estoque_atual ?? "0"}}</td>
                                         <td>{{!$materiaPrima->preco_compra ? "R$ 0" : 'R$ '.number_format($materiaPrima->preco_compra, 2, ',', '.')}}</td>
                                         <td>{{!$materiaPrima->marge_venda ? "0%" : $materiaPrima->marge_venda."%"}}</td>
                                         <td>{{$materiaPrima->status->nome}}</td>
                                         <td style="width: 150px">
                                             <a href="{{route('materia-prima.edit', $materiaPrima->id)}}" class="btn btn-info">Edit</a>
-                                            <a href="{{route('materia-prima.show', $materiaPrima->id)}}"  class="btn bg-warning-dark">ver</a>
+                                            {{-- <a href="{{route('materia-prima.show', $materiaPrima->id)}}"  class="btn bg-warning-dark">ver</a> --}}
                                         </td>
                                     </tr>
                                 @endforeach

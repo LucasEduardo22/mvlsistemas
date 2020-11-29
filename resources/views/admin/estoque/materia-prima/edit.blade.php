@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Editar materia prima {{$materiaPrima->nome}} @parent
+    Editar Matéria Prima {{$materiaPrima->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,7 +16,7 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('materia-prima.index') }}">Materia Primas</a>
+            <a href="{{ route('materia-prima.index') }}">Matéria Prima</a>
         </li>
         <li class="breadcrumb-item active">
             <a href="{{ route('materia-prima.edit', $materiaPrima->id) }}">{{$materiaPrima->nome}}</a>
@@ -25,7 +25,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Editar materia prima <strong>{{$materiaPrima->nome}}</strong></h1>
+            <h1 class="mt-2">Matéria Prima <strong>{{$materiaPrima->nome}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
