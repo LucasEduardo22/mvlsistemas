@@ -45,12 +45,12 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th class="border-top-0" scope="col">#</th>
+                                    <th class="border-top-0" scope="col">Código</th>
                                     <th class="border-top-0" scope="col">Matéria Prima</th>
                                     <th class="border-top-0" scope="col">Grupo</th>
                                     <th class="border-top-0" scope="col">Quantidade</th>
                                     <th class="border-top-0" scope="col">Valor de Compra</th>
-                                    <th class="border-top-0" scope="col">Margen Venda</th>
+                                    <th class="border-top-0" scope="col">Margem Venda</th>
                                     <th class="border-top-0" scope="col">Status</th>
                                 </tr>
                             </thead>

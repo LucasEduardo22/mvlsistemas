@@ -109,7 +109,7 @@
         </div>
     </div>
     <div class="form-group col-md-3">
-        <label for="_marge_venda">Marge Venda<span class="text-danger">*</span></label>
+        <label for="_marge_venda">Margem Venda<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
@@ -193,4 +193,4 @@
     </div>
 </div>
 <button type="submit" value="0" name="botao" class="btn btn-primary">Salvar</button>
-<button type="submit" value="1" name="botao" class="btn btn-primary">Adicionar Fornecedor</button>
+<button type="submit" value="1" name="botao" class="btn bg-success text-light">Adicionar Fornecedor</button>
