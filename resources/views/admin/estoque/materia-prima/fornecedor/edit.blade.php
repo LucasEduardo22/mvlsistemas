@@ -19,7 +19,7 @@
             <a href="{{ route('materia-prima.index') }}">Materia Primas</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('materia-prima.fornecedor.create', $materiaPrima->id) }}">Fornernecedor</a>
+            <a href="{{ route('materia-prima.fornecedor.edit', $materiaPrima->id) }}">Fornernecedor</a>
         </li>
     </ol>
     <div class="card">
@@ -36,7 +36,7 @@
             <h1 class="mt-2"></h1>
         </section>
         <div class="card-body pt-0">
-            <form action="{{route('materia-prima.fornecedor.store', $materiaPrima->id)}}" class="form-horizontal" method="post" class="form">
+            <form action="{{route('materia-prima.fornecedor.update', $materiaPrima->id)}}" class="form-horizontal" method="post" class="form">
                 @method('POST')
                 @csrf
                 @include('admin.estoque.materia-prima.fornecedor.form-fornecedor')

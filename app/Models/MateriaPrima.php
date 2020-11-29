@@ -30,4 +30,8 @@ class MateriaPrima extends Model
     public function cor(){
         return $this->hasOne(Cores::class, 'id','core_id');
     }
+
+    public function fornecedor(){
+        return $this->hasMany(MateriaPrimaFornecedor::class);
+    }
 }

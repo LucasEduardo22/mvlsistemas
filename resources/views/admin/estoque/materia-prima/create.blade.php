@@ -57,10 +57,11 @@
 
                 if (tipo == "Tecido") {
                     $('.tecidos').show();
+                    $("_tipo_materia").val(1);
                 }else{
                     $('.tecidos').hide();
+                    $("_tipo_materia").val(0);
                 }
-
             });
         });
 

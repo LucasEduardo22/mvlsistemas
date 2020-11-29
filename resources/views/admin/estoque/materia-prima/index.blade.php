@@ -23,7 +23,7 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">  
-            <h1 class="mt-2">Materia-primas<a href="{{route('materia-prima.create')}}" class="btn btn-primary float-right"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
+            <h1 class="mt-2">Materia-primas<a href="{{route('materia-prima.create')}}" class="btn btn-primary float-right mr-2"><i class="fas fa-plus-square"></i> ADICIONAR</a></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
@@ -57,14 +57,14 @@
                             <tbody>
                                 @foreach ($materiaPrimas as $materiaPrima)
                                     <tr>
-                                        <th scope="row">{{$materiaPrima->id}}</th>
-                                        <th scope="row">{{$materiaPrima->nome}}</th>
+                                        <td scope="row">{{$materiaPrima->id}}</td>
+                                        <td style="widtd: 300px">{{$materiaPrima->nome}}</td>
                                         <td>{{$materiaPrima->tipoProduto->nome}}</td>
-                                        <th scope="row">{{$materiaPrima->estoque_atual}}</th>
-                                        <th scope="row">{{$materiaPrima->preco_compra}}</th>
-                                        <th scope="row">{{$materiaPrima->marge_venda}}</th>
+                                        <td>{{$materiaPrima->estoque_atua ?? "0"}}</td>
+                                        <td>{{!$materiaPrima->preco_compra ? "R$ 0" : 'R$ '.number_format($materiaPrima->preco_compra, 2, ',', '.')}}</td>
+                                        <td>{{!$materiaPrima->marge_venda ? "0%" : $materiaPrima->marge_venda."%"}}</td>
                                         <td>{{$materiaPrima->status->nome}}</td>
-                                        <td style="width: 280px">
+                                        <td style="width: 150px">
                                             <a href="{{route('materia-prima.edit', $materiaPrima->id)}}" class="btn btn-info">Edit</a>
                                             <a href="{{route('materia-prima.show', $materiaPrima->id)}}"  class="btn bg-warning-dark">ver</a>
                                         </td>

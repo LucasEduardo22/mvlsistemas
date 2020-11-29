@@ -17,7 +17,7 @@ class CreateMateriaPrimasTable extends Migration
             $table->id();
             $table->unsignedBigInteger('tipo_produto_id');
             $table->string("nome", 150)->unique();
-            $table->string("sigla", 10)->unique();
+            $table->string("sigla", 10)->unique()->nullable();
             $table->string("composicao", 150)->nullable();
             $table->double('estoque_inicial', 10,2)->nullable();
             $table->double('estoque_minimo', 10,2)->nullable();
@@ -29,7 +29,7 @@ class CreateMateriaPrimasTable extends Migration
             $table->double('custo_atual', 10,2)->nullable();
             $table->double('custo_producao', 10,2)->nullable();
             $table->double('marge_venda', 10,2)->nullable();
-            $table->string("descricao", 150)->nullable();
+            $table->text("descricao", 1000)->nullable();
             $table->unsignedBigInteger('unidade_id')->nullable();
             $table->unsignedBigInteger('core_id')->nullable();
             $table->unsignedBigInteger('status_id')->nullable();

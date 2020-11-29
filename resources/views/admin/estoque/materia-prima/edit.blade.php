@@ -39,3 +39,23 @@
         </div>
     </div>
 @stop
+@push('scripts')
+    <script>
+        $(document).ready(function($){
+            $('.dinheiro').mask('#.###,00', {reverse: true}); 
+
+            $('.tipo_produto').change(function (){
+                var tipo = $('.tipo_produto option:selected').text();
+                console.log(tipo);
+
+                if (tipo == "Tecido") {
+                    $('.tecidos').show();
+                    $("_tipo_materia").val(1);
+                }else{
+                    $('.tecidos').hide();
+                    $("_tipo_materia").val(0);
+                }
+            });
+        });
+    </script>
+@endpush

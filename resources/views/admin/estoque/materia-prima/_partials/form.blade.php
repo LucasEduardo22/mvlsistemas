@@ -1,22 +1,28 @@
 <div class="form-row mt-0 mb-3">
     <div class="form-group col-md-4 ">
-        <label for="_materia_prima_id">Tipo</label>
+        <label for="_tipo_produto_id">Tipo<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
                     <i class="fas fa-clipboard-check"></i>
                 </span>
             </span>
-            <select id="_materia_prima_id" name="materia_prima_id" class="form-control tipo_produto @error('materia_prima_id') is-invalid @enderror">
+            <select id="_tipo_produto_id" name="tipo_produto_id" class="form-control tipo_produto @error('tipo_produto_id') is-invalid @enderror">
                 <option>--Select--</option>
                 @foreach ($tipoProdutos as $tipoProduto)
-                    <option value="{{$tipoProduto->id}}" @if(old('materia_prima_id', !empty($materiaPrima->tipoProduto->id) ? $materiaPrima->tipoProduto->id : '' ) == $tipoProduto->id ) selected="" @endif>{{$tipoProduto->nome}}</option>
+                    <option value="{{$tipoProduto->id}}" @if(old('tipo_produto_id', !empty($materiaPrima->tipoProduto->id) ? $materiaPrima->tipoProduto->id : '' ) == $tipoProduto->id ) selected="" @endif>{{$tipoProduto->nome}}</option>
                 @endforeach
             </select>
+            @error('tipo_produto_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
+        <input type="hidden" id="_tipo_materia" name="tipo_materia" value="0">
     </div>
     <div class="form-group col-md-5">
-        <label for="_nome">Produto</label>
+        <label for="_nome">Produto<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
@@ -32,7 +38,7 @@
         </div>
     </div>
     <div class="form-group col-md-3">
-        <label for="_unidade_id">Unidade</label>
+        <label for="_unidade_id">Unidade<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
@@ -45,12 +51,17 @@
                     <option value="{{$unidade->id}}" @if(old('unidade_id', !empty($materiaPrima->unidade->id) ? $materiaPrima->unidade->id : '' ) == $unidade->id ) selected="" @endif>{{$unidade->sigla}}</option>
                 @endforeach
             </select>
+            @error('unidade_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
         </div>
     </div>
 </div>
 <div class="form-row mb-3">
     <div class="form-group col-md-3">
-        <label for="_estoque_inicial">Quantidade Inicial</label>
+        <label for="_estoque_inicial">Quantidade Inicial<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
@@ -82,7 +93,7 @@
         </div>
     </div>
     <div class="form-group col-md-3">
-        <label for="_preco_compra">Valor Compra</label>
+        <label for="_preco_compra">Valor Compra<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
@@ -98,7 +109,7 @@
         </div>
     </div>
     <div class="form-group col-md-3">
-        <label for="_marge_venda">Marge Venda</label>
+        <label for="_marge_venda">Marge Venda<span class="text-danger">*</span></label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">
@@ -157,7 +168,7 @@
                 </span>
             </span>
             <select id="_core_id" name="core_id" class="form-control @error('core_id') is-invalid @enderror">
-                <option>--Select--</option>
+                <option value="">--Select--</option>
                 @foreach ($cores as $cor)
                     <option value="{{$cor->id}}" @if(old('core_id', !empty($materiaPrima->cor->id) ? $materiaPrima->cor->id : '' ) == $cor->id ) selected="" @endif>{{$cor->nome}}</option>
                 @endforeach
@@ -181,4 +192,5 @@
         @enderror
     </div>
 </div>
-<button type="submit" class="btn btn-primary">Salvar</button>
+<button type="submit" value="0" name="botao" class="btn btn-primary">Salvar</button>
+<button type="submit" value="1" name="botao" class="btn btn-primary">Adicionar Fornecedor</button>

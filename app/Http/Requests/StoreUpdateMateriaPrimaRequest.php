@@ -13,7 +13,7 @@ class StoreUpdateMateriaPrimaRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +23,19 @@ class StoreUpdateMateriaPrimaRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->segment(3);
         return [
-            //
+            "nome" => "required|min:3|max:150|unique:materia_primas,nome,{$id},id", 
+            "tipo_produto_id" =>"required", 
+            "unidade_id" =>"required", 
+            "estoque_inicial" =>"required", 
+            "estoque_minimo" =>"nullable", 
+            "preco_compra" =>"required", 
+            "marge_venda" =>"required", 
+            "sigla" =>"nullable", 
+            "composicao" =>"nullable|min:3|max:150", 
+            "core_id" =>"nullable", 
+            'descricao' => "nullable|min:3|max:1000",
         ];
     }
 }

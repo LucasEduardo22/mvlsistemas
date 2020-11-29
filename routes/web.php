@@ -74,8 +74,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::any('/home/materia-prima/search', 'Admin\MateriaPrimaController@search')->name("materia-prima.search");
 
     //Materia Prima - Fornecedor
-    Route::get("home/materia-prima/teste", MateriaPrimaFornecedor::class)->name('materia-prima.fornecedor.create');
-    
+    Route::get("home/materia-prima/{id}/fornecedor/create", "Admin\MateriaPrimaFornecedorController@create")->name('materia-prima.fornecedor.create');
+    Route::get("home/materia-prima/{id}/fornecedor/edit", "Admin\MateriaPrimaFornecedorController@edit")->name('materia-prima.fornecedor.edit');
+    Route::post("home/materia-prima/{id}/store", "Admin\MateriaPrimaFornecedorController@store")->name('materia-prima.fornecedor.store');
+    Route::post("home/materia-prima/delete", "Admin\MateriaPrimaFornecedorController@delete")->name('materia-prima.fornecedor.delete');
+
     //Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
     Route::get('/home/produto/create', 'Admin\ProdutoController@create')->name('produto.create');

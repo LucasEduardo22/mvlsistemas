@@ -37,6 +37,28 @@ class MateriaPrimaController extends Controller
         return view('admin.estoque.materia-prima.create', compact('materiaPrimas', 'tipoProdutos', 'unidades', 'cores'));
     }
 
+    public function store(StoreUpdateMateriaPrimaRequest $request)
+    {
+        $request->merge([
+            "preco_compra" => str_replace(['.'], '', $request->preco_compra),
+            "preco_compra" => str_replace([','],'.', $request->preco_compra),
+            "estoque_inicial" => str_replace([','],'.', $request->estoque_inicial),
+        ]);
+        $dados = $request->all();
+        
+        $dados['status_id'] = 1; //padrão ativo 
+        $dados['preco_compra'] =  $dados['preco_compra'] != '' ? $dados['preco_compra'] : null;
+        $dados['estoque_atual'] =  $dados["estoque_inicial"] != '' ? $dados["estoque_inicial"] : null;
+        $materiaPrima = $this->dadosMateriaPrima->create($dados);
+        
+        if($request->botao != 1){
+            return redirect()->route('materia-prima.index')->with('success', 'MateriaPrima cadastrada com sucesso..');
+        }else{
+            return redirect()->route('materia-prima.fornecedor.create', $materiaPrima->id);
+        }
+
+    }
+
     public function show($id){
         $materiaPrima = $this->dadosMateriaPrima->find($id);
 
@@ -51,23 +73,33 @@ class MateriaPrimaController extends Controller
     {
         $materiaPrima = $this->dadosMateriaPrima->find($id);
         $tipoProdutos = $this->dadosTipoProduto->get();
-        return view('admin.estoque.materia-prima.edit', compact('materiaPrima', 'tipoProdutos'));
+        $unidades = $this->dadosUnidade->get();
+        $cores = $this->dadosCor->get();
+        return view('admin.estoque.materia-prima.edit', compact('materiaPrima', 'tipoProdutos', 'unidades', 'cores'));
     }
 
     public function update(StoreUpdateMateriaPrimaRequest $request, $id)
     {
         $materiaPrima = $this->dadosMateriaPrima->find($id);
+        $request->merge([
+            "preco_compra" => str_replace(['.'], '', $request->preco_compra),
+            "preco_compra" => str_replace([','],'.', $request->preco_compra),
+            "estoque_inicial" => str_replace([','],'.', $request->estoque_inicial),
+        ]);
 
         if(!$materiaPrima){
             return redirect()->back();
         }
-        $data = $request->all();
-        
-        $data['status_id'] = 1; //padrão ativo 
+        $dados = $request->all();
+        $dados['status_id'] = 1; //padrão ativo 
+        $dados['preco_compra'] =  $dados['preco_compra'] != '' ? $dados['preco_compra'] : null;
+        $dados['estoque_atual'] =  $dados["estoque_inicial"] != '' ? $dados["estoque_inicial"] : null;
+        $materiaPrima->update($dados);
 
-        $materiaPrima->update($data);
-     
-        return redirect()->route('materia-prima.index')->with('success', 'MateriaPrima cadastrada com sucesso..');
-     
+        if($request->botao != 1){
+            return redirect()->route('materia-prima.index')->with('success', 'MateriaPrima cadastrada com sucesso..');
+        }else{
+            return redirect()->route('materia-prima.fornecedor.edit', $materiaPrima->id);
+        }
     }
 }
