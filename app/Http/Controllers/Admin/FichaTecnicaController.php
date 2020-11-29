@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateFichaTecnicaRequest;
-use App\Models\Aviamento;
+use App\Models\MateriaPrima;
 use App\Models\FichaTecnica;
 use App\Models\Produto;
 use Illuminate\Http\Request;
@@ -13,13 +13,13 @@ class FichaTecnicaController extends Controller
 {
     protected $dadosFichaTecnica;
     protected $dadosProduto;
-    protected $dadosAviamentos;
+    protected $dadosMateriaPrimas;
 
-    public function __construct(FichaTecnica $fichaTecnica, Produto $produto, Aviamento $aviamento)
+    public function __construct(FichaTecnica $fichaTecnica, Produto $produto, MateriaPrima $materiaPrima)
     {
         $this->dadosFichaTecnica = $fichaTecnica;
         $this->dadosProduto = $produto;
-        $this->dadosAviamentos = $aviamento;
+        $this->dadosMateriaPrimas = $materiaPrima;
     }
     /**
      * Display a listing of the resource.
@@ -41,8 +41,8 @@ class FichaTecnicaController extends Controller
     public function create($id)
     {
         $produto = $this->dadosProduto->find($id);
-        $aviamentos= $this->dadosAviamentos->simplePaginate(25);
-        return view('admin.estoque.produto.ficha-tecnica.create', compact('produto', "aviamentos"));
+        $materiaPrimas= $this->dadosMateriaPrimas->simplePaginate(25);
+        return view('admin.estoque.produto.ficha-tecnica.create', compact('produto', "materiaPrimas"));
     }
 
     /**
@@ -59,8 +59,8 @@ class FichaTecnicaController extends Controller
             $dados = [];
             $detalhes = [];
             
-            foreach ($request->aviamento as $i => $value) {
-                foreach ($request->aviamento_id as $c => $ave){
+            foreach ($request->materiaPrima as $i => $value) {
+                foreach ($request->materia_prima_id as $c => $ave){
                     if($ave == $value){
                         $dados[] = $value;
                         $detalhes[]= $request->detalhes[$i];
@@ -69,7 +69,7 @@ class FichaTecnicaController extends Controller
             }
             foreach ($dados as $id => $item) {
                 $novo = new FichaTecnica;
-                $novo->aviamento_id = $item;
+                $novo->materia_prima_id = $item;
                 $novo->produto_id = $produto->id;
                 $novo->detalhes = $detalhes[$id];
                 $novo->save(); 
@@ -108,8 +108,8 @@ class FichaTecnicaController extends Controller
     public function edit($id)
     {
         $produto = $this->dadosProduto->find($id);
-        $aviamentos= $this->dadosAviamentos->simplePaginate(25);
-        return view('admin.estoque.produto.ficha-tecnica.edit', compact('produto', "aviamentos"));
+        $materiaPrimas= $this->dadosMateriaPrimas->where("tipo_produto_id", 1)->simplePaginate(25);
+        return view('admin.estoque.produto.ficha-tecnica.edit', compact('produto', "materiaPrimas"));
     }
 
     /**
@@ -122,17 +122,17 @@ class FichaTecnicaController extends Controller
     public function update(Request $request, $id)
     {
         $produto = $this->dadosProduto->find($id);
-        $aviamentos = $this->dadosFichaTecnica->where('produto_id', $produto->id)->get();
+        $materiaPrimas = $this->dadosFichaTecnica->where('produto_id', $produto->id)->get();
 
-        if($aviamentos->count() != 0){
-            foreach($aviamentos as $aviamento){
-                if(empty($aviamento) || !empty($request->aviamento_id)){
+        if($materiaPrimas->count() != 0){
+            foreach($materiaPrimas as $materiaPrima){
+                if(empty($materiaPrima) || !empty($request->materia_prima_id)){
                     
                     $dados = [];
                     $detalhes = [];
                     
-                    foreach ($request->aviamento as $i => $value) {
-                        foreach ($request->aviamento_id as $c => $ave){
+                    foreach ($request->materiaPrima as $i => $value) {
+                        foreach ($request->materia_prima_id as $c => $ave){
                             if($ave == $value){
                                 $dados[] = $value;
                                 $detalhes[]= $request->detalhes[$i];
@@ -142,14 +142,14 @@ class FichaTecnicaController extends Controller
                     foreach ($dados as $id => $item) {
 
                         $novo = new FichaTecnica;
-                        $novo->aviamento_id = $item;
+                        $novo->materia_prima_id = $item;
                         $novo->produto_id = $produto->id;
                         $novo->detalhes = $detalhes[$id];
                         $novo->save(); 
                     }
 
                     for ($i=0; $i < count($request->Ave_id); $i++) { 
-                        $dados = $aviamento->find($request->Ave_id[$i]);
+                        $dados = $materiaPrima->find($request->Ave_id[$i]);
                         
                         if($request->detalhe[$i] != null){
                             $dados->detalhes = $request->detalhe[$i];
@@ -159,7 +159,7 @@ class FichaTecnicaController extends Controller
                     
                 }else{
                     for ($i=0; $i < count($request->Ave_id); $i++) { 
-                        $dados = $aviamento->find($request->Ave_id[$i]);
+                        $dados = $materiaPrima->find($request->Ave_id[$i]);
                         
                         if($request->detalhe[$i] != null){
                             $dados->detalhes = $request->detalhe[$i];
@@ -176,8 +176,8 @@ class FichaTecnicaController extends Controller
                 $dados = [];
                 $detalhes = [];
                 
-                foreach ($request->aviamento as $i => $value) {
-                    foreach ($request->aviamento_id as $c => $ave){
+                foreach ($request->materiaPrima as $i => $value) {
+                    foreach ($request->materia_prima_id as $c => $ave){
                         if($ave == $value){
                             $dados[] = $value;
                             $detalhes[]= $request->detalhes[$i];
@@ -186,7 +186,7 @@ class FichaTecnicaController extends Controller
                 }
                 foreach ($dados as $id => $item) {
                     $novo = new FichaTecnica;
-                    $novo->aviamento_id = $item;
+                    $novo->materia_prima_id = $item;
                     $novo->produto_id = $produto->id;
                     $novo->detalhes = $detalhes[$id];
                     $novo->save(); 
@@ -206,16 +206,16 @@ class FichaTecnicaController extends Controller
      */
     public function destroy($id, $produto_id)
     {
-        $aviamento = $this->dadosFichaTecnica->find($id);
+        $materiaPrima = $this->dadosFichaTecnica->find($id);
         $produto = $this->dadosProduto->find($produto_id);
-        if(!$aviamento){
+        if(!$materiaPrima){
             return redirect()->back();
         }
-        $aviamento->delete();
+        $materiaPrima->delete();
 
         return redirect()
                 ->route('produto.show', $produto->id)
-                ->with('success', 'Aviamento deletado com sucesso');
+                ->with('success', 'MateriaPrima deletado com sucesso');
 
     }
 }

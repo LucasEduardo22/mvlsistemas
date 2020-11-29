@@ -70,29 +70,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($aviamentos as $aviamento)
+                        @foreach ($materiaPrimas as $materiaPrima)
                             @php
-                                $dados = $produto->aviamentos()->where('aviamento_id', $aviamento->id)->first(); 
+                                $dados = $produto->materiaPrimas()->where('materia_prima_id', $materiaPrima->id)->first();
                             @endphp
                             <tr>
                                 <td>
                                     @if (!empty($dados))
-                                        @if ($aviamento->id == $dados->aviamento_id)
+                                        @if ($materiaPrima->id == $dados->materia_prima_id)
                                             <strong class="txtChecked"><i class="fas fa-check-circle"></i></strong>    
                                         @else
-                                            <input type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
+                                            <input type="checkbox" name="materia_prima_id[]" id="" value="{{$materiaPrima->id}}">
                                         @endif
                                     @else
-                                        <input class="_ave" type="checkbox" name="aviamento_id[]" id="" value="{{$aviamento->id}}">
+                                        <input class="_ave" type="checkbox" name="materia_prima_id[]" id="" value="{{$materiaPrima->id}}">
                                     @endif
                                     
                                 </td>
                                 <td>
-                                    {{$aviamento->nome}}
+                                    {{$materiaPrima->nome}}
                                 </td>
                                 <td>
                                     @if (!empty($dados))
-                                        @if ($aviamento->id == $dados->aviamento_id)
+                                        @if ($materiaPrima->id == $dados->materia_prima_id)
                                             <textarea id="_detalhes" class="form-control _detalhes resize_vertical @error('detalhes') is-invalid @enderror" name="detalhe[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
                                             <input type="hidden" name="Ave_id[]" value="{{$dados->id}}">
                                             @error('detalhes')
@@ -102,7 +102,7 @@
                                             @enderror    
                                         @else
                                             <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
-                                            <input type="hidden" name="aviamento[]" value="{{$aviamento->id}}">
+                                            <input type="hidden" name="materiaPrima[]" value="{{$materiaPrima->id}}">
                                             @error('detalhes')
                                                 <div class="invalid-feedback">
                                                     {{ $message }}
@@ -112,7 +112,7 @@
                                     @else
                                         <input type="hidden" name="" class="">
                                         <textarea id="_detalhes" class="form-control resize_vertical @error('detalhes') is-invalid @enderror" name="detalhes[]" id="_detalhes" >{{old('detalhes', !empty($dados->detalhes) ? $dados->detalhes : '')}}</textarea>
-                                        <input type="hidden" name="aviamento[]" value="{{$aviamento->id}}">
+                                        <input type="hidden" name="materiaPrima[]" value="{{$materiaPrima->id}}">
                                         @error('detalhes')
                                             <div class="invalid-feedback">
                                                 {{ $message }}
@@ -127,9 +127,9 @@
                 </table>
                 <div class="card-footer">
                     @if (isset($filtros))
-                        {!!$aviamentos->appends($filtros)->links()!!}
+                        {!!$materiaPrimas->appends($filtros)->links()!!}
                     @else
-                        {!!$aviamentos->links()!!}
+                        {!!$materiaPrimas->links()!!}
                     @endif
                 </div>
             </div>

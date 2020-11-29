@@ -7,6 +7,9 @@
 
     <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
     <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    @livewireStyles
+
     <link rel="shortcut icon" href="{{ asset('img/favicon.ico') }}" />
     <link rel="stylesheet" href="{{ asset('fonts/iconmind.css') }}">
     
@@ -90,6 +93,7 @@
             @yield('content')
         </aside>
     </div>
+    @livewireScripts
     <!-- ./wrapper -->
     <!-- Footer end -->
     <!-- SCRIPTS -->

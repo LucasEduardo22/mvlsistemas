@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Cadastrar um novo produto @parent
+    Produto @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -19,25 +19,19 @@
             <a href="{{ route('produto.index') }}">Produtos</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('produto.create') }}">Create</a>
+            <a href="{{ route('produto.create') }}">{{$produto->nome_produto}}</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar um novo produto</h1>
+            <h1 class="mt-2">produto</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('produto.materia-prima.estoque.store', $produto->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
-                    @method('POST')
-                    @csrf
-                    @include('admin.estoque.produto.ficha-tecnica.form')
-                </form>
+                @include('admin.estoque.produto._partials._show')    
             </div>
         </div>
     </div>
 @stop
-
-

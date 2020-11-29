@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Livewire\MateriaPrimaFornecedor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 include('web_builder.php');
@@ -26,9 +27,6 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Empresas
     Route::resource('/home/empresa', 'Empresa\EmpresaController');
-
-    //Aviamentos
-    Route::resource('/home/aviamento', 'Admin\AviamentoController');
 
     //Departamento
     Route::resource('/home/departamento', 'Admin\DepartamentoController');
@@ -60,12 +58,24 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('/home/fornecedor', 'Admin\FornecedorController');
 
     //Ficha Tecnica 
-    Route::get('/home/produto/{id}/create-aviamento', 'Admin\FichaTecnicaController@create')->name('produto.aviamento.create');
-    Route::post('/home/produto/{id}/store-aviamento', 'Admin\FichaTecnicaController@store')->name('produto.aviamento.estoque.store');
-    Route::get('/home/produto/{id}/edit-aviamento', 'Admin\FichaTecnicaController@edit')->name('produto.aviamento.edit');
-    Route::put('/home/produto/{id}/update-aviamento', 'Admin\FichaTecnicaController@update')->name('produto.aviamento.estoque.update');
-    Route::delete('/home/produto/{id}/{produto_id}/delete-aviamento', 'Admin\FichaTecnicaController@destroy')->name('produto.aviamento.estoque.destroy');
+    Route::get('/home/produto/{id}/create-materia-prima', 'Admin\FichaTecnicaController@create')->name('produto.materia-prima.create');
+    Route::post('/home/produto/{id}/store-materia-prima', 'Admin\FichaTecnicaController@store')->name('produto.materia-prima.estoque.store');
+    Route::get('/home/produto/{id}/edit-materia-prima', 'Admin\FichaTecnicaController@edit')->name('produto.materia-prima.edit');
+    Route::put('/home/produto/{id}/update-materia-prima', 'Admin\FichaTecnicaController@update')->name('produto.materia-prima.estoque.update');
+    Route::delete('/home/produto/{id}/{produto_id}/delete-materia-prima', 'Admin\FichaTecnicaController@destroy')->name('produto.materia-prima.estoque.destroy');
 
+    //Materia Prima
+    Route::get("/home/materia-prima/index", 'Admin\MateriaPrimaController@index')->name('materia-prima.index');
+    Route::get("/home/materia-prima/create", 'Admin\MateriaPrimaController@create')->name('materia-prima.create');
+    Route::post('/home/materia-prima/store', 'Admin\MateriaPrimaController@store')->name('materia-prima.store');
+    Route::get('/home/materia-prima/{id}/edit', 'Admin\MateriaPrimaController@edit')->name('materia-prima.edit');
+    Route::put('/home/materia-prima/{id}/update', 'Admin\MateriaPrimaController@update')->name('materia-prima.update');
+    Route::get('/home/materia-prima/{id}/show', 'Admin\MateriaPrimaController@show')->name('materia-prima.show');
+    Route::any('/home/materia-prima/search', 'Admin\MateriaPrimaController@search')->name("materia-prima.search");
+
+    //Materia Prima - Fornecedor
+    Route::get("home/materia-prima/teste", MateriaPrimaFornecedor::class)->name('materia-prima.fornecedor.create');
+    
     //Rotas de Produto
     Route::get('/home/produto/index', 'Admin\ProdutoController@index')->name('produto.index');
     Route::get('/home/produto/create', 'Admin\ProdutoController@create')->name('produto.create');

@@ -1,7 +1,7 @@
 @extends('layouts.default')
 {{-- Page title --}}
 @section('title')
-    Cadastrar um novo produto @parent
+    Editar materia prima {{$materiaPrima->nome}} @parent
 @stop
 {{-- page level styles --}}
 @section('header_styles')
@@ -16,28 +16,26 @@
             <a href="{{ route('home') }}">Home</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('produto.index') }}">Produtos</a>
+            <a href="{{ route('materia-prima.index') }}">Materia Primas</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('produto.create') }}">Create</a>
+            <a href="{{ route('materia-prima.edit', $materiaPrima->id) }}">{{$materiaPrima->nome}}</a>
         </li>
     </ol>
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar um novo produto</h1>
+            <h1 class="mt-2">Editar materia prima <strong>{{$materiaPrima->nome}}</strong></h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('produto.materia-prima.estoque.store', $produto->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
-                    @method('POST')
+                <form action="{{route('materia-prima.update', $materiaPrima->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
+                    @method('PUT')
                     @csrf
-                    @include('admin.estoque.produto.ficha-tecnica.form')
+                    @include('admin.estoque.materia-prima._partials.form')
                 </form>
             </div>
         </div>
     </div>
 @stop
-
-

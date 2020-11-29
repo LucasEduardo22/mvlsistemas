@@ -26,7 +26,7 @@ class Produto extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function aviamentos(){
+    public function materiaPrimas(){
         return $this->hasMany(FichaTecnica::class);
     }
 

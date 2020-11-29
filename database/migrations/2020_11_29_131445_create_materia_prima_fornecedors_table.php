@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFichaTecnicasTable extends Migration
+class CreateMateriaPrimaFornecedorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,17 +13,16 @@ class CreateFichaTecnicasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ficha_tecnicas', function (Blueprint $table) {
+        Schema::create('materia_prima_fornecedors', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('materia_prima_id');
-            $table->unsignedBigInteger('produto_id');
-            $table->double('quantidade')->nullable();
-            $table->string("detalhes", 255)->nullable();
+            $table->unsignedBigInteger('fornecedor_id');
+            $table->double('valor_compra')->nullable();
             $table->string("observacao", 255)->nullable();
             $table->timestamps();
 
             $table->foreign('materia_prima_id')->references('id')->on('materia_primas')->onDelete('cascade');
-            $table->foreign('produto_id')->references('id')->on('produtos')->onDelete('cascade');
+            $table->foreign('fornecedor_id')->references('id')->on('fornecedors')->onDelete('cascade');
         });
     }
 
@@ -34,6 +33,6 @@ class CreateFichaTecnicasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('ficha_tecnicas');
+        Schema::dropIfExists('materia_prima_fornecedors');
     }
 }

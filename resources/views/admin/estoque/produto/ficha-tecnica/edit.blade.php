@@ -33,7 +33,7 @@
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
             <div class="card-body">
-                <form action="{{route('produto.aviamento.estoque.update', $produto->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
+                <form action="{{route('produto.materia-prima.estoque.update', $produto->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
                     @include('admin.estoque.produto.ficha-tecnica.form')

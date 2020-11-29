@@ -26,8 +26,8 @@
             </a>
             <ul class="sub-menu list-unstyled">
                 <li>
-                    <a href="{{route('aviamento.index')}}">
-                        Aviamentos
+                    <a href="{{route('materia-prima.index')}}">
+                        Materia prima
                     </a>
                 </li>
                 <li>
