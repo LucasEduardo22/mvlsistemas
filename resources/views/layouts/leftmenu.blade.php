@@ -27,7 +27,7 @@
             <ul class="sub-menu list-unstyled">
                 <li>
                     <a href="{{route('materia-prima.index')}}">
-                        Materia prima
+                        Matéria Prima
                     </a>
                 </li>
                 <li>
