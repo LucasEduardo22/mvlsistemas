@@ -32,4 +32,8 @@ class Pedido extends Model
         return $this->hasOne(FormaPagamento::class, "id", 'forma_pagamento_id');
     }
 
+    public function tabelaPreco(){
+        return $this->hasOne(TabelaPreco::class, "id", 'tabela_preco_id');
+    }
+
 }

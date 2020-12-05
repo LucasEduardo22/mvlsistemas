@@ -14,16 +14,19 @@ include('web_builder.php');
 | contains the "web" middleware group. Now create something great!
 |
 */
+
 Auth::routes();
 Route::get('/home/grade', function () {
         return view('admin.grade.index');
     })->name('grade');
+
 // GUI crud builder routes
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/home/grade', function () {
         return view('admin.grade.index');
     })->name('grade');
     Route::get('/', 'HomeController@index')->name('home');
+
 
     //Empresas
     Route::resource('/home/empresa', 'Empresa\EmpresaController');
@@ -33,6 +36,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     //Forma de Pagamento
     Route::resource('/home/forma-pagamento', 'Admin\FormaPagamentoController');
+
+    //Tabela de preço
+    Route::resource('/home/tabela-preco', 'Admin\TabelaPrecoController');
 
     //Grupo
     Route::resource('/home/grupo', 'Admin\GrupoController');
@@ -121,6 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/home/pedido/adicionar-poduto', 'Admin\PedidoController@adicionarProduto')->name('pedido.produto');
     Route::post('/home/pedido/adicionar-poduto-detalhes', 'Admin\PedidoController@detalhesProduto')->name('detalhes.produto');
     Route::post('/home/pedido/adicionar-poduto-recuperar-detalhes', 'Admin\PedidoController@recuperarDetalhesProduto')->name('recuperar.detalhes.produto');
+    Route::post('/home/pedido/alterar-tabela-preco', 'Admin\PedidoController@tabelaPreco')->name('recuperar.tabela.preco');
     Route::post('/home/pedido/adicionar-poduto-deleta-detalhes', 'Admin\PedidoController@deletaDetalhesProduto')->name('deleta.detalhes.produto');
 
     //ROTAS DE ENDEREÇOS FICAR POR ULTIMO.

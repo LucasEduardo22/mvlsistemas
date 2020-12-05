@@ -8,9 +8,11 @@ use App\Models\Empresa;
 use App\Models\Estoque;
 use App\Models\FormaPagamento;
 use App\Models\ItemPedido;
+use App\Models\MateriaPrima;
 use App\Models\Pedido;
 use App\Models\Produto;
 use App\Models\Status;
+use App\Models\TabelaPreco;
 use App\Models\Tamanho;
 use App\Models\tamanhoItensPedidos;
 use App\Models\TamanhoProduto;
@@ -27,8 +29,10 @@ class PedidoController extends Controller
     protected $dadosTamanho;
     protected $dadosEstoque;
     protected $dadosTecido;
+    protected $dadosMateriaPrimas;
 
-    public function __construct(Pedido $pedido, Cliente $cliente, FormaPagamento $formaPagamento, Estoque $estoque, Produto $produto, Tamanho $tamanho, Tecido $tecido, TamanhoProduto $tamanhoProduto)
+    public function __construct(Pedido $pedido, Cliente $cliente, FormaPagamento $formaPagamento, Estoque $estoque, Produto $produto, Tamanho $tamanho, Tecido $tecido, 
+        TamanhoProduto $tamanhoProduto, MateriaPrima $materiaPrima)
     {
         $this->dadosPedido = $pedido;
         $this->dadosCliente = $cliente;
@@ -38,6 +42,7 @@ class PedidoController extends Controller
         $this->dadosTamanho = $tamanho;
         $this->dadosTecido = $tecido;
         $this->dadosEstoque = $estoque;
+        $this->dadosMateriaPrimas = $materiaPrima;
     }
 
     public function index(){
@@ -52,9 +57,11 @@ class PedidoController extends Controller
         $clientes = $this->dadosCliente->orderBy('nome', 'asc')->get();
         $tamanhos = $this->dadosTamanho;
         $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
+        $tabelaPrecos = TabelaPreco::orderBy('nome', 'asc')->get();
+        $tecidos = $this->dadosMateriaPrimas->where("tipo_produto_id", 2)->simplePaginate(25);
         $estoques =  $this->dadosEstoque->orderBy('id', 'desc')->get();
 
-        return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques"));
+        return view('admin.pedido.create', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "tabelaPrecos", "tecidos"));
     }
 
     public function storePedido(Request $request)
@@ -190,11 +197,12 @@ class PedidoController extends Controller
         $pedido = $this->dadosPedido->find($id);
         $clientes = $this->dadosCliente->orderBy('nome', 'asc')->get();
         $tamanhos = $this->dadosTamanho;
+        $tabelaPrecos = TabelaPreco::orderBy('nome', 'asc')->get();
         $formaPagamentos =  $this->dadosFormaPagamento->orderBy('nome', 'asc')->get();
 
         $estoques =  $this->dadosEstoque->get();
 
-        return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido"));
+        return view('admin.pedido.edit', compact("clientes", "formaPagamentos", "tamanhos", "estoques", "pedido", "tabelaPrecos"));
     }
 
     public function updatePedido(Request  $request, $id)
@@ -407,46 +415,55 @@ class PedidoController extends Controller
         $filtro = $request->filtrar;
         $dados['tipo_venda'] = $request->tipo_pedido;
         $dados['pedido_id'] = $request->pedido_id;
+        $dados['forma_pagamento_id'] = $request->forma_pagamento_id;
+        $dados['tabela_preco_id'] = $request->tabela_preco_id;
 
-        // Verifica o tipo de pedido, se for venda cadastrar na base:
-        if ($request->tipo_pedido == "O" || $request->pedido_id != null) {
-            if(!empty($filtro)){ 
-                $produto = $this->dadosProduto->where('id', $filtro)
-                            ->orWhere('modelo', $filtro)->first();
-                
-                if(!empty($produto)){
-                    $subGrupo = $produto->subGrupo;
-                    $produto["sub_grupo"] = $subGrupo->nome;
-    
-                    if(!empty($produto->estoque)){ 
-                        //$tamanhoProduto = $this->dadosTamanhoProduto->where('estoque_id', $produto->estoque->id)->get();
-    
-                        $dados['estoque_id'] = $produto->estoque->id;
-                        $produto["success"] = true;
-                        /* if ($request->tipo_pedido == "V") {
-                            $itensPedidos = ItemPedido::create($dados);
-                            $produto["itemPedidos_id"] = $itensPedidos->id;
-                        } */
-                        return response()->json($produto);
+        if($dados['forma_pagamento_id'] == 0){
+            $produto['success'] = false;
+            $produto['message'] = "Necessário informar a forma de pagamento";
+            return response()->json($produto);
+
+        }elseif($dados["tabela_preco_id"] == 0){
+            $produto['success'] = false;
+            $produto['message'] = "Necessário informar a tabela de preço";
+            return response()->json($produto);
+
+        }else{
+            // Verifica o tipo de pedido, se for venda cadastrar na base:
+            if ($request->tipo_pedido == "O" || $request->pedido_id != null) {
+                if(!empty($filtro)){ 
+                    $produto = $this->dadosProduto->where('id', $filtro)
+                                ->orWhere('modelo', $filtro)->first();
+                    
+                    if(!empty($produto)){
+                        $subGrupo = $produto->subGrupo;
+                        $produto["sub_grupo"] = $subGrupo->nome;
+        
+                        if(!empty($produto->estoque)){ 
+                            $dados['estoque_id'] = $produto->estoque->id;
+                            $produto["success"] = true;
+                            /* if ($request->tipo_pedido == "V") {
+                                $itensPedidos = ItemPedido::create($dados);
+                                $produto["itemPedidos_id"] = $itensPedidos->id;
+                            } */
+                            return response()->json($produto);
+                        }else{
+                            $produto['success'] = false;
+                            $produto['message'] = "Produto indicado não se encontra em estoque.";
+                            return response()->json($produto);
+                        }
                     }else{
                         $produto['success'] = false;
-                        $produto['message'] = "Produto indicado não se encontra em estoque.";
+                        $produto['message'] = "Produto não encontrado";
                         return response()->json($produto);
                     }
-                }else{
-                    $produto['success'] = false;
-                    $produto['message'] = "Produto não encontrado";
-                    return response()->json($produto);
                 }
+            }else{
+                $produto['success'] = false;
+                $produto['message'] = "Necessário informar o cliente.";
+                return response()->json($produto);
             }
-        }else{
-            $produto['success'] = false;
-            $produto['message'] = "Necessário informar o cliente.";
-            return response()->json($produto);
-        }
-
-
-        
+        }        
     }
 
     public function detalhesProduto(Request $request)
@@ -537,5 +554,22 @@ class PedidoController extends Controller
         $detalhes['message'] = "deletato com sucesso.";
 
         return response()->json($detalhes);
+    }
+
+    public function tabelaPreco(Request $request)
+    {
+        $dados['tabela_preco_id'] = $request->tabela_preco_id;
+
+        if($dados["tabela_preco_id"] == 0){
+            $tabela['success'] = false;
+            $tabela['message'] = "Necessário informar a tabela de preço";
+            return response()->json($tabela);
+
+        }else{
+            $tabelaPreco_id = TabelaPreco::find($dados['tabela_preco_id']);
+            $tabela['tabelaPreco_id'] = $tabelaPreco_id->ganho;
+            $tabela['success'] = true;
+            return response()->json($tabela);
+        }
     }
 }

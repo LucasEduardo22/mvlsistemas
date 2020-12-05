@@ -50,56 +50,19 @@
                         <div class="form-group col-md-3">
                             <p>Sub Grupo: <strong id="subgrupo" class="grupo">Nenhum Produto foi selecionadoe</strong></p>
                         </div>
-                        {{-- <div class="form-group col-md-3">
-                            <p>Cor Principal: <strong>Azul</strong></p>
-                        </div> --}}
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="_cor_principal" class="pb-0 mb-0">
-                                Cor Primária:
+                            <label for="_tecido_principal" class="pb-0 mb-0">
+                                Tecido:
                             </label>
-                            <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
-                            @error('cor_principal') is-invalid @enderror" placeholder="Cor Primária" id="_cor_principal">
-                            @error('cor_principal')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="_cor_secundaria" class="pb-0 mb-0">
-                                Cor Secundária:
-                            </label>
-                            <input value="{{old('cor_secundaria')}}" type="text" name="cor_secundaria" class="form-control 
-                            @error('cor_secundaria') is-invalid @enderror" placeholder="Cor Secundária" id="_cor_secundaria">
-                            @error('cor_secundaria')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="_cor_terciaria" class="pb-0 mb-0">
-                                Cor Terciária:
-                            </label>
-                            <input value="{{old('cor_terciaria')}}" type="text" name="cor_terciaria" class="form-control 
-                            @error('cor_terciaria') is-invalid @enderror" placeholder="Cor Terciária" id="_cor_terciaria">
-                            @error('cor_terciaria')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="_tecido_primario" class="pb-0 mb-0">
-                                Tecido Primário:
-                            </label>
-                            <input value="{{old('tecido_principal')}}" type="text" name="tecido_principal" class="form-control 
-                            @error('tecido_principal') is-invalid @enderror" placeholder="Tecido Primário" id="_tecido_principal">
-                            @error('cor_principal')
+                            <select id="_tecido_principal" name="tecido_principal" class="form-control select_tecido @error('tecido_principal') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0">Selecione</option>
+                                @foreach ($tecidos as $tecido)
+                                    <option value="{{$tecido->id}}" @if(old('tecido_principal') == $tecido->id ) selected="" @endif>{{$tecido->nome}}</option>
+                                @endforeach
+                            </select>
+                            @error('tecido_principal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -109,8 +72,12 @@
                             <label for="_tecido_secundario" class="pb-0 mb-0">
                                 Tecido Secundário:
                             </label>
-                            <input value="{{old('tecido_secundario')}}" type="text" name="tecido_secundario" class="form-control 
-                            @error('tecido_secundario') is-invalid @enderror" placeholder="Tecido Secundário" id="_tecido_secundario">
+                            <select id="_tecido_secundario" name="tecido_secundario" class="form-control select_tecido @error('tecido_secundario') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0">Selecione</option>
+                                @foreach ($tecidos as $tecido)
+                                    <option value="{{$tecido->id}}" @if(old('tecido_secundario') == $tecido->id ) selected="" @endif>{{$tecido->nome}}</option>
+                                @endforeach
+                            </select>
                             @error('tecido_secundario')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -119,9 +86,14 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="_tecido_terciario" class="pb-0 mb-0">
-                                Tecido Terciário:
+                                Tecido Teciario:
                             </label>
-                            <input value="{{old('tecido_terciario')}}" type="text" name="tecido_terciario" class="form-control @error('tecido_terciario') is-invalid @enderror" placeholder="Tecido Terciário" id="_tecido_terciario">
+                            <select id="_tecido_terciario" name="tecido_terciario" class="form-control select_tecido @error('tecido_terciario') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0">Selecione</option>
+                                @foreach ($tecidos as $tecido)
+                                    <option value="{{$tecido->id}}" @if(old('tecido_terciario') == $tecido->id ) selected="" @endif>{{$tecido->nome}}</option>
+                                @endforeach
+                            </select>
                             @error('tecido_terciario')
                                 <div class="invalid-feedback">
                                     {{ $message }}

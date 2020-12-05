@@ -1,5 +1,8 @@
 <script>
     $(document).ready(function($) {
+        
+        $('.select_tecido').select2();
+        
         $('#_cliente').dataTable( {
             "language": {
                     "search": "Pesquisar por nome:",
@@ -451,6 +454,54 @@
             }); 
         }); 
 
+        //tabela preço
+        $(document).on('change', '[name="tabela_preco_id"]', function(e){
+            e.preventDefault();
+            //console.log(id);
+
+            $.ajax({
+                type: 'post',
+                url: '{{ route("recuperar.tabela.preco") }}',
+                dataType: 'json',
+                beforeSend: function(){
+                    loading_show();
+                },
+                //async: false,
+                data: {
+                        tabela_preco_id: $('[name="tabela_preco_id"]').val(),
+                    },
+                //contentType: "application/json",
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data){
+                    //var $el = $('[name=estado]');
+                    var data = JSON.parse(JSON.stringify(data));
+                    //var cnpj = data.cpf_cnpj
+                    console.log(data);
+                    if (data.success == true) {
+                        if (data != 0) {
+                            $("#ganho").val(data.tabelaPreco_id);
+                            loading_hide();
+                        } 
+                    } else {
+                        loading_hide();
+                        alert(data.message);
+                        /* $(".messageBox").removeClass('d-none').html(data.message + 
+                                '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'
+                                +'<span aria-hidden="true">&times;</span>'
+                                +"</button>"
+                                ); */
+
+                        /* setTimeout(function(){
+                            $('.messageBox').addClass("d-none");
+                        }, 5000); */
+                    }
+                    
+                }
+            }); 
+        });
+
         //filtra através da tabela produto
         $(document).on('click', '.modelo_id', function(e){
             e.preventDefault();
@@ -467,7 +518,9 @@
                 data: {
                         filtrar: $(this).closest('tr').find('td[data-id]').data('id'), 
                         pedido_id: $('[name="codigo"]').val(), 
-                        tipo_pedido: $('[name="tipo_pedido_id"]').val()
+                        tipo_pedido: $('[name="tipo_pedido_id"]').val(),
+                        forma_pagamento_id: $('[name="forma_pagamento_id"]').val(),
+                        tabela_preco_id: $('[name="tabela_preco_id"]').val(),
                     },
                 //contentType: "application/json",
                 headers: {
@@ -535,7 +588,9 @@
                 data: {
                         filtrar: $('[name=filtrar_modelo]').val(), 
                         pedido_id: $('[name="codigo"]').val(), 
-                        tipo_pedido: $('[name="tipo_pedido_id"]').val()
+                        tipo_pedido: $('[name="tipo_pedido_id"]').val(),
+                        forma_pagamento_id: $('[name="forma_pagamento_id"]').val(),
+                        tabela_preco_id: $('[name="tabela_preco_id"]').val(),
                     },
                 //contentType: "application/json",
                 headers: {
@@ -782,6 +837,8 @@
             $(this).closest('tr').remove(); 
             $('#produto_id'+modelo).remove();
         });
+
+        
 
         //função para mostrar o loading
         function loading_show(){

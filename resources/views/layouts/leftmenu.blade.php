@@ -129,6 +129,11 @@
                     </a>
                 </li>
                 <li>
+                    <a href="{{route('tabela-preco.index')}}">
+                        Tabela de preço
+                    </a>
+                </li>
+                <li>
                     <a href="{{route('tamanho.index')}}">
                         Tamanho
                     </a>
