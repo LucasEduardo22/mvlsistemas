@@ -64,25 +64,23 @@
             for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
                 var valorM = $('#valorUnitarioM'+index).val();
                 var qtdM = $('#qtdM'+index).val();
+                console.log(qtdM);
                 totalQuantidade += Number(qtdM);
                 if(valorM != "" && qtdM != ""){
-                    valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM.replace(/\./g, "").replace(/,/g, ".")})
-
+                    valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM})
+                    
                 }else{
                     valorUni.push({quatidadetamanho: 0, valortamanho: 0})
                 }
             }  
-            //$('[name="produto_id'+modelo+'"]').push(valorUni);
-
-            /* $('[name="produto_id'+modelo+'"]').each(function () {
-                produtoId.push($(this).val());
-            });  */
 
             $(valorUni).each(function (key, value) {
+                
                 var qtd = valorUni[key].quatidadetamanho
                 var valor = valorUni[key].valortamanho
                 if (valor != 0 && qtd != 0) {
                     total += Number(qtd) * Number(valor);
+                    console.log(total + " " + qtd);
                 }
             });
 
@@ -98,7 +96,7 @@
                     totalQuantidade += Number(qtdF);
                 }
                 if(valorF != "" && qtdF != ""){
-                    valorUniF.push({quatidadetamanho: qtdF, valortamanho: valorF.replace(/\./g, "").replace(/,/g, ".")})
+                    valorUniF.push({quatidadetamanho: qtdF, valortamanho: valorF})
                 }else{
                     valorUniF.push({quatidadetamanho: 0, valortamanho: 0})
                 }
@@ -145,6 +143,129 @@
             var tipo = $(this).val();
             $('[name="tipo"]').val(tipo)
         })
+
+        // Gerador de preço
+        $('.preco_custo').change(function (){
+            var valorUni = []
+            var valorUniF = []
+            var quatidadetamanho = []
+            var valortamanho = []
+            var modelo = $('#_modeloId').val()
+            var total = 0;
+            var totalf = 0;
+            var quantidade = 0;
+            var valor = 0;
+            var totalQuantidade = 0;
+            var totalQuantidadeM = 0;
+            var totalQuantidadef = 0;
+            var tecido_principal = $('[name="tecido_principal"] option:selected').data('tecido_principal');
+            var tecido_secundario = $('[name="tecido_secundario"] option:selected').data('tecido_secundario');
+            var tecido_terciario = $('[name="tecido_terciario"] option:selected').data('tecido_terciario');
+            var preco_tecido = Number(tecido_principal) + Number(tecido_secundario) + Number(tecido_terciario);
+
+            if(Number(tecido_principal) != 0 ||  Number(tecido_secundario) != 0 || Number(tecido_terciario) != 0){
+                // Loop tamanho masculino
+                for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
+                    var valorM = $('#valorUnitarioM'+index).val();
+                    var qtdM = $('#qtdM'+index).val();
+                    var tamanho_id = $('#nomeTamanhoM'+index).val()
+                    var valortamanho = $('#_tamanho_preco'+Number(tamanho_id)).val();
+                    var ganho = Number($('#ganho').val());
+                    var valorProduto = Number(preco_tecido) + Number(valortamanho)
+                    var percentual = (valorProduto * ganho)/100;
+                    var preco = percentual + valorProduto;
+                
+                    $('#valorUnitarioM'+index).val(preco);
+                    $('#tamanho'+ Number(tamanho_id)).text(preco.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+
+                    totalQuantidadeM += Number(qtdM);
+                    totalQuantidade += Number(qtdM);
+                    if(qtdM != ""){
+                        valorUni.push({quatidadetamanho: qtdM, valortamanho: preco})
+                        
+                    }else{
+                        valorUni.push({quatidadetamanho: 0, valortamanho: 0})
+                    }
+                }
+
+                for (let index = 0; index < $('#totalTamanhoF').val(); index++) {
+                    var valorF = $('#valorUnitarioF'+index).val();
+                    var qtdF = $('#qtdF'+index).val();
+                    var tamanho_id = $('#nomeTamanhoF'+index).val()
+                    var valortamanho = $('#_tamanho_preco'+Number(tamanho_id)).val();
+                    var valorProduto = Number(preco_tecido) + Number(valortamanho)
+                    var percentual = (valorProduto * ganho)/100;
+                    var preco = percentual + valorProduto;
+            
+                    $('#valorUnitarioF'+index).val(preco);
+                    $('#tamanho'+ Number(tamanho_id)).text(preco.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                   
+                    if(qtdF != ""){
+                        totalQuantidadef += Number(qtdF);
+                        totalQuantidade += Number(qtdF);
+                    }
+                    if(qtdF != ""){
+                        valorUniF.push({quatidadetamanho: qtdF, valortamanho: preco})
+                    }else{
+                        valorUniF.push({quatidadetamanho: 0, valortamanho: 0})
+                    }
+
+                }  
+                $(valorUni).each(function (key, value) {
+                    var qtd = valorUni[key].quatidadetamanho
+                    var valor = valorUni[key].valortamanho
+                    if (valor != 0 && qtd != 0) {
+                        total += Number(qtd) * Number(valor);
+                    }
+                });
+
+                $(".valorM").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                $(".totalM").html(totalQuantidadeM);
+
+                $(valorUniF).each(function (key, value) {
+                    var qtdf = valorUniF[key].quatidadetamanho
+                    var valorf = valorUniF[key].valortamanho
+                    if (valorf != 0 && qtdf != 0) {
+                        totalf += Number(qtdf) * Number(valorf);
+                        total += totalf;
+                    }
+                });
+                //console.log(totalf);
+                if (totalf > 0 || totalQuantidadef > 0) {
+                    $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                    $('.totalF').html(totalQuantidadef);
+                }       
+                
+
+                $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
+                $('#quantidadeTotal').html(totalQuantidade + " Peças");
+            }else{
+                // Loop tamanho masculino
+                for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
+                    var valorM = $('#valorUnitarioM'+index).val();
+                    var tamanho_id = $('#nomeTamanhoM'+index).val()
+                
+                    $('#valorUnitarioM'+index).val(0);
+                    $('#tamanho'+ Number(tamanho_id)).text("");
+                }
+
+                for (let index = 0; index < $('#totalTamanhoF').val(); index++) {
+                    var valorF = $('#valorUnitarioF'+index).val();
+                    var tamanho_id = $('#nomeTamanhoF'+index).val()
+
+                    $('#valorUnitarioF'+index).val(0);
+                    $('#tamanho'+ Number(tamanho_id)).text("");
+                }  
+
+                $("#valorTotal").html("");
+                $('#quantidadeTotal').html("");
+                $(".valorM").html("");
+                $(".totalM").html("");
+                $(".valorF").html("");
+                $('.totalF').html("");
+            }
+
+        });
         
 
         $('.tipos').change(function(){
@@ -202,30 +323,34 @@
             for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
                 var valorM = $('#valorUnitarioM'+index).val();
                 var qtdM = $('#qtdM'+index).val();
+                var tamanho_id = $('#nomeTamanhoM'+index).val()
                 if(valorM != "" && qtdM != ""){
-                    valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM.replace(/\./g, "").replace(/,/g, ".")})
+                    valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM})
                     totalQuantidade += Number(qtdM);
 
                 }else{
-                    valorUni.push({quatidadetamanho: 0, valortamanho: 0})
+                    valorUni.push({quatidadetamanho: 0, valortamanho: valorM})
                 }
 
-                $('#valorUnitarioM'+index).val("");
-                $('#qtdM'+index).val("");
+                $('#valorUnitarioM'+index).val();
+                $('#qtdM'+index).val();
+                $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
             // Loop tamanho feminino
             for (let index = 0; index < $('#totalTamanhoF').val(); index++) {
                 var valorF = $('#valorUnitarioF'+index).val();
                 var qtdF = $('#qtdF'+index).val();
+                var tamanho_id = $('#nomeTamanhoF'+index).val()
                 if(valorF != "" && qtdF != ""){
-                    valorUniF.push({quatidadetamanho: qtdF, valortamanho: valorF.replace(/\./g, "").replace(/,/g, ".")})
+                    valorUniF.push({quatidadetamanho: qtdF, valortamanho: valorF})
                     totalQuantidade += Number(qtdF);
                 }else{
-                    valorUniF.push({quatidadetamanho: 0, valortamanho: 0})
+                    valorUniF.push({quatidadetamanho: 0, valortamanho: valorF})
                 }
-                $('#valorUnitarioF'+index).val("");
-                $('#qtdF'+index).val("");
+                $('#valorUnitarioF'+index).val();
+                $('#qtdF'+index).val();
+                $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
             $(valorUni).each(function (key, value) {
@@ -286,9 +411,12 @@
                         cor_principal: $('[name="cor_principal"]').val(),
                         cor_secundaria: $('[name="cor_secundaria"]').val(),
                         cor_terciaria: $('[name="cor_terciaria"]').val(),
-                        tecido_principal: $('[name="tecido_principal"]').val(),
-                        tecido_secundario: $('[name="tecido_secundario"]').val(),
-                        tecido_terciario: $('[name="tecido_terciario"]').val(),
+                        tecido_principal:  $('[name="tecido_principal"] option:selected').data('tecido_principal'),
+                        tecido_secundario: $('[name="tecido_secundario"] option:selected').data('tecido_secundario'),
+                        tecido_terciario:  $('[name="tecido_terciario"] option:selected').data('tecido_terciario'),
+                        nome_principal:  $('[name="tecido_principal"] option:selected').text(),
+                        nome_secundario: $('[name="tecido_secundario"] option:selected').text(),
+                        nome_terciario:  $('[name="tecido_terciario"] option:selected').text(),
                         quantidadeSemtamanho: $('[name="quantidadeSemtamanho"]').val(),
                         valorSemtamanho: $('[name="valorSemtamanho"]').val(),
                         frente: $('[name="frente"]').val(),
@@ -310,17 +438,15 @@
                     var data = JSON.parse(JSON.stringify(data));
                     var cnpj = data.cpf_cnpj
                     //console.log(data);
-                   
-                    
                 }
             });
 
             $('[name="cor_principal"]').val('');
             $('[name="cor_secundaria"]').val('');
             $('[name="cor_terciaria"]').val('');
-            $('[name="tecido_principal"]').val('');
-            $('[name="tecido_secundario"]').val('');
-            $('[name="tecido_terciario"]').val('');
+            $('#select2-_tecido_principal-container').text("Selecione");
+            $('#select2-_tecido_secundario-container').text("Selecione");
+            $('#select2-_tecido_terciario-container').text("Selecione");
             $('[name="quantidadeSemtamanho"]').val('');
             $('[name="valorSemtamanho"]').val('');
             $('[name="frente"]').val('');
@@ -328,10 +454,10 @@
             $('[name="manga_direita"]').val('');
             $('[name="manga_esquerda"]').val('');
             $('[name="tipo"]').val('T');
-            $(".valorM").html("");
-            $(".totalM").html("");
             $("#valorTotal").html("");
             $('#quantidadeTotal').html("");
+            $(".valorM").html("");
+            $(".totalM").html("");
             $(".valorF").html("");
             $('.totalF').html("");
             $('#valor_totalS').html("");
@@ -658,7 +784,7 @@
             $('.grupo').html(subgrupo);
             $('#nome_modelo').html(modelo);
             $('#_modeloId').val(modelo);
-           if (token != "") {
+            if (token != "") {
                 $.ajax({
                     type: 'post',
                     url: '{{ route("recuperar.detalhes.produto") }}',
@@ -670,6 +796,7 @@
                             token: token,
                             tamanhoM: tamanhoM,
                             tamanhoF: tamanhoF,
+                            modelo: modelo,
                         },
                     
                     //contentType: "application/json",
@@ -679,15 +806,25 @@
                     success: function(data){
                         //var $el = $('[name=estado]');
                         var data = JSON.parse(JSON.stringify(data));
-                       console.log(data);
-    
+                       //console.log(data);
+                       var tamanhosPreco = data.tamanhosPreco
+                        //console.log(tamanhosPreco);
+                        
                         if(data.success == true){
+                            for (let index = 0; index < tamanhosPreco.length; index++) {
+                                const element = data[index];
+                                $("[name='_tamanho"+tamanhosPreco[index].tamanho_id+"']").val(tamanhosPreco[index].preco_venda)
+                            }
+
                             $('[name="cor_principal"]').val(data.cor_principal);
                             $('[name="cor_secundaria"]').val(data.cor_secundaria);
                             $('[name="cor_terciaria"]').val(data.cor_terciaria);
-                            $('[name="tecido_principal"]').val(data.tecido_principal);
-                            $('[name="tecido_secundario"]').val(data.tecido_secundario);
-                            $('[name="tecido_terciario"]').val(data.tecido_terciario);
+                            $('[name="tecido_principal"]').val( $('option:contains("'+data.nome_principal+'")').val() );
+                            $('[name="tecido_secundario"]').val( $('option:contains("'+data.nome_secundario+'")').val() );
+                            $('[name="tecido_terciario"]').val( $('option:contains("'+data.nome_terciario+'")').val() );
+                            $('#select2-_tecido_principal-container').text(data.nome_principal);
+                            $('#select2-_tecido_secundario-container').text(data.nome_secundario);
+                            $('#select2-_tecido_terciario-container').text(data.nome_terciario);
                             $('[name="quantidadeSemtamanho"]').val(data.quantidadeSemtamanho);
                             $('[name="valorSemtamanho"]').val(data.valorSemtamanho);
                             $('[name="frente"]').val(data.frente);
@@ -709,23 +846,28 @@
                             if (data.tipo != "N") {
                                 for (let index = 0; index < tamanhoF.length; index++) {
                                     const element = tamanhoF[index];
+                                    var tamanho_id = $('#nomeTamanhoF'+index).val();
+                                    var valor = Number(element.valortamanho);
                                     if (element.quatidadetamanho != 0) {
-                                        $('#valorUnitarioF'+index).val(element.valortamanho.replace(".", ",")); 
+                                        $('#valorUnitarioF'+index).val(element.valortamanho); 
                                         $('#qtdF'+index).val(element.quatidadetamanho);
                                         totalQuantidadef += Number(element.quatidadetamanho)
                                         totalf += Number(element.quatidadetamanho) * Number(element.valortamanho);
                                     }
+                                    $('#tamanho'+ Number(tamanho_id)).text(valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                                 }
                                 var tamanhoM =  data.tamanhoM;
                                 for (let index = 0; index < tamanhoM.length; index++) {
                                     const element = tamanhoM[index];
-                                    
+                                    var tamanho_id = $('#nomeTamanhoM'+index).val()
+                                    var valor = Number(element.valortamanho);
                                     if (element.quatidadetamanho != 0) {
-                                        $('#valorUnitarioM'+index).val(element.valortamanho.replace(".", ",")); 
-                                        $('#qtdM'+index).val(element.quatidadetamanho);
+                                        $('#valorUnitarioM'+index).val(Number(element.valortamanho)); 
+                                        $('#qtdM'+index).val(Number(element.quatidadetamanho));
                                         totalQuantidadeM += Number(element.quatidadetamanho)
                                         totalM += Number(element.quatidadetamanho) * Number(element.valortamanho);
                                     }
+                                    $('#tamanho'+ Number(tamanho_id)).text(valor.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                                 }
                             } else {
                                 totalS = Number(valorSemtamanho.replace(/\./g, "").replace(/,/g, ".")) * Number(quantidadeSemtamanho);
@@ -776,11 +918,43 @@
                                 $('#quantidadeTotal').html(totalQuantidade + " Peças");
                                 $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                             }
+                        } 
+                        
+                    }
+                });
+            }else{
+                $.ajax({
+                    type: 'post',
+                    url: '{{ route("recuperar.detalhes.produto") }}',
+                    dataType: 'json',
+                   
+                    //async: false,
+                    data: {
+                            //detalhes: $('[name="produto_id'+_modelo+'"]').val(),
+                            token: token,
+                            modelo: modelo,
+                        },
+                    
+                    //contentType: "application/json",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data){
+                        //var $el = $('[name=estado]');
+                        var data = JSON.parse(JSON.stringify(data));
+                        var tamanhosPreco = data.tamanhosPreco
+                        //console.log(tamanhosPreco);
+                        
+                        if(data.success == true){
+                            for (let index = 0; index < tamanhosPreco.length; index++) {
+                                const element = data[index];
+                                $("[name='_tamanho"+tamanhosPreco[index].tamanho_id+"']").val(tamanhosPreco[index].preco_venda)
+                            }
                         }
                         
                     }
                 });
-            } 
+            }
 
             $(".modalProduto").modal('show');
             

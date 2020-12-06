@@ -128,7 +128,7 @@
 </div>
 <div class="form-row mb-3">
     <div class="form-group col-md-3">
-        <label for="_sigla">Sigla</label>
+        <label for="_sigla">Codigo</label>
         <div class="input-group">
             <span class="input-group-append">
                 <span class="input-group-text">

@@ -56,10 +56,10 @@
                             <label for="_tecido_principal" class="pb-0 mb-0">
                                 Tecido:
                             </label>
-                            <select id="_tecido_principal" name="tecido_principal" class="form-control select_tecido @error('tecido_principal') is-invalid @enderror" style="width: 100%; height: 100%;">
-                                <option value="0">Selecione</option>
+                            <select id="_tecido_principal" name="tecido_principal" class="form-control preco_custo select_tecido @error('tecido_principal') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0"  data-tecido_principal="0">Selecione</option>
                                 @foreach ($tecidos as $tecido)
-                                    <option value="{{$tecido->id}}" @if(old('tecido_principal') == $tecido->id ) selected="" @endif>{{$tecido->nome}}</option>
+                                    <option  value="{{$tecido->id}}" data-tecido_principal="{{$tecido->preco_compra}}">{{$tecido->sigla}}</option>
                                 @endforeach
                             </select>
                             @error('tecido_principal')
@@ -72,10 +72,10 @@
                             <label for="_tecido_secundario" class="pb-0 mb-0">
                                 Tecido Secundário:
                             </label>
-                            <select id="_tecido_secundario" name="tecido_secundario" class="form-control select_tecido @error('tecido_secundario') is-invalid @enderror" style="width: 100%; height: 100%;">
-                                <option value="0">Selecione</option>
+                            <select id="_tecido_secundario" name="tecido_secundario" class="form-control preco_custo select_tecido @error('tecido_secundario') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0" data-tecido_secundario="0">Selecione</option>
                                 @foreach ($tecidos as $tecido)
-                                    <option value="{{$tecido->id}}" @if(old('tecido_secundario') == $tecido->id ) selected="" @endif>{{$tecido->nome}}</option>
+                                    <option value="{{$tecido->id}}" data-tecido_secundario="{{$tecido->preco_compra}}">{{$tecido->sigla}}</option>
                                 @endforeach
                             </select>
                             @error('tecido_secundario')
@@ -88,10 +88,10 @@
                             <label for="_tecido_terciario" class="pb-0 mb-0">
                                 Tecido Teciario:
                             </label>
-                            <select id="_tecido_terciario" name="tecido_terciario" class="form-control select_tecido @error('tecido_terciario') is-invalid @enderror" style="width: 100%; height: 100%;">
-                                <option value="0">Selecione</option>
+                            <select id="_tecido_terciario" name="tecido_terciario" class="form-control preco_custo select_tecido @error('tecido_terciario') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0" data-tecido_terciario="0">Selecione</option>
                                 @foreach ($tecidos as $tecido)
-                                    <option value="{{$tecido->id}}" @if(old('tecido_terciario') == $tecido->id ) selected="" @endif>{{$tecido->nome}}</option>
+                                    <option value="{{$tecido->id}}" data-tecido_terciario="{{$tecido->preco_compra}}">{{$tecido->sigla}}</option>
                                 @endforeach
                             </select>
                             @error('tecido_terciario')
@@ -199,10 +199,12 @@
                                     <span class="text-dark" id="_tipoMU">MASCULINO</span>
                                     <thead>
                                         <tr>
-                                            @foreach ($tamanhos->tamanhoMasculino() as $tamanhoM)
+                                            @foreach ($tamanhos->tamanhoMasculino() as $key => $tamanhoM)
                                                 <td>
                                                     <input type="hidden" name="tamanhoM[]" value="{{$tamanhoM->id}}">
-                                                    {{$tamanhoM->sigla}}
+                                                    <input value="{{$tamanhoM->id}}" id="nomeTamanhoM{{$key}}" type="hidden" name="valorUnitarioM[]">
+                                                    {{$tamanhoM->sigla}} 
+                                                    <p class="text-primary"><strong><span id="tamanho{{$tamanhoM->id}}"></span></strong><input type="hidden" id="_tamanho_preco{{$tamanhoM->id}}" name="_tamanho{{$tamanhoM->id}}" value=""></p>
                                                 </td>
                                             @endforeach
                                         </tr>
@@ -211,14 +213,8 @@
                                         <tr>
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
                                                 <td class="_nomeValor">
+                                                    <input value="0" id="valorUnitarioM{{$i}}" type="hidden" name="valorUnitarioM[]">
                                                     <input value="{{old('quantidadeM')}}"  id="qtdM{{$i}}" type="text" name="quantidadeM[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        <tr>
-                                            @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
-                                                <td class="_nomeValor" data-id{{$i}}="{{$i}}">
-                                                    <input value="{{old('valorUnitarioM')}}" id="valorUnitarioM{{$i}}" type="text" name="valorUnitarioM[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
@@ -242,10 +238,12 @@
                                     <span class="text-dark">FEMININO</span>
                                     <thead>
                                         <tr>
-                                            @foreach ($tamanhos->tamanhoFeminino() as $tamanhoF)
+                                            @foreach ($tamanhos->tamanhoFeminino() as $key => $tamanhoF)
                                                 <td>
                                                     <input type="hidden" name="tamanhoF[]" value="{{$tamanhoF->id}}">
+                                                    <input value="{{$tamanhoF->id}}" id="nomeTamanhoF{{$key}}" type="hidden" name="valorUnitarioF[]">
                                                     {{$tamanhoF->sigla}}
+                                                    <p class="text-primary"><strong><span id="tamanho{{$tamanhoF->id}}"></span></strong><input id="_tamanho_preco{{$tamanhoF->id}}" type="hidden" name="_tamanho{{$tamanhoF->id}}" value=""></p>
                                                 </td>
                                             @endforeach
                                         </tr>
@@ -254,14 +252,8 @@
                                          <tr class="_nomeValor">
                                             @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
                                                 <td>
+                                                    <input value="0" id="valorUnitarioF{{$i}}" type="hidden" name="valorUnitarioM[]">
                                                     <input value="{{old('quantidade')}}" id="qtdF{{$i}}" type="text" name="quantidadeF[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        <tr class="_nomeValor">
-                                            @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
-                                                <td>
-                                                    <input value="{{old('valorUnitarioF')}}" id="valorUnitarioF{{$i}}" type="text" name="valorUnitarioF[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>

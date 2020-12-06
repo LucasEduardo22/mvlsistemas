@@ -481,60 +481,77 @@ class PedidoController extends Controller
 
     public function recuperarDetalhesProduto(Request $request)
     {
-        //dd($request->all());
-        //guarda detalhe do produto;
+
         $token = $request->token;
-        $itemPedido = ItemPedido::find($token);
-        $detalhes = [];
-        $tamanhoM = [];
-        $tamanhoF = [];
-        $detalhes['message'] = "detalhes adicionado.";
-        if(!$itemPedido){
-            //dd($itemPedido);
-            $detalhes = $request->session()->get($token);    
-            $detalhes['success'] = true;
-            return response()->json($detalhes);
+        $modelo = $request->modelo;
+        //dd($request->modelo);
+
+        if($token != null){
+            $itemPedido = ItemPedido::find($token);
+            $detalhes = [];
+            $tamanhoM = [];
+            $tamanhoF = [];
+            $detalhes['message'] = "detalhes adicionado.";
+            if(!$itemPedido){
+                $produto = $this->dadosProduto->where('modelo', $modelo)->first();
+                //dd($produto);
+                $estoque_id = $produto->estoque->id;
+                //dd($itemPedido);
+                $detalhes = $request->session()->get($token);    
+                $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
+                $detalhes['success'] = true;
+                return response()->json($detalhes);
+            }else{
+                $produto = $this->dadosProduto->where('modelo', $modelo)->first();
+                $estoque_id = $produto->estoque->id;
+                $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
+                // Lista os detalhes que foram salvo na Base de dados.
+                $tecido = [];
+                foreach ($itemPedido->tecidos as $key => $value) {
+                    $tecido[] = $value->nome;
+                }
+                $detalhes['success'] = true;
+                $detalhes['modelo'] = $itemPedido->estoque->produto->modelo;
+                $detalhes['cor_principal'] = $itemPedido->cor_principal;
+                $detalhes['cor_secundaria'] = $itemPedido->cor_secundaria;
+                $detalhes['cor_terciaria'] = $itemPedido->cor_terciaria;
+                $detalhes['tecido_principal'] = count($tecido) >= 1 ? $tecido[0] : null;
+                $detalhes['tecido_secundario'] = count($tecido) >= 2 ? $tecido[1] : null;
+                $detalhes['tecido_terciario'] = count($tecido) >= 3 ? $tecido[2] : null;
+                $detalhes['quantidadeSemtamanho'] = $itemPedido->quantidade;
+                $detalhes['valorSemtamanho'] =number_format($itemPedido->valor_unitario, 2, '.', '');
+                $detalhes['frente'] = $itemPedido->frente;
+                $detalhes['costa'] = $itemPedido->costa;
+                $detalhes['manga_direita'] = $itemPedido->manga_direita;
+                $detalhes['manga_esquerda'] = $itemPedido->manga_esquerda;
+                $detalhes['tipo'] = $itemPedido->tipo_tamano;
+
+            
+
+                if($itemPedido->tipo_tamano != "N"){
+                    // Tamanho masclino
+                    foreach ($request->tamanhoM as $c => $tamanho_idM) {
+                        $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idM)->where('estoque_id', $itemPedido->estoque->id)->first();
+                        $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
+                        $tamanhoM[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
+                    }
+
+                    // Tamanho Feminino
+                    foreach ($request->tamanhoF as $c => $tamanho_idF) {
+                        $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idF)->where('estoque_id', $itemPedido->estoque->id)->first();
+                        $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
+                        $tamanhoF[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
+                    }
+                    $detalhes['tamanhoM'] = $tamanhoM;
+                    $detalhes['tamanhoF'] = $tamanhoF;
+                }
+                return response()->json($detalhes);
+            }
         }else{
-            // Lista os detalhes que foram salvo na Base de dados.
-            $tecido = [];
-            foreach ($itemPedido->tecidos as $key => $value) {
-                $tecido[] = $value->nome;
-            }
+            $produto = $this->dadosProduto->where('modelo', $modelo)->first();
+            $estoque_id = $produto->estoque->id;
             $detalhes['success'] = true;
-            $detalhes['modelo'] = $itemPedido->estoque->produto->modelo;
-            $detalhes['cor_principal'] = $itemPedido->cor_principal;
-            $detalhes['cor_secundaria'] = $itemPedido->cor_secundaria;
-            $detalhes['cor_terciaria'] = $itemPedido->cor_terciaria;
-            $detalhes['tecido_principal'] = count($tecido) >= 1 ? $tecido[0] : null;
-            $detalhes['tecido_secundario'] = count($tecido) >= 2 ? $tecido[1] : null;
-            $detalhes['tecido_terciario'] = count($tecido) >= 3 ? $tecido[2] : null;
-            $detalhes['quantidadeSemtamanho'] = $itemPedido->quantidade;
-            $detalhes['valorSemtamanho'] =number_format($itemPedido->valor_unitario, 2, '.', '');
-            $detalhes['frente'] = $itemPedido->frente;
-            $detalhes['costa'] = $itemPedido->costa;
-            $detalhes['manga_direita'] = $itemPedido->manga_direita;
-            $detalhes['manga_esquerda'] = $itemPedido->manga_esquerda;
-            $detalhes['tipo'] = $itemPedido->tipo_tamano;
-
-           
-
-            if($itemPedido->tipo_tamano != "N"){
-                // Tamanho masclino
-                foreach ($request->tamanhoM as $c => $tamanho_idM) {
-                    $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idM)->where('estoque_id', $itemPedido->estoque->id)->first();
-                    $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
-                    $tamanhoM[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
-                }
-
-                // Tamanho Feminino
-                foreach ($request->tamanhoF as $c => $tamanho_idF) {
-                    $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idF)->where('estoque_id', $itemPedido->estoque->id)->first();
-                    $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
-                    $tamanhoF[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
-                }
-                $detalhes['tamanhoM'] = $tamanhoM;
-                $detalhes['tamanhoF'] = $tamanhoF;
-            }
+            $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
             return response()->json($detalhes);
         }
         
