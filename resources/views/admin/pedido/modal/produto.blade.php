@@ -117,12 +117,9 @@
                             <label for="_valorSemtamanho" class="pb-0 mb-0">
                                 Valor Unitario:
                             </label>
-                            <input value="{{old('valorSemtamanho')}}" type="text" name="valorSemtamanho" class="form-control dinheiro @error('valorSemtamanho') is-invalid @enderror" placeholder="" id="_valorSemtamanho">
-                            @error('valorSemtamanho')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
+                            <p class="text-primary"><strong><span id="_sem_tamanho_preco"></span></strong><input id="_tamanho_preco" type="hidden" name="sem_tamanho_preco" value="0"></p>
+                            <input value="{{old('valorSemtamanho')}}" type="hidden" name="valorSemtamanho" class="form-control" id="_valorSemtamanho">
+                           
                         </div>
                     </div>
                     <div class="form-group col-md-4 sem_tamanho">

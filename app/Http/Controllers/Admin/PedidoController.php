@@ -457,6 +457,7 @@ class PedidoController extends Controller
                 $estoque_id = $produto->estoque->id;
                 //dd($itemPedido);
                 $detalhes = $request->session()->get($token);
+                $detalhes['semTamanhosPreco'] = $produto->estoque->preco_venda;
                 $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
                 $detalhes['success'] = true;
                 return response()->json($detalhes);
@@ -486,6 +487,7 @@ class PedidoController extends Controller
                     $produto = $this->dadosProduto->where('modelo', $modelo)->first();
                     $estoque_id = $produto->estoque->id;
                     $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
+                    $detalhes['semTamanhosPreco'] = $produto->estoque->preco_venda;
                     // Tamanho masclino
                     foreach ($request->tamanhoM as $c => $tamanho_idM) {
 
@@ -509,6 +511,7 @@ class PedidoController extends Controller
             $produto = $this->dadosProduto->where('modelo', $modelo)->first();
             $estoque_id = $produto->estoque->id;
             $detalhes['success'] = true;
+            $detalhes['semTamanhosPreco'] = $produto->estoque->preco_venda;
             $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
             return response()->json($detalhes);
         }
