@@ -130,13 +130,16 @@
             $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
         })
 
-        $('input[type=radio]').change(function() {
-            $('input[type=radio]:checked').not(this).prop('checked', false);
-        });
 
         $('.tipo_pedido').change(function(){
             var tipo_pedido = $(this).val();
             $('[name="tipo_pedido_id"]').val(tipo_pedido)
+
+            if (tipo_pedido == "O") {
+                $("#ordem").hide()
+            } else {
+                $("#ordem").show()
+            }
         })
 
         $('.tipos').change(function(){

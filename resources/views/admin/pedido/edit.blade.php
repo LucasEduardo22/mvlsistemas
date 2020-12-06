@@ -22,11 +22,15 @@
             <a href="{{ route('pedido.edit', $pedido->id) }}">Editar</a>
         </li>
     </ol>
-    <form action="{{route('pedido.update', $pedido->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
-        @method('POST')
-        @csrf
-        @include('admin.pedido._partials.editFrom')
-    </form>
+    <div class="card border border-secondary">
+        <div class="card-body">
+            <form action="{{route('pedido.update', $pedido->id)}}" class="form-horizontal" method="post" class="form" enctype="multipart/form-data">
+                @method('POST')
+                @csrf
+                @include('admin.pedido._partials.editFrom')
+            </form>
+        </div>
+    </div>
 @stop
 @push('scripts')
     @include('admin.pedido.script-edit') 

@@ -14,7 +14,7 @@ class ItemPedido extends Model
 
     
     public function tecidos(){
-        return $this->belongsToMany(Tecido::class, "item_pedido_tecidos");
+        return $this->belongsToMany(MateriaPrima::class, "item_pedido_tecidos");
     }
 
     public function estoque(){

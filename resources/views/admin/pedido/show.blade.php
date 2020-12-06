@@ -29,7 +29,8 @@
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
-            @include('admin.pedido._partials._show')   
+            pagina em manutenção
+            {{-- @include('admin.pedido._partials._show')   --}} 
         </div>
     </div>
 @stop

@@ -11,10 +11,6 @@
             <div class="modal-body">
                 <div class="col-md-12">
                     <div class="form-row">
-                        {{-- <div class="form-group col-md-4">
-                            <label for="_modelo" class="pb-0 mb-0">Modelo:</label>
-                            <input type="text" name="filtrar_modelo" class="form-control col-md-4 pt-0" id="_modelo" value="{{old("modelo")}}">
-                        </div> --}}
                         <div class="form-group col-md-6">
                             <label for="_modelo">Tipo de tamanho:</label><br>
                             <input type="hidden" value="T" name="tipo">
@@ -50,56 +46,19 @@
                         <div class="form-group col-md-3">
                             <p>Sub Grupo: <strong id="subgrupo" class="grupo">Nenhum Produto foi selecionadoe</strong></p>
                         </div>
-                        {{-- <div class="form-group col-md-3">
-                            <p>Cor Principal: <strong>Azul</strong></p>
-                        </div> --}}
                     </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="_cor_principal" class="pb-0 mb-0">
-                                Cor Primária:
+                            <label for="_tecido_principal" class="pb-0 mb-0">
+                                Tecido:
                             </label>
-                            <input value="{{old('cor_principal')}}" type="text" name="cor_principal" class="form-control 
-                            @error('cor_principal') is-invalid @enderror" placeholder="Cor Primária" id="_cor_principal">
-                            @error('cor_principal')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="_cor_secundaria" class="pb-0 mb-0">
-                                Cor Secundária:
-                            </label>
-                            <input value="{{old('cor_secundaria')}}" type="text" name="cor_secundaria" class="form-control 
-                            @error('cor_secundaria') is-invalid @enderror" placeholder="Cor Secundária" id="_cor_secundaria">
-                            @error('cor_secundaria')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="_cor_terciaria" class="pb-0 mb-0">
-                                Cor Terciária:
-                            </label>
-                            <input value="{{old('cor_terciaria')}}" type="text" name="cor_terciaria" class="form-control 
-                            @error('cor_terciaria') is-invalid @enderror" placeholder="Cor Terciária" id="_cor_terciaria">
-                            @error('cor_terciaria')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-4">
-                            <label for="_tecido_primario" class="pb-0 mb-0">
-                                Tecido Primário:
-                            </label>
-                            <input value="{{old('tecido_principal')}}" type="text" name="tecido_principal" class="form-control 
-                            @error('tecido_principal') is-invalid @enderror" placeholder="Tecido Primário" id="_tecido_principal">
-                            @error('cor_principal')
+                            <select id="_tecido_principal" name="tecido_principal" class="form-control preco_custo select_tecido @error('tecido_principal') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0"  data-tecido_principal="0">Selecione</option>
+                                @foreach ($tecidos as $tecido)
+                                    <option  value="{{$tecido->id}}" data-tecido_principal="{{$tecido->preco_compra}}">{{$tecido->sigla}}</option>
+                                @endforeach
+                            </select>
+                            @error('tecido_principal')
                                 <div class="invalid-feedback">
                                     {{ $message }}
                                 </div>
@@ -109,8 +68,12 @@
                             <label for="_tecido_secundario" class="pb-0 mb-0">
                                 Tecido Secundário:
                             </label>
-                            <input value="{{old('tecido_secundario')}}" type="text" name="tecido_secundario" class="form-control 
-                            @error('tecido_secundario') is-invalid @enderror" placeholder="Tecido Secundário" id="_tecido_secundario">
+                            <select id="_tecido_secundario" name="tecido_secundario" class="form-control preco_custo select_tecido @error('tecido_secundario') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0" data-tecido_secundario="0">Selecione</option>
+                                @foreach ($tecidos as $tecido)
+                                    <option value="{{$tecido->id}}" data-tecido_secundario="{{$tecido->preco_compra}}">{{$tecido->sigla}}</option>
+                                @endforeach
+                            </select>
                             @error('tecido_secundario')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -119,9 +82,14 @@
                         </div>
                         <div class="form-group col-md-4">
                             <label for="_tecido_terciario" class="pb-0 mb-0">
-                                Tecido Terciário:
+                                Tecido Teciario:
                             </label>
-                            <input value="{{old('tecido_terciario')}}" type="text" name="tecido_terciario" class="form-control @error('tecido_terciario') is-invalid @enderror" placeholder="Tecido Terciário" id="_tecido_terciario">
+                            <select id="_tecido_terciario" name="tecido_terciario" class="form-control preco_custo select_tecido @error('tecido_terciario') is-invalid @enderror" style="width: 100%; height: 100%;">
+                                <option value="0" data-tecido_terciario="0">Selecione</option>
+                                @foreach ($tecidos as $tecido)
+                                    <option value="{{$tecido->id}}" data-tecido_terciario="{{$tecido->preco_compra}}">{{$tecido->sigla}}</option>
+                                @endforeach
+                            </select>
                             @error('tecido_terciario')
                                 <div class="invalid-feedback">
                                     {{ $message }}
@@ -227,10 +195,12 @@
                                     <span class="text-dark" id="_tipoMU">MASCULINO</span>
                                     <thead>
                                         <tr>
-                                            @foreach ($tamanhos->tamanhoMasculino() as $tamanhoM)
+                                            @foreach ($tamanhos->tamanhoMasculino() as $key => $tamanhoM)
                                                 <td>
                                                     <input type="hidden" class="_tamanhoM" name="tamanhoM[]" value="{{$tamanhoM->id}}">
-                                                    {{$tamanhoM->sigla}}
+                                                    <input value="{{$tamanhoM->id}}" id="nomeTamanhoM{{$key}}" type="hidden" name="valorUnitarioM[]">
+                                                    {{$tamanhoM->sigla}} 
+                                                    <p class="text-primary"><strong><span id="tamanho{{$tamanhoM->id}}"></span></strong><input type="hidden" id="_tamanho_preco{{$tamanhoM->id}}" name="_tamanho{{$tamanhoM->id}}" value=""></p>
                                                 </td>
                                             @endforeach
                                         </tr>
@@ -239,14 +209,8 @@
                                         <tr>
                                             @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
                                                 <td class="_nomeValor">
+                                                    <input value="0" id="valorUnitarioM{{$i}}" type="hidden" name="valorUnitarioM[]">
                                                     <input value="{{old('quantidadeM')}}"  id="qtdM{{$i}}" type="text" name="quantidadeM[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        <tr>
-                                            @for ($i = 0; $i < $tamanhos->tamanhoMasculino()->count(); $i++)
-                                                <td class="_nomeValor" data-id{{$i}}="{{$i}}">
-                                                    <input value="{{old('valorUnitarioM')}}" id="valorUnitarioM{{$i}}" type="text" name="valorUnitarioM[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
@@ -270,10 +234,12 @@
                                     <span class="text-dark">FEMININO</span>
                                     <thead>
                                         <tr>
-                                            @foreach ($tamanhos->tamanhoFeminino() as $tamanhoF)
+                                            @foreach ($tamanhos->tamanhoFeminino() as $key => $tamanhoF)
                                                 <td>
                                                     <input type="hidden" class="_tamanhoF" name="tamanhoF[]" value="{{$tamanhoF->id}}">
+                                                    <input value="{{$tamanhoF->id}}" id="nomeTamanhoF{{$key}}" type="hidden" name="valorUnitarioF[]">
                                                     {{$tamanhoF->sigla}}
+                                                    <p class="text-primary"><strong><span id="tamanho{{$tamanhoF->id}}"></span></strong><input id="_tamanho_preco{{$tamanhoF->id}}" type="hidden" name="_tamanho{{$tamanhoF->id}}" value=""></p>
                                                 </td>
                                             @endforeach
                                         </tr>
@@ -282,14 +248,8 @@
                                          <tr class="_nomeValor">
                                             @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
                                                 <td>
+                                                    <input value="0" id="valorUnitarioF{{$i}}" type="hidden" name="valorUnitarioM[]">
                                                     <input value="{{old('quantidade')}}" id="qtdF{{$i}}" type="text" name="quantidadeF[]" class="form-control @error('quantidade') is-invalid @enderror" placeholder="Qtd." id="_quantidade">
-                                                </td>
-                                            @endfor
-                                        </tr>
-                                        <tr class="_nomeValor">
-                                            @for ($i = 0; $i < $tamanhos->tamanhoFeminino()->count(); $i++)
-                                                <td>
-                                                    <input value="{{old('valorUnitarioF')}}" id="valorUnitarioF{{$i}}" type="text" name="valorUnitarioF[]" class="form-control dinheiro @error('valorUnitario') is-invalid @enderror" placeholder="Valor Unit." id="_valorUnitario">
                                                 </td>
                                             @endfor
                                         </tr>
@@ -308,7 +268,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="" class="btn btn-primary _salvar"  data-dismiss="modal">Salvar</button>
+                <button type="button" id="_salvar" class="btn btn-primary" data-dismiss="modal">Salvar</button>
             </div>
         </div>
     </div>

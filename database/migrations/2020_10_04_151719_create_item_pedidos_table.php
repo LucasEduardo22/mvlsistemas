@@ -37,10 +37,10 @@ class CreateItemPedidosTable extends Migration
         Schema::create('item_pedido_tecidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('item_pedido_id');
-            $table->unsignedBigInteger('tecido_id');
+            $table->unsignedBigInteger('materia_prima_id');
 
             $table->foreign('item_pedido_id')->references('id')->on('item_pedidos')->onDelete('cascade');
-            $table->foreign('tecido_id')->references('id')->on('tecidos')->onDelete('cascade');
+            $table->foreign('materia_prima_id')->references('id')->on('materia_primas')->onDelete('cascade');
         });
     }
 

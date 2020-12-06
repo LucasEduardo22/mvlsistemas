@@ -19,6 +19,7 @@ class CreatePedidosTable extends Migration
             $table->unsignedBigInteger('tabela_preco_id')->nullable();
             $table->unsignedBigInteger('forma_pagamento_id')->nullable();
             $table->string("drescricao")->nullable();
+            $table->string("condicao", 50)->nullable();
             $table->enum('tipo_venda', ["V", "O"]);
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('status_id');

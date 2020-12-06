@@ -51,8 +51,8 @@
                 @enderror
             </div>
             <div class="form-group col-md-3">
-                <label for="inputPassword4 pb-0">Condições:</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" placeholder="">
+                <label for="condicao pb-0">Condições:</label>
+                <input type="text" name="condicao" class="form-control" id="formGroupExampleInput" placeholder="">
             </div>
         </div>
         <div class="row">
@@ -134,7 +134,7 @@
             </table>
         </div>
         <div class="mt-2 mb-2">
-            <button class="btn btn-primary float-right" name="status_id" value="2">ORDEM PRODUÇÃO</button> 
+            <button class="btn btn-primary float-right" id="ordem" name="status_id" value="2">ORDEM PRODUÇÃO</button> 
             <button class="btn btn-success mr-2 float-right" name="status_id" value="1">SALVAR</button> 
             <button class="btn btn-danger mr-2 float-right" name="status_id" value="0">CANCELAR</button> 
         </div>

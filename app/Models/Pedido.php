@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Pedido extends Model
 {
-    protected $fillable = ['cliente_id', 'forma_pagamento_id', 'tipo_venda', 'user_id', 'status_id'];
+    protected $fillable = ['cliente_id', 'forma_pagamento_id', "tabela_preco_id", 'tipo_venda', "condicao",'user_id', 'status_id'];
 
     public function status(){
         return $this->belongsTo(Status::class);
