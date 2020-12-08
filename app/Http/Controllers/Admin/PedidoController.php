@@ -108,10 +108,13 @@ class PedidoController extends Controller
 
                     $estoque_id = $produto->estoque->id;
 
+                    $detalhes['valor_serigrafia'] = str_replace(['.'], '', $detalhes['valor_serigrafia']);
+                    $detalhes['valor_serigrafia'] = str_replace([','], '.', $detalhes['valor_serigrafia']);
                     $itemPedidos["pedido_id"] = $pedido->id;
                     $itemPedidos["estoque_id"] = $estoque_id;
                     $itemPedidos["frente"] = $detalhes['frente'];
                     $itemPedidos["costa"] = $detalhes['costa'];
+                    $itemPedidos["valor_serigrafia"] = $detalhes['valor_serigrafia'];
                     $itemPedidos["manga_direita"] = $detalhes['manga_direita'];
                     $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
                     $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
@@ -243,11 +246,13 @@ class PedidoController extends Controller
                     if (!empty($produto->estoque)) {
 
                         $estoque_id = $produto->estoque->id;
-
+                        $detalhes['valor_serigrafia'] = str_replace(['.'], '', $detalhes['valor_serigrafia']);
+                        $detalhes['valor_serigrafia'] = str_replace([','], '.', $detalhes['valor_serigrafia']);
                         $itemPedidos["pedido_id"] = $pedido->id;
                         $itemPedidos["estoque_id"] = $estoque_id;
                         $itemPedidos["frente"] = $detalhes['frente'];
                         $itemPedidos["costa"] = $detalhes['costa'];
+                        $itemPedidos["valor_serigrafia"] = $detalhes['valor_serigrafia'];
                         $itemPedidos["manga_direita"] = $detalhes['manga_direita'];
                         $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
                         $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
@@ -478,6 +483,7 @@ class PedidoController extends Controller
                 $detalhes['valorSemtamanho'] = number_format($itemPedido->valor_unitario, 2, '.', '');
                 $detalhes['frente'] = $itemPedido->frente;
                 $detalhes['costa'] = $itemPedido->costa;
+                $detalhes['valor_serigrafia'] = number_format($itemPedido->valor_serigrafia, 2, ',', '');
                 $detalhes['manga_direita'] = $itemPedido->manga_direita;
                 $detalhes['manga_esquerda'] = $itemPedido->manga_esquerda;
                 $detalhes['tipo'] = $itemPedido->tipo_tamano;

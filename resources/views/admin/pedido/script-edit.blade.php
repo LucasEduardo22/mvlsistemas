@@ -160,11 +160,12 @@
             var totalQuantidade = 0;
             var totalQuantidadeM = 0;
             var totalQuantidadef = 0;
+            var valor_serigrafia = $('#_valor_serigrafia').val()
             var tecido_principal = $('[name="tecido_principal"] option:selected').data('tecido_principal');
             var tecido_secundario = $('[name="tecido_secundario"] option:selected').data('tecido_secundario');
             var tecido_terciario = $('[name="tecido_terciario"] option:selected').data('tecido_terciario');
             var sem_tamanho = $('[name="sem_tamanho_preco"]').val();
-            var preco_tecido = Number(tecido_principal) + Number(tecido_secundario) + Number(tecido_terciario);
+            var preco_tecido = Number(tecido_principal) + Number(tecido_secundario) + Number(tecido_terciario) + Number(valor_serigrafia.replace(/\./g, "").replace(/,/g, "."));
 
             if(Number(tecido_principal) != 0 ||  Number(tecido_secundario) != 0 || Number(tecido_terciario) != 0){
                 var semValorProduto = Number(preco_tecido) + Number(sem_tamanho)
@@ -437,6 +438,7 @@
                         valorSemtamanho: $('[name="valorSemtamanho"]').val(),
                         frente: $('[name="frente"]').val(),
                         costa: $('[name="costa"]').val(),
+                        valor_serigrafia: $('#_valor_serigrafia').val(),
                         manga_direita: $('[name="manga_direita"]').val(),
                         manga_esquerda: $('[name="manga_esquerda"]').val(),
                         tipo: $('[name="tipo"]').val(),
@@ -484,6 +486,7 @@
             $('.femin').show();
             $('.masc').show();
             $('.sem_tamanho').hide();
+            $('#_valor_serigrafia').val("")
         });
 
 
@@ -827,6 +830,7 @@
                             $('[name="tipo"]').val(data.tipo);
 
                             var tamanhoF =  data.tamanhoF;
+                            var valor_serigrafia =  data.valor_serigrafia;
                             var totalQuantidadef = 0;
                             var totalQuantidadeM = 0;
                             var totalQuantidade = 0;
@@ -906,7 +910,8 @@
                                 $(".valorF").html(totalf.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                                 $('.totalF').html(totalQuantidadef);
                                 $(".valorM").html(totalM.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
-                                $(".totalM").html(totalQuantidadeM);                                    
+                                $(".totalM").html(totalQuantidadeM);   
+                                $('#_valor_serigrafia').val(valor_serigrafia);                                   
                                 $("#valorTotal").html(total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                                 $('#quantidadeTotal').html(totalQuantidade + " Peças");
                                 $('#_sem_tamanho_preco').text(valorSemtamanho.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));

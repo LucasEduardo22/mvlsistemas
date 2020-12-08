@@ -175,6 +175,17 @@
                                  </div>
                              @enderror
                         </div>
+                        <div class="form-group col-md-3">
+                            <label for="_valor_serigrafia" class="pb-0 mb-0">
+                                Valor da serigrafia:
+                             </label>
+                             <input value="{{old('valor_serigrafia')}}" type="text" name="valor_serigrafia" class="form-control preco_custo dinheiro @error('valor_serigrafia') is-invalid @enderror" placeholder="00,00" id="_valor_serigrafia">
+                             @error('valor_serigrafia')
+                                 <div class="invalid-feedback">
+                                     {{ $message }}
+                                 </div>
+                             @enderror
+                        </div>
                         {{-- <div class="form-group col-md-3">
                             <p>Cor Principal: <strong>Azul</strong></p>
                         </div> --}}

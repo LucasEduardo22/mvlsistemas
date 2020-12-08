@@ -25,6 +25,7 @@ class CreateItemPedidosTable extends Migration
             $table->string("cor_terciaria")->nullable();
             $table->string("frente")->nullable();
             $table->string("costa")->nullable();
+            $table->double("valor_serigrafia", 10,2)->nullable();
             $table->string("manga_direita")->nullable();
             $table->string("manga_esquerda")->nullable();
             $table->enum('tipo_tamano', ["T", "M", "F", "U", "N"]);
