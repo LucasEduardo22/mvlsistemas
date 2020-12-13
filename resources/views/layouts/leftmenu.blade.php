@@ -82,7 +82,11 @@
                 <span class="im im-icon-Arrow-Right imicon"></span>
             </a>
             <ul class="sub-menu list-unstyled">
-
+                <li>
+                    <a href="{{route('estoque.index')}}">
+                        Ver Estoque
+                    </a>
+                </li>
             </ul>
         </li>
         <li>

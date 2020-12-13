@@ -113,7 +113,7 @@ class EstoqueController extends Controller
         
         $estoque = $this->dadosEstoque->find($id);
         $dados = $request->all();
-        
+     
         //$dados['estoque_id'] = $estoque->id;
         $dados['estoque_atual'] = $request->estoque_inicial;
         $dados['preco_venda'] =  $dados['preco_venda'] != '' ? $dados['preco_venda'] : null;
@@ -122,7 +122,6 @@ class EstoqueController extends Controller
         if(!$estoque){
             return redirect()->back();
         }
-
         $estoque->update($dados);
         if(!empty($request->preco_venda1)){
             foreach ($request->tamanho as $i => $value) {

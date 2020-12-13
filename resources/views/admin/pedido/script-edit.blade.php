@@ -350,7 +350,7 @@
                 }
 
                 $('#valorUnitarioM'+index).val();
-                $('#qtdM'+index).val();
+                $('#qtdM'+index).val('');
                 $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
@@ -366,7 +366,7 @@
                     valorUniF.push({quatidadetamanho: 0, valortamanho: valorF})
                 }
                 $('#valorUnitarioF'+index).val();
-                $('#qtdF'+index).val();
+                $('#qtdF'+index).val('');
                 $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
@@ -487,6 +487,9 @@
             $('.masc').show();
             $('.sem_tamanho').hide();
             $('#_valor_serigrafia').val("")
+            $('#valor_tecido_principal').val();
+            $('#valor_tecido_secundario').val();
+            $('#valor_tecido_terciario').val();
         });
 
 
@@ -917,6 +920,10 @@
                                 $('#_sem_tamanho_preco').text(valorSemtamanho.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                                 $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                             }
+
+                            $('#valor_tecido_principal').val(data.valor_tecido_principal);
+                            $('#valor_tecido_secundario').val(data.valor_tecido_secundario);
+                            $('#valor_tecido_terciario').val(data.valor_tecido_terciario);
                         }
                         
                     }
@@ -951,6 +958,9 @@
                                 $("[name='_tamanho"+tamanhosPreco[index].tamanho_id+"']").val(tamanhosPreco[index].preco_venda)
                             }
                             $("[name=sem_tamanho_preco]").val(semTamanhosPreco);
+                            $('#valor_tecido_principal').val(data.valor_tecido_principal);
+                            $('#valor_tecido_secundario').val(data.valor_tecido_secundario);
+                            $('#valor_tecido_terciario').val(data.valor_tecido_terciario);
                         }
                         
                     }

@@ -460,10 +460,14 @@ class PedidoController extends Controller
             if (!$itemPedido) {
                 $produto = $this->dadosProduto->where('modelo', $modelo)->first();
                 $estoque_id = $produto->estoque->id;
+
                 //dd($itemPedido);
                 $detalhes = $request->session()->get($token);
                 $detalhes['semTamanhosPreco'] = $produto->estoque->preco_venda;
                 $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
+                $detalhes['valor_tecido_principal'] = $produto->estoque->valor_tecido_principal;
+                $detalhes['valor_tecido_secundario'] = $produto->estoque->valor_tecido_secundario;
+                $detalhes['valor_tecido_terciario'] = $produto->estoque->valor_tecido_terciario;
                 $detalhes['success'] = true;
                 return response()->json($detalhes);
             } else {
@@ -479,6 +483,9 @@ class PedidoController extends Controller
                 $detalhes['nome_principal'] = count($tecido) >= 1 ? $tecido[0] : null;
                 $detalhes['nome_secundario'] = count($tecido) >= 2 ? $tecido[1] : null;
                 $detalhes['nome_terciario'] = count($tecido) >= 3 ? $tecido[2] : null;
+                $detalhes['valor_tecido_principal'] = $produto->estoque->valor_tecido_principal;
+                $detalhes['valor_tecido_secundario'] = $produto->estoque->valor_tecido_secundario;
+                $detalhes['valor_tecido_terciario'] = $produto->estoque->valor_tecido_terciario;
                 $detalhes['quantidadeSemtamanho'] = $itemPedido->quantidade;
                 $detalhes['valorSemtamanho'] = number_format($itemPedido->valor_unitario, 2, '.', '');
                 $detalhes['frente'] = $itemPedido->frente;
@@ -518,6 +525,9 @@ class PedidoController extends Controller
             $estoque_id = $produto->estoque->id;
             $detalhes['success'] = true;
             $detalhes['semTamanhosPreco'] = $produto->estoque->preco_venda;
+            $detalhes['valor_tecido_principal'] = $produto->estoque->valor_tecido_principal;
+            $detalhes['valor_tecido_secundario'] = $produto->estoque->valor_tecido_secundario;
+            $detalhes['valor_tecido_terciario'] = $produto->estoque->valor_tecido_terciario;
             $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
             return response()->json($detalhes);
         }

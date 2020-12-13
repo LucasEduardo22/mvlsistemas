@@ -13,14 +13,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        User::truncate();
+       
         User::create([
             'perfil_id' => 1,
             'name'  => 'Lucas',
-            'cpf'           => '00114725636',
-            'telefone'      => '41992357727',
-            'email' => 'admin@admin.com',
-            'password' => Hash::make('password'),
+            'cpf'           => '0011725636',
+            'telefone'      => '4199357727',
+            'email' => 'teste@admin.com',
+            'password' => Hash::make('12345678'),
             'status_id' => 1,
             'endereco' => 'Rua Cid Gonçalves',
             'bairro' => 'Cidade Industrial',

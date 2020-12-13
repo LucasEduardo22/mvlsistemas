@@ -278,6 +278,11 @@
             <div class="modal-footer">
                 <button type="button" id="_salvar" class="btn btn-primary" data-dismiss="modal">Salvar</button>
             </div>
+            <div id="itens_quantidade_estoque">
+                <input value="" name="valor_tecido_principal" class="produto_item" type="hidden" id="valor_tecido_principal"/>
+                <input value="" name="valor_tecido_secundario" class="produto_item" type="hidden" id="valor_tecido_secundario"/>
+                <input value="" name="valor_tecido_terciario" class="produto_item" type="hidden" id="valor_tecido_terciario"/>
+            </div>
         </div>
     </div>
 </div>

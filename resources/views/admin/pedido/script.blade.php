@@ -64,7 +64,7 @@
             for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
                 var valorM = $('#valorUnitarioM'+index).val();
                 var qtdM = $('#qtdM'+index).val();
-                console.log(qtdM);
+                //console.log(qtdM);
                 totalQuantidade += Number(qtdM);
                 if(valorM != "" && qtdM != ""){
                     valorUni.push({quatidadetamanho: qtdM, valortamanho: valorM})
@@ -80,7 +80,7 @@
                 var valor = valorUni[key].valortamanho
                 if (valor != 0 && qtd != 0) {
                     total += Number(qtd) * Number(valor);
-                    console.log(total + " " + qtd);
+                    //console.log(total + " " + qtd);
                 }
             });
 
@@ -165,8 +165,13 @@
             var tecido_principal = $('[name="tecido_principal"] option:selected').data('tecido_principal');
             var tecido_secundario = $('[name="tecido_secundario"] option:selected').data('tecido_secundario');
             var tecido_terciario = $('[name="tecido_terciario"] option:selected').data('tecido_terciario');
+            var valor_tecido_principal = Number($('#valor_tecido_principal').val())
+            var valor_tecido_secundario = Number($('#valor_tecido_secundario').val())
+            var valor_tecido_terciario = Number($('#valor_tecido_terciario').val())
             var sem_tamanho = $('[name="sem_tamanho_preco"]').val();
-            var preco_tecido = Number(tecido_principal) + Number(tecido_secundario) + Number(tecido_terciario) + Number(valor_serigrafia.replace(/\./g, "").replace(/,/g, "."));
+            var preco_tecido = Number(tecido_principal) * valor_tecido_principal + Number(tecido_secundario) * valor_tecido_secundario + Number(tecido_terciario) * valor_tecido_terciario + Number(valor_serigrafia.replace(/\./g, "").replace(/,/g, "."));
+
+            //console.log(preco_tecido);
 
             if(Number(tecido_principal) != 0 ||  Number(tecido_secundario) != 0 || Number(tecido_terciario) != 0){
                 var semValorProduto = Number(preco_tecido) + Number(sem_tamanho)
@@ -352,7 +357,7 @@
                 }
 
                 $('#valorUnitarioM'+index).val();
-                $('#qtdM'+index).val();
+                $('#qtdM'+index).val('');
                 $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
@@ -368,7 +373,7 @@
                     valorUniF.push({quatidadetamanho: 0, valortamanho: valorF})
                 }
                 $('#valorUnitarioF'+index).val();
-                $('#qtdF'+index).val();
+                $('#qtdF'+index).val('');
                 $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
@@ -413,7 +418,7 @@
                valor_total = valor_total + Number($(this).val());  
             });
 
-            console.log(qtd_total);
+            //console.log(qtd_total);
             //$("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
             $('#_qtd_itens').html(qtd_total + " Peças"); 
             $("#_valor_itens").html(valor_total.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
@@ -489,6 +494,9 @@
             $('.masc').show();
             $('.sem_tamanho').hide();
             $('#_valor_serigrafia').val("");
+            $('#valor_tecido_principal').val();
+            $('#valor_tecido_secundario').val();
+            $('#valor_tecido_terciario').val();
         });
 
 
@@ -946,6 +954,10 @@
                                 $('#_sem_tamanho_preco').text(valorSemtamanho.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                                 $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));
                             }
+
+                            $('#valor_tecido_principal').val(data.valor_tecido_principal);
+                            $('#valor_tecido_secundario').val(data.valor_tecido_secundario);
+                            $('#valor_tecido_terciario').val(data.valor_tecido_terciario);
                         } 
                         
                     }
@@ -972,14 +984,16 @@
                         var data = JSON.parse(JSON.stringify(data));
                         var tamanhosPreco = data.tamanhosPreco
                         var semTamanhosPreco = data.semTamanhosPreco
-                        console.log(tamanhosPreco);
+                        //console.log(tamanhosPreco);
                         
                         if(data.success == true){
                             for (let index = 0; index < tamanhosPreco.length; index++) {
                                 const element = data[index];
                                 $("[name='_tamanho"+tamanhosPreco[index].tamanho_id+"']").val(tamanhosPreco[index].preco_venda);
                             }
-                            $("[name=sem_tamanho_preco]").val(semTamanhosPreco);
+                            $('#valor_tecido_principal').val(data.valor_tecido_principal);
+                            $('#valor_tecido_secundario').val(data.valor_tecido_secundario);
+                            $('#valor_tecido_terciario').val(data.valor_tecido_terciario);
                         }
                     }
                 });

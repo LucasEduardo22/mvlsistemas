@@ -30,13 +30,13 @@ class Estoque extends Model
         return $this->belongsTo(Status::class);
     }
 
-    public function mask($id) {
+    public function mask($id, $valor_tecido) {
         $estoque = Estoque::where('id', $id)->first();
 
         if ($estoque->metro_kilo == "M") {
-            return number_format($estoque->valor_tecido_terciario , 2, ',', '.');
+            return number_format($valor_tecido , 2, ',', '.');
         } elseif ($estoque->metro_kilo == "P") {
-            return number_format($estoque->valor_tecido_terciario , 3, ',', '.');
+            return number_format($valor_tecido , 3, ',', '.');
         }
         
     }
