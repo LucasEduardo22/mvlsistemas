@@ -50,6 +50,9 @@ class EstoqueController extends Controller
             "custo_atual" => str_replace([','],'.', $request->custo_atual),
             "preco_venda" => str_replace(['.'], '', $request->preco_venda),
             "preco_venda" => str_replace([','], '.', $request->preco_venda),
+            "valor_tecido_principal" => str_replace([','], '.', $request->valor_tecido_principal),
+            "valor_tecido_secundario" => str_replace([','], '.', $request->valor_tecido_secundario),
+            "valor_tecido_terciario" => str_replace([','], '.', $request->valor_tecido_terciario),
         ]);
 
         $produto = $this->dadosProduto->find($id);
@@ -103,6 +106,9 @@ class EstoqueController extends Controller
             "custo_atual" => str_replace([','],'.', $request->custo_atual),
             "preco_venda" => str_replace(['.'], '', $request->preco_venda),
             "preco_venda" => str_replace([','], '.', $request->preco_venda),
+            "valor_tecido_principal" => str_replace([','], '.', $request->valor_tecido_principal),
+            "valor_tecido_secundario" => str_replace([','], '.', $request->valor_tecido_secundario),
+            "valor_tecido_terciario" => str_replace([','], '.', $request->valor_tecido_terciario),
         ]);
         
         $estoque = $this->dadosEstoque->find($id);

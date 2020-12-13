@@ -43,7 +43,22 @@
 @push('scripts')
     <script>
         $(document).ready(function($){
+            var peso_metro = $('[name="metro_kilo"]:checked').val()
+            console.log(peso_metro);
             $('.dinheiro').mask('#.###,00', {reverse: true}); 
+            $('.metro_kilo').change(function(){
+                var campo = $(this).val();
+                if (campo == "M"){
+                    $("#_valor_tecido_principal").maskMoney({ decimal: ',', thousands: '.', precision: 2 });
+                    $("#_valor_tecido_secundario").maskMoney({ decimal: ',', thousands: '.', precision: 2 });
+                    $("#_valor_tecido_terciario").maskMoney({ decimal: ',', thousands: '.', precision: 2 });
+                }
+                else if (campo == "P"){
+                    $("#_valor_tecido_principal").maskMoney({ decimal: ',', thousands: '.', precision: 3 });
+                    $("#_valor_tecido_secundario").maskMoney({ decimal: ',', thousands: '.', precision: 3 });
+                    $("#_valor_tecido_terciario").maskMoney({ decimal: ',', thousands: '.', precision: 3 });
+                }			
+            });
         }); 
 
     </script>

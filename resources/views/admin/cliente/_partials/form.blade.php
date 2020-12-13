@@ -3,7 +3,6 @@
         <div class="form-check">
             <input class="form-check-input cpf-cnpj" type="radio" name="cnpj_cpf" id="gridRadios2"
                 value="cnpj" checked="">
-            
             <label class="form-check-label cpf-cnpj" for="gridRadios2">
                 CNPJ
             </label>

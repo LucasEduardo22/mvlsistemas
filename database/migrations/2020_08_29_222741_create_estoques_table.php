@@ -25,6 +25,10 @@ class CreateEstoquesTable extends Migration
             $table->double('preco_compra', 10,2)->nullable();
             $table->double('custo_atual', 10,2)->nullable();
             $table->double('custo_producao', 10,2)->nullable();
+            $table->enum('tipo_tamano', ["M", "P"])->nullable();
+            $table->double('valor_tecido_principal', 10,3)->nullable();
+            $table->double('valor_tecido_secundario', 10,3)->nullable();
+            $table->double('valor_tecido_terciario', 10,3)->nullable();
             $table->string('cor')->nullable();
             $table->unsignedBigInteger('unidade_id');
             $table->unsignedBigInteger('status_id');

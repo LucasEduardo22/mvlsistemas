@@ -59,6 +59,47 @@
     </div>
     <h3>Movimenta estoque</h3>
     <div class="row">
+        <div class="col-md-6 float-right">
+            <div class="form-group">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input metro_kilo" type="radio" name="metro_kilo" id="gridRadios2" @if(old('metro_kilo', !empty($estoque->metro_kilo) ? $estoque->metro_kilo : '' ) == "M" ) checked="" @endif value="M" >
+                            
+                            <label class="form-check-label metro_kilo" for="gridRadios2">
+                                Metro M
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input metro_kilo" type="radio" name="metro_kilo" id="gridRadios1"
+                            @if(old('metro_kilo', !empty($estoque->metro_kilo) ? $estoque->metro_kilo : '' ) == "P" ) checked="" @endif value="P">
+                            <label class="form-check-label" for="gridRadios1">
+                                Peso Kg
+                            </label>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="form-group">
+                <div class="row">
+                    <label class="col-sm-3 control-label">Tecido Principal:</label>
+                    <div class="col-sm-6">
+                        <input value="{{old('valor_tecido_principal', !empty($estoque->valor_tecido_principal) ?  $estoque->mask($estoque->id) : '')}}" type="text" name="valor_tecido_principal" placeholder="" class="form-control metro_kilo @error('valor_tecido_principal') is-invalid @enderror" id="_valor_tecido_principal" />
+                        @error('valor_tecido_principal')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
@@ -74,23 +115,23 @@
                 </div>
             </div>
         </div>
-        {{-- <div class="col-sm-6">
+    </div>
+    <div class="row">
+        <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3 control-label">Estoque minimo:</label>
+                    <label class="col-sm-3 control-label">Tecido Secundario:</label>
                     <div class="col-sm-6">
-                        <input value="{{old('estoque_minimo', !empty($estoque->estoque_minimo) ? $estoque->estoque_minimo : '')}}" type="text" name="estoque_minimo" placeholder="" class="form-control @error('estoque_minimo') is-invalid @enderror" id="_estoque_minimo" />
-                        @error('estoque_minimo')
+                        <input value="{{old('valor_tecido_secundario', !empty($estoque->valor_tecido_secundario) ? $estoque->mask($estoque->id) : '')}}" type="text" name="valor_tecido_secundario" placeholder="" class="form-control @error('valor_tecido_secundario') is-invalid @enderror" id="_valor_tecido_secundario" />
+                        @error('valor_tecido_secundario')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
                         @enderror
                     </div>
                 </div>
-            </div>
-        </div> --}}
-    </div>
-    <div class="row">
+            </div> 
+        </div>
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
@@ -106,14 +147,15 @@
                 </div>
             </div>
         </div>
-        {{-- 
+    </div>
+    <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3 control-label">Cor:</label>
+                    <label class="col-sm-3 control-label">Tecido Teciario:</label>
                     <div class="col-sm-6">
-                        <input value="{{old('cor', !empty($estoque->cor) ? $estoque->cor : '')}}" type="text" name="cor" placeholder="" class="form-control @error('cor') is-invalid @enderror" id="_cor" />
-                        @error('cor')
+                        <input value="{{old('valor_tecido_terciario', !empty($estoque->valor_tecido_terciario) ?  $estoque->mask($estoque->id) : '')}}" type="text" name="valor_tecido_terciario" placeholder="" class="form-control @error('valor_tecido_terciario') is-invalid @enderror" id="_valor_tecido_terciario" />
+                        @error('valor_tecido_terciario')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>
@@ -122,9 +164,6 @@
                 </div>
             </div> 
         </div>
-        --}}
-    </div>
-    <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
