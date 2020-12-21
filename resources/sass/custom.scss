@@ -20,6 +20,12 @@ a:hover
   text-decoration: none;
 }
 
+.scroll-hidden::-webkit-scrollbar {
+  width:10px; 
+  background:#070707;
+  display: none;
+}
+
 .hasMenu{
   position: fixed;
   top: 100px;

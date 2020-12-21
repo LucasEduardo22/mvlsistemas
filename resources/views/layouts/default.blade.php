@@ -127,6 +127,11 @@
             const dataHora = semana[now.getDay()] + ' ' + (now.getUTCDate()) + '/' + zeroFill((now.getMonth() + 1)) + '/' + now.getFullYear() + ' ' + zeroFill(now.getHours()) + ':' + zeroFill(now.getMinutes()) + ':' + zeroFill(now.getSeconds());
             // Exibe na tela usando a div#data-hora
             document.getElementById('dia-data-hora').innerHTML = dataHora;}, 1000);
+
+            $("#rolavel").bind("mousewheel",function(ev, delta) {
+                var scrollTop = $(this).scrollTop();
+                $(this).scrollTop(scrollTop-Math.round(delta));
+            });
     </script>
     @stack('scripts')
 </body>

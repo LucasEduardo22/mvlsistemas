@@ -100,9 +100,9 @@
             </ul>
         </li>
         
-        <li>
+        <li class="scroll-hidden" style="height:300px;overflow-Y: scroll;">
             <a href="#">
-                <span class="mm-text ">Configuração</span>
+                <span class="mm-text">Configuração</span>
                 <span class="menu-icon "><i class="fas fa-cogs"></i></span>
                 <span class="im im-icon-Arrow-Right imicon"></span>
             </a>
