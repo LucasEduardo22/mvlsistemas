@@ -25,6 +25,17 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Produto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="">Aviamentos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Estoque</a>
+                </li>
+            </ul>
             <h1 class="mt-2">Cadastrar uma nova aviamento</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>

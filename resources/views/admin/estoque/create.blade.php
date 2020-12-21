@@ -25,6 +25,17 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Produto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="">Aviamentos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="">Estoque</a>
+                </li>
+            </ul>
             <small class="float-right mr-5">status: <strong class="text-success">{{$produto->status->nome}}</strong></small>
             <h1 class="mt-2">Adicionar o produto <strong>{{$produto->nome_produto}}</strong> no estoque</h1>
         </section>
