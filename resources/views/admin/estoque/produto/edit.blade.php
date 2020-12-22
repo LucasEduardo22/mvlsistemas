@@ -30,10 +30,14 @@
                     <a class="nav-link active" href="#">Produto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Aviamentos</a>
+                    <a class="nav-link" href="{{route('produto.materia-prima.edit', $produto->id)}}">Aviamentos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Estoque</a>
+                    @if (!empty($produto->estoque))
+                        <a class="nav-link" href="{{route('estoque.edit', $produto->estoque->id)}}">Estoque</a>
+                    @else
+                        <a class="nav-link" href="#">Estoque</a>
+                    @endif
                 </li>
             </ul>
             <h1 class="mt-2"><strong>{{$produto->nome_produto}}</strong></h1>
@@ -53,6 +57,7 @@
 @push('scripts')
     <script>
         $(document).ready(function($){
+            $('.dinheiro').maskMoney({showSymbol:true, symbol:"R$", decimal:",", thousands:"."}); 
             $('#_image').change(function(){
                 const file = $(this)[0].files[0];
                 const fileReader = new FileReader();

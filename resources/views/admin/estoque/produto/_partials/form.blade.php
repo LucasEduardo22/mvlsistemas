@@ -2,42 +2,81 @@
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="_modelo" class="control-label">Modelo:</label>
-                <input value="{{old('modelo', !empty($produto->modelo) ? $produto->modelo : '')}}" type="text" name="modelo" placeholder="Modelo" class="form-control col-6 @error('modelo') is-invalid @enderror" id="_modelo" />
-                @error('modelo')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                <label for="_modelo">Modelo<span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fas fa-dolly-flatbed"></i>
+                        </span>
+                    </span>
+                    <input value="{{old('modelo', !empty($produto->modelo) ? $produto->modelo : '')}}" type="text" name="modelo" class="col-sm-5 form-control @error('modelo') is-invalid @enderror" placeholder="Modelo da matéria prima" id="_modelo">
+                    @error('modelo')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="_nome_produto" class="control-label">Produto:</label>
-                <input value="{{old('nome_produto', !empty($produto->nome_produto) ? $produto->nome_produto : '')}}" type="text" name="nome_produto" placeholder="Nome Produto" class="form-control col-6 @error('nome_produto') is-invalid @enderror" id="_nome_produto" />
-                @error('nome_produto')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                <label for="_nome_produto">Produto<span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fab fa-product-hunt"></i>
+                        </span>
+                    </span>
+                    <input value="{{old('nome_produto', !empty($produto->nome_produto) ? $produto->nome_produto : '')}}" type="text" name="nome_produto" class="form-control @error('nome_produto') is-invalid @enderror" placeholder="Produto da matéria prima" id="_nome_produto">
+                    @error('nome_produto')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
         </div>
     </div>
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <label for="_sub_grupo" class="control-label">SubGrupo:</label>
-                <select id="_sub_grupo" name="sub_grupo_id" class="form-control col-6 @error('sub_grupo_id') is-invalid @enderror">
-                    <option>--Select--</option>
-                    @foreach ($subGrupos as $subGrupo)
-                        <option value="{{$subGrupo->id}}" @if(old('sub_grupo_id', !empty($produto->subGrupo->id) ? $produto->subGrupo->id : '' ) == $subGrupo->id ) selected="" @endif>{{$subGrupo->nome}}</option>
-                    @endforeach
-                </select>
-                @error('sub_grupo_id')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                @enderror
+                <label for="_tipo_produto_id">Tipo<span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fas fa-clipboard-check"></i>
+                        </span>
+                    </span>
+                    <select id="_sub_grupo_id" name="sub_grupo_id" class="col-sm-5 form-control sub_grupo @error('sub_grupo_id') is-invalid @enderror">
+                        <option>--Select--</option>
+                        @foreach ($subGrupos as $subGrupo)
+                            <option value="{{$subGrupo->id}}" @if(old('sub_grupo_id', !empty($produto->subGrupo->id) ? $produto->subGrupo->id : '' ) == $subGrupo->id ) selected="" @endif>{{$subGrupo->nome}}</option>
+                        @endforeach
+                    </select>
+                    @error('sub_grupo_id')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label for="_valor_costura">Valor costureira<span class="text-danger">*</span></label>
+                <div class="input-group">
+                    <span class="input-group-append">
+                        <span class="input-group-text">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </span>
+                    </span>
+                    <input value="{{old('valor_costura', !empty($produto->valor_costura) ?  number_format($produto->valor_costura , 2, ',', '.') : '')}}" type="text" name="valor_costura" class="col-sm-5 dinheiro form-control @error('valor_costura') is-invalid @enderror" placeholder="valor_costura da matéria prima" id="_valor_costura">
+                    @error('valor_costura')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
             </div>
         </div>
     </div>

@@ -58,11 +58,13 @@ class FichaTecnicaController extends Controller
         if(!empty($request)){
             $dados = [];
             $detalhes = [];
+            $quantidade = [];
             
             foreach ($request->materiaPrima as $i => $value) {
                 foreach ($request->materia_prima_id as $c => $ave){
                     if($ave == $value){
                         $dados[] = $value;
+                        $quantidade[]= $request->quantidade[$i];
                         $detalhes[]= $request->detalhes[$i];
                     }
                 }
@@ -71,12 +73,22 @@ class FichaTecnicaController extends Controller
                 $novo = new FichaTecnica;
                 $novo->materia_prima_id = $item;
                 $novo->produto_id = $produto->id;
+                $novo->quantidade = $quantidade[$id];
                 $novo->detalhes = $detalhes[$id];
                 $novo->save(); 
             }
-            return redirect()
-                ->route('produto.index')
-                ->with('success', 'Categoria adicionada com sucesso');
+            if($request->botao != 1){
+                return redirect()
+                    ->route('produto.index')
+                    ->with('success', 'Dados adicionado com sucesso');
+            }else{
+                if (empty($produto->estoque)) {
+                    return redirect()->route('estoque.create', $produto->id);
+                } else {
+                    return redirect()->route('estoque.EDIT', $produto->estoque->id);
+                }
+            }
+
         }else{
             return redirect()->back()->with('error', 'Deve selecionar pelo uma categoria');;
         }
@@ -130,11 +142,13 @@ class FichaTecnicaController extends Controller
                     
                     $dados = [];
                     $detalhes = [];
+                    $quantidade = [];
                     
                     foreach ($request->materiaPrima as $i => $value) {
                         foreach ($request->materia_prima_id as $c => $ave){
                             if($ave == $value){
                                 $dados[] = $value;
+                                $quantidade[]= $request->quantidade[$i];
                                 $detalhes[]= $request->detalhes[$i];
                             }
                         }
@@ -144,14 +158,15 @@ class FichaTecnicaController extends Controller
                         $novo = new FichaTecnica;
                         $novo->materia_prima_id = $item;
                         $novo->produto_id = $produto->id;
+                        $novo->quantidade = $quantidade[$id];
                         $novo->detalhes = $detalhes[$id];
                         $novo->save(); 
                     }
 
                     for ($i=0; $i < count($request->Ave_id); $i++) { 
                         $dados = $materiaPrima->find($request->Ave_id[$i]);
-                        
-                        if($request->detalhe[$i] != null){
+                        if($request->detalhe[$i] != null || $request->quantidadeT[$i] != null){
+                            $dados->quantidade = $request->quantidadeT[$i];
                             $dados->detalhes = $request->detalhe[$i];
                         }
                         $dados->save();
@@ -160,41 +175,59 @@ class FichaTecnicaController extends Controller
                 }else{
                     for ($i=0; $i < count($request->Ave_id); $i++) { 
                         $dados = $materiaPrima->find($request->Ave_id[$i]);
-                        
-                        if($request->detalhe[$i] != null){
+                        if($request->detalhe[$i] != null || $request->quantidadeT[$i] != null){
+                            $dados->quantidade = $request->quantidadeT[$i];
                             $dados->detalhes = $request->detalhe[$i];
                         }
                         $dados->save();
                     }
                 }
-                return redirect()
+                if($request->botao != 1){
+                    return redirect()
                         ->route('produto.index')
                         ->with('success', 'Dados adicionado com sucesso');
+                }else{
+                    if (empty($produto->estoque)) {
+                        return redirect()->route('estoque.create', $produto->id);
+                    } else {
+                        return redirect()->route('estoque.edit', $produto->estoque->id);
+                    }
+                }
             }
         }else{
             if(!empty($request)){
                 $dados = [];
                 $detalhes = [];
+                $quantidade = [];
                 
                 foreach ($request->materiaPrima as $i => $value) {
                     foreach ($request->materia_prima_id as $c => $ave){
                         if($ave == $value){
                             $dados[] = $value;
+                            $quantidade[]= $request->quantidade[$i];
                             $detalhes[]= $request->detalhes[$i];
                         }
                     }
                 }
                 foreach ($dados as $id => $item) {
+
                     $novo = new FichaTecnica;
                     $novo->materia_prima_id = $item;
                     $novo->produto_id = $produto->id;
+                    $novo->quantidade = $quantidade[$id];
                     $novo->detalhes = $detalhes[$id];
                     $novo->save(); 
                 }
             }
-            return redirect()
-                ->route('produto.index')
-                ->with('success', 'Dados adicionado com sucesso');
+
+            if($request->botao != 1){
+                return redirect()
+                    ->route('produto.index')
+                    ->with('success', 'Dados adicionado com sucesso');
+            }else{
+                return redirect()->route('estoque.create', $produto->id);
+            }
+            
         }
     }
 

@@ -66,6 +66,8 @@
                         <tr>
                             <th class="border-top-0" scope="col">#</th>
                             <th class="border-top-0" scope="col">Aviamento</th>
+                            <th class="border-top-0" scope="col">Preço custo</th>
+                            <th class="border-top-0" scope="col">Quantidade</th>
                             <th class="border-top-0" scope="col">Adicione detalhes</th>
                         </tr>
                     </thead>
@@ -89,6 +91,35 @@
                                 </td>
                                 <td>
                                     {{$materiaPrima->nome}}
+                                </td>
+                                <td>
+                                    {{!empty($materiaPrima->preco_compra) ? "R$". number_format($materiaPrima->preco_compra , 2, ',', '.') : "não informado"}}
+                                </td>
+                                <td>
+                                    @if (!empty($dados))
+                                        @if ($materiaPrima->id == $dados->materia_prima_id)
+                                            <input value="{{old('quantidade', !empty($dados->quantidade) ? $dados->quantidade : '')}}" type="text" name="quantidadeT[]" class="only-number form-control @error('quantidade') is-invalid @enderror" placeholder="Quantidade" id="_quantidade" data-accept-dot="1" data-accept-comma="1">
+                                            @error('quantidade')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror    
+                                        @else
+                                            <input value="{{old('quantidade', !empty($dados->quantidade) ? $dados->quantidade : '')}}" type="text" name="quantidade[]" class="only-number form-control @error('quantidade') is-invalid @enderror" placeholder="Quantidade" id="_quantidade" data-accept-dot="1" data-accept-comma="1">
+                                            @error('quantidade')
+                                                <div class="invalid-feedback">
+                                                    {{ $message }}
+                                                </div>
+                                            @enderror   
+                                        @endif
+                                    @else
+                                        <input value="{{old('quantidade', !empty($dados->quantidade) ? $dados->quantidade : '')}}" type="text" name="quantidade[]" class="only-number form-control @error('quantidade') is-invalid @enderror" placeholder="Quantidade" id="_quantidade" data-accept-dot="1" data-accept-comma="1">
+                                        @error('quantidade')
+                                            <div class="invalid-feedback">
+                                                {{ $message }}
+                                            </div>
+                                        @enderror 
+                                    @endif
                                 </td>
                                 <td>
                                     @if (!empty($dados))
@@ -136,4 +167,5 @@
         </div>
     </div>
 </div>
-<button type="submit" name="botao" value="1" class="float-right btn btn-info col-2">Salvar</button>
+<button type="submit" name="botao" value="0" class="btn btn-sm btn-info col-2">Salvar</button>
+<button type="submit" name="botao" value="1" class="btn btn-sm btn-primary col-2">Adicionar Estoque</button>

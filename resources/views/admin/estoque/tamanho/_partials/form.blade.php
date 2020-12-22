@@ -81,6 +81,7 @@
                         <option>Selecione</option>
                         <option value="M" @if(old('tipo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "M" ) selected="" @endif>Masculino</option>
                         <option value="F" @if(old('tipo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "F" ) selected="" @endif>Feminino</option>
+                        <option value="N" @if(old('tipo', !empty($tamanho->tipo) ? $tamanho->tipo : '' ) == "F" ) selected="" @endif>Numero</option>
                     </select>
                     @error('tipo')
                         <div class="invalid-feedback">

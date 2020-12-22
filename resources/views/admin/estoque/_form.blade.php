@@ -103,15 +103,8 @@
         <div class="col-sm-6">
             <div class="form-group">
                 <div class="row">
-                    <label class="col-sm-3 control-label">Valor de Venda:</label>
-                    <div class="col-sm-6">
-                        <input value="{{old('preco_venda', !empty($estoque->preco_venda) ? number_format( $estoque->preco_venda , 2, ',', '.') : '')}}" type="text" name="preco_venda" placeholder="" class="form-control dinheiro @error('preco_venda') is-invalid @enderror" id="_preco_venda" />
-                        @error('preco_venda')
-                            <div class="invalid-feedback">
-                                {{ $message }}
-                            </div>
-                        @enderror
-                    </div>
+                    <label class="col-sm-6 control-label">Valor de venda sugerido: <strong>{{"R$ ". number_format($produto->calc_preco_sugerido($produto->id) , 2, ',', '.')}}</strong></label>
+                    <input type="hidden" name="preco_venda" value="{{old('preco_venda', $produto->calc_preco_sugerido($produto->id))}}">
                 </div>
             </div>
         </div>
@@ -206,7 +199,7 @@
                                     </p>
                                    <div class="form-group">
                                         <label for="_preco_venda1[]">Valor de venda:</label>
-                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]")}}" id="_preco_venda1[]" placeholder="R$ 000,00">
+                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]", !empty($tamanhoProduto->preco_venda) ? number_format($tamanhoProduto->preco_venda, 2, ',', '.') : number_format($produto->calc_preco_sugerido($produto->id) , 2, ',', '.'))}}" id="_preco_venda1[]" placeholder="R$ 000,00">
                                         @error('preco_venda1[]')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>
@@ -243,7 +236,7 @@
                                     </p>
                                     <div class="form-group">
                                         <label for="_preco_venda1[]">Valor de venda:</label>
-                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]", !empty($tamanhoProduto->preco_venda) ? number_format($tamanhoProduto->preco_venda, 2, ',', '.') : '')}}" id="_preco_venda1[]" placeholder="R$ 000,00">
+                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]", !empty($tamanhoProduto->preco_venda) ? number_format($tamanhoProduto->preco_venda, 2, ',', '.') : number_format($produto->calc_preco_sugerido($produto->id) , 2, ',', '.'))}}" id="_preco_venda1[]" placeholder="R$ 000,00">
                                         @error('preco_venda1[]')
                                             <span class="invalid-feedback" role="alert">
                                                 <strong>{{ $message }}</strong>

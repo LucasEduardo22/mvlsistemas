@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Produto extends Model
 {
-    protected $fillable = ["modelo", "nome_produto", "sub_grupo_id", "tipo_produto_id", "status_id", "descricao", "image", "aviamento", "observacao"];
+    protected $fillable = ["modelo", "nome_produto", "sub_grupo_id", "tipo_produto_id", "status_id", "descricao", "image", "aviamento", "observacao", "valor_costura"];
 
     public function search($filtro = null){
         $result = $this->where('modelo', $filtro )
@@ -32,6 +32,23 @@ class Produto extends Model
 
     public function estoque(){
         return $this->hasOne(Estoque::class);
+    }
+
+    public function calc_preco_sugerido($id){
+        $produto = Produto::find($id);
+        $calc = $produto->valor_costura;
+        if($produto->materiaPrimas){
+            foreach ($produto->materiaPrimas as $aviamentos) {
+                if($aviamentos->quantidade != null){
+                    $aviamento = MateriaPrima::find($aviamentos->materia_prima_id);
+                    $calc += $aviamento->preco_compra * $aviamentos->quantidade;
+                }
+            }
+
+
+        }
+
+        return $calc;
     }
 
    

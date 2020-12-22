@@ -19,7 +19,7 @@
             <a href="{{ route('estoque.index') }}">Estoque</a>
         </li>
         <li class="breadcrumb-item active">
-            <a href="{{ route('estoque.create', $produto->id) }}">{{$produto->nome_produto}}</a>
+            <a href="{{ route('estoque.edit', $estoque->id) }}">Editar</a>
         </li>
     </ol>
     <div class="card">
@@ -27,17 +27,16 @@
         <section class="content-header">
             <ul class="nav nav-tabs">
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Produto</a>
+                    <a class="nav-link" href="{{ route('produto.edit', $produto->id) }}">Produto</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="">Aviamentos</a>
+                    <a class="nav-link" href="{{route('produto.materia-prima.edit', $produto->id)}}">Aviamentos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" href="">Estoque</a>
+                    <a class="nav-link active" href="#">Estoque</a>
                 </li>
             </ul>
             <small class="float-right mr-5">status: <strong class="text-success">{{$produto->status->nome}}</strong></small>
-            <h1 class="mt-2">Atulizar o estoque do <strong>{{$produto->nome_produto}}</strong> no estoque</h1>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">

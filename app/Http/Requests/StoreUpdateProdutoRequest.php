@@ -28,6 +28,7 @@ class StoreUpdateProdutoRequest extends FormRequest
             "modelo" => "required|min:3|max:50|unique:produtos,modelo,{$id},id", 
             "nome_produto" => "required|min:3|max:150|unique:produtos,nome_produto,{$id},id", 
             "sub_grupo_id" =>"required|numeric", 
+            "valor_costura" =>"required", 
             "image" =>"nullable",
             'descricao' => "nullable|min:3|max:1000",
             'aviamento' => "nullable|min:3|max:1000",

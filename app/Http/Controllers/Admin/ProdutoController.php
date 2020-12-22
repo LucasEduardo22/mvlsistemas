@@ -38,7 +38,9 @@ class ProdutoController extends Controller
     public function store(StoreUpdateProdutoRequest $request)
     {
         $data = $request->all();
+        $data['valor_costura'] = str_replace([','],'.', $request->valor_costura);
         $data['status_id'] = 1; //padrão ativo 
+
         if($request->hasFile('image') && $request->image->isValid()){
             $data['image'] = $request->image->store("/produtos");
         } 
@@ -70,11 +72,13 @@ class ProdutoController extends Controller
     public function update(StoreUpdateProdutoRequest $request, $id)
     {
         $produto = $this->dadosProduto->find($id);
+        $data = $request->all();
+
+        $data['valor_costura'] = str_replace([','],'.', $request->valor_costura);
 
         if(!$produto){
             return redirect()->back();
         }
-        $data = $request->all();
         if($request->hasFile('image') && $request->image->isValid()){
             $data['image'] = $request->image->store("/produtos");
         } 

@@ -12,8 +12,8 @@
 @section('content')
     @include('includes.alert')
     <ol class="breadcrumb">
-        <li class="breadcrumb-item">
-            <a href="{{ route('home') }}">Home</a>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('produto.edit', $produto->id) }}">Produto</a>
         </li>
         <li class="breadcrumb-item active">
             <a href="{{ route('produto.index') }}">Produtos</a>
@@ -25,7 +25,21 @@
     <div class="card">
         <!-- Content Header (Page header) -->
         <section class="content-header">
-            <h1 class="mt-2">Cadastrar um novo produto</h1>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('produto.edit', $produto->id) }}">Produto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Aviamentos</a>
+                </li>
+                <li class="nav-item">
+                    @if (!empty($produto->estoque))
+                        <a class="nav-link" href="{{route('estoque.edit', $produto->estoque->id)}}">Estoque</a>
+                    @else
+                        <a class="nav-link" href="#">Estoque</a>
+                    @endif
+                </li>
+            </ul>
         </section>
         <div class="separator-breadcrumb pb-5 border-top"></div>
         <div class="card-body">
