@@ -29,6 +29,8 @@ class CreateItemPedidosTable extends Migration
             $table->string("manga_direita")->nullable();
             $table->string("manga_esquerda")->nullable();
             $table->enum('tipo_tamano', ["T", "M", "F", "U", "N"]);
+            $table->enum('novo_modelo', ["S"])->nullable();
+            $table->text("descricao", 1000)->nullable();
             $table->timestamps();
 
             $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');

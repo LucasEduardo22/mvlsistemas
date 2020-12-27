@@ -2,6 +2,7 @@
     $(document).ready(function($) {
         
         $('.select_tecido').select2();
+        $("._descricao").hide()
         
         $('#_cliente').dataTable( {
             "language": {
@@ -130,6 +131,14 @@
             $('#valor_totalS').html(totalS.toLocaleString("pt-BR", { style: "currency" , currency:"BRL"}));  
         })
 
+        $('#_novo_modelo').click(function(){
+            let checkbox = $('#_novo_modelo');
+            if(checkbox.is(":checked")) {
+                $("._descricao").show()
+            } else {
+                $("._descricao").hide()
+            }
+        })
 
         $('.tipo_pedido').change(function(){
             var tipo_pedido = $(this).val();
@@ -171,7 +180,7 @@
             var sem_tamanho = $('[name="sem_tamanho_preco"]').val();
             var preco_tecido = Number(tecido_principal) * valor_tecido_principal + Number(tecido_secundario) * valor_tecido_secundario + Number(tecido_terciario) * valor_tecido_terciario + Number(valor_serigrafia.replace(/\./g, "").replace(/,/g, "."));
 
-            //console.log(preco_tecido);
+            /* console.log(preco_tecido); */
 
             if(Number(tecido_principal) != 0 ||  Number(tecido_secundario) != 0 || Number(tecido_terciario) != 0){
                 var semValorProduto = Number(preco_tecido) + Number(sem_tamanho)
@@ -331,7 +340,7 @@
         $(document).on('click', '#_salvar', function(e) {
             e.preventDefault();
 
-            var token = Math.random().toString(16).substr(2);
+            var token = Math.random().toString(30).substr(2);
             var total = 0
             var _modelo = $('#_modeloId').val()
             var valorUni = [];
@@ -340,6 +349,13 @@
             var quantidade = 0;
             var valor = 0;
             var totalQuantidade = 0;
+            var novo_modelo = "";
+
+            let checkbox = $('#_novo_modelo');
+            if(checkbox.is(":checked")) {
+                novo_modelo = "S"
+            } 
+            
             $('#produto_id'+_modelo).val(token);
             //$('[name="tokenProduto[]"]').append(token);
   
@@ -449,6 +465,8 @@
                         manga_direita: $('[name="manga_direita"]').val(),
                         manga_esquerda: $('[name="manga_esquerda"]').val(),
                         tipo: $('[name="tipo"]').val(),
+                        descricao: $('[name="descricao"]').val(),
+                        novo_modelo: novo_modelo,
                         tamanhoM: valorUni,
                         tamanhoF: valorUniF,
                         //alorUnitarioM:$('[name="valorUnitarioM[]"]').val(),
@@ -497,6 +515,9 @@
             $('#valor_tecido_principal').val();
             $('#valor_tecido_secundario').val();
             $('#valor_tecido_terciario').val();
+            $('#_novo_modelo').prop('checked', false);
+            $("._descricao").hide();
+            $('[name="descricao"]').val("");
         });
 
 
@@ -865,6 +886,11 @@
                             $('[name="manga_direita"]').val(data.manga_direita);
                             $('[name="manga_esquerda"]').val(data.manga_esquerda);
                             $('[name="tipo"]').val(data.tipo);
+                            if (data.novo_modelo == "S") {
+                                $('#_novo_modelo').prop('checked', true);
+                                $('[name="descricao"]').val(data.descricao);
+                                $("._descricao").show();
+                            }
 
                             var tamanhoF =  data.tamanhoF;
                             var valor_serigrafia =  data.valor_serigrafia;
@@ -882,8 +908,8 @@
                                     const element = tamanhoF[index];
                                     var tamanho_id = $('#nomeTamanhoF'+index).val();
                                     var valor = Number(element.valortamanho);
+                                    $('#valorUnitarioF'+index).val(element.valortamanho); 
                                     if (element.quatidadetamanho != 0) {
-                                        $('#valorUnitarioF'+index).val(element.valortamanho); 
                                         $('#qtdF'+index).val(element.quatidadetamanho);
                                         totalQuantidadef += Number(element.quatidadetamanho)
                                         totalf += Number(element.quatidadetamanho) * Number(element.valortamanho);
@@ -895,8 +921,8 @@
                                     const element = tamanhoM[index];
                                     var tamanho_id = $('#nomeTamanhoM'+index).val()
                                     var valor = Number(element.valortamanho);
+                                    $('#valorUnitarioM'+index).val(Number(element.valortamanho)); 
                                     if (element.quatidadetamanho != 0) {
-                                        $('#valorUnitarioM'+index).val(Number(element.valortamanho)); 
                                         $('#qtdM'+index).val(Number(element.quatidadetamanho));
                                         totalQuantidadeM += Number(element.quatidadetamanho)
                                         totalM += Number(element.quatidadetamanho) * Number(element.valortamanho);

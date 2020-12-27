@@ -276,6 +276,16 @@
                                 </table>
                             </div>
                         </div>
+                        <div class="form-group col-md-6">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input " type="checkbox" name="novo_modelo" id="_novo_modelo" value="S">
+                                <label class="form-check-label" for="_novo_modelo">Novo modelo</label>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-12 _descricao">
+                            <label for="descricao">Descrição</label>
+                            <textarea class="form-control" name="descricao" id="descricao" rows="3"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>

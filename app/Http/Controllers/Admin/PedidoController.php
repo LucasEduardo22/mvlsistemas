@@ -108,17 +108,18 @@ class PedidoController extends Controller
 
                     $estoque_id = $produto->estoque->id;
 
-                    $detalhes['valor_serigrafia'] = str_replace(['.'], '', $detalhes['valor_serigrafia']);
                     $detalhes['valor_serigrafia'] = str_replace([','], '.', $detalhes['valor_serigrafia']);
                     $itemPedidos["pedido_id"] = $pedido->id;
                     $itemPedidos["estoque_id"] = $estoque_id;
                     $itemPedidos["frente"] = $detalhes['frente'];
                     $itemPedidos["costa"] = $detalhes['costa'];
-                    $itemPedidos["valor_serigrafia"] = $detalhes['valor_serigrafia'];
+                    $itemPedidos["valor_serigrafia"] = $detalhes['valor_serigrafia'] != "" ? $detalhes['valor_serigrafia'] : null;
                     $itemPedidos["manga_direita"] = $detalhes['manga_direita'];
                     $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
                     $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
-                    //dd($detalhes['valorSemtamanho']);
+                    $itemPedidos['novo_modelo'] = $detalhes['novo_modelo'];
+                    $itemPedidos['descricao'] = $detalhes['descricao'];
+                    
                     if ($detalhes['tipo'] == "N") {
                         $itemPedidos["valor_unitario"] = str_replace([','], '.', $detalhes['valorSemtamanho']);
                         $itemPedidos["quantidade"] = $detalhes['quantidadeSemtamanho'];
@@ -246,16 +247,17 @@ class PedidoController extends Controller
                     if (!empty($produto->estoque)) {
 
                         $estoque_id = $produto->estoque->id;
-                        $detalhes['valor_serigrafia'] = str_replace(['.'], '', $detalhes['valor_serigrafia']);
                         $detalhes['valor_serigrafia'] = str_replace([','], '.', $detalhes['valor_serigrafia']);
                         $itemPedidos["pedido_id"] = $pedido->id;
                         $itemPedidos["estoque_id"] = $estoque_id;
                         $itemPedidos["frente"] = $detalhes['frente'];
                         $itemPedidos["costa"] = $detalhes['costa'];
-                        $itemPedidos["valor_serigrafia"] = $detalhes['valor_serigrafia'];
+                        $itemPedidos["valor_serigrafia"] = $detalhes['valor_serigrafia'] != "" ? $detalhes['valor_serigrafia'] : null;
                         $itemPedidos["manga_direita"] = $detalhes['manga_direita'];
                         $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
                         $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
+                        $itemPedidos['novo_modelo'] = $detalhes['novo_modelo'];
+                        $itemPedidos['descricao'] = $detalhes['descricao'];
                         //dd($detalhes['valorSemtamanho']);
                         if ($detalhes['tipo'] == "N") {
                             $itemPedidos["valor_unitario"] = str_replace([','], '.', $detalhes['valorSemtamanho']);
@@ -448,11 +450,10 @@ class PedidoController extends Controller
 
         $token = $request->token;
         $modelo = $request->modelo;
-        //dd($request->modelo);
-
 
         if ($token != null) {
             $itemPedido = ItemPedido::find($token);
+
             $detalhes = [];
             $tamanhoM = [];
             $tamanhoF = [];
@@ -469,6 +470,8 @@ class PedidoController extends Controller
                 $detalhes['valor_tecido_secundario'] = $produto->estoque->valor_tecido_secundario;
                 $detalhes['valor_tecido_terciario'] = $produto->estoque->valor_tecido_terciario;
                 $detalhes['success'] = true;
+                $token = $request->token;
+
                 return response()->json($detalhes);
             } else {
                 $produto = $this->dadosProduto->where('modelo', $modelo)->first();
@@ -480,9 +483,9 @@ class PedidoController extends Controller
                 }
                 $detalhes['success'] = true;
                 $detalhes['modelo'] = $itemPedido->estoque->produto->modelo;
-                $detalhes['nome_principal'] = count($tecido) >= 1 ? $tecido[0] : null;
-                $detalhes['nome_secundario'] = count($tecido) >= 2 ? $tecido[1] : null;
-                $detalhes['nome_terciario'] = count($tecido) >= 3 ? $tecido[2] : null;
+                $detalhes['nome_principal'] = count($tecido) >= 1 ? $tecido[0] : "Selecione";
+                $detalhes['nome_secundario'] = count($tecido) >= 2 ? $tecido[1] : "Selecione";
+                $detalhes['nome_terciario'] = count($tecido) >= 3 ? $tecido[2] : "Selecione";
                 $detalhes['valor_tecido_principal'] = $produto->estoque->valor_tecido_principal;
                 $detalhes['valor_tecido_secundario'] = $produto->estoque->valor_tecido_secundario;
                 $detalhes['valor_tecido_terciario'] = $produto->estoque->valor_tecido_terciario;
@@ -490,10 +493,12 @@ class PedidoController extends Controller
                 $detalhes['valorSemtamanho'] = number_format($itemPedido->valor_unitario, 2, '.', '');
                 $detalhes['frente'] = $itemPedido->frente;
                 $detalhes['costa'] = $itemPedido->costa;
-                $detalhes['valor_serigrafia'] = number_format($itemPedido->valor_serigrafia, 2, ',', '');
+                $detalhes['valor_serigrafia'] = !empty($itemPedido->valor_serigrafia) ? number_format($itemPedido->valor_serigrafia, 2, ',', '') : null;
                 $detalhes['manga_direita'] = $itemPedido->manga_direita;
                 $detalhes['manga_esquerda'] = $itemPedido->manga_esquerda;
                 $detalhes['tipo'] = $itemPedido->tipo_tamano;
+                $detalhes['novo_modelo'] = $itemPedido->novo_modelo;
+                $detalhes['descricao'] = $itemPedido->descricao;
 
 
                 if ($itemPedido->tipo_tamano != "N") {
