@@ -440,15 +440,27 @@
             var valor = 0;
             var totalQuantidade = 0;
             var novo_modelo = "";
+            var serigrafia = "";
+            var bordado = "";
 
             let checkbox = $('#_novo_modelo');
             if(checkbox.is(":checked")) {
                 novo_modelo = "S"
             } 
+
+           var checkbox_serigrafia = $('#serigrafia');
+            if(checkbox_serigrafia.is(":checked")) {
+                serigrafia = "S";
+                console.log(serigrafia);
+            }
+
+            var checkbox_bordado = $('#bordado');
+            if(checkbox_bordado.is(":checked")) {
+                bordado = "B"
+            } 
             
             $('#produto_id'+_modelo).val(token);
-            //$('[name="tokenProduto[]"]').append(token);
-  
+
              // Loop tamanho masculino
             for (let index = 0; index < $('#totalTamanhoM').val(); index++) {
                 var valorM = $('#valorUnitarioM'+index).val();
@@ -467,7 +479,7 @@
                 $('#tamanho'+ Number(tamanho_id)).text('');
             }  
 
-             // Loop tamanho masculino
+            // Loop tamanho masculino
             for (let index = 0; index < $('#totalTamanhoNU').val(); index++) {
                 var valorNU = $('#valorUnitarioNU'+index).val();
                 var qtdNU = $('#qtdNU'+index).val();
@@ -483,7 +495,7 @@
                 $('#valorUnitarioNU'+index).val();
                 $('#qtdNU'+index).val('');
                 $('#tamanho'+ Number(tamanho_id)).text('');
-            }  
+            }
 
             // Loop tamanho feminino
             for (let index = 0; index < $('#totalTamanhoF').val(); index++) {
@@ -584,6 +596,8 @@
                         tipo: $('[name="tipo"]').val(),
                         descricao: $('[name="descricao"]').val(),
                         novo_modelo: novo_modelo,
+                        serigrafia: serigrafia,
+                        bordado: bordado,
                         tamanhoM: valorUni,
                         tamanhoF: valorUniF,
                         tamanhoNU: valorUniNU,
@@ -634,6 +648,8 @@
             $('#valor_tecido_secundario').val();
             $('#valor_tecido_terciario').val();
             $('#_novo_modelo').prop('checked', false);
+            $('#serigrafia').prop('checked', false);
+            $('#bordado').prop('checked', false);
             $("._descricao").hide();
             $('[name="descricao"]').val("");
         });
@@ -1015,6 +1031,14 @@
                                 $('#_novo_modelo').prop('checked', true);
                                 $('[name="descricao"]').val(data.descricao);
                                 $("._descricao").show();
+                            }
+
+                            if (data.serigrafia == "S") {
+                                $('#serigrafia').prop('checked', true);
+                            }
+
+                            if (data.bordado == "B") {
+                                $('#bordado').prop('checked', true);
                             }
 
                             var tamanhoF =  data.tamanhoF;

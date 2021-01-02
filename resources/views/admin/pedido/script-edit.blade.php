@@ -402,11 +402,24 @@
             var totalQuantidade = 0;
 
             var novo_modelo = "";
+            var serigrafia = "";
+            var bordado = "";
 
             let checkbox = $('#_novo_modelo');
             if(checkbox.is(":checked")) {
                 novo_modelo = "S"
             } 
+
+            let checkbox_serigrafia = $('#serigrafia');
+            if(checkbox.is(":checked")) {
+                serigrafia = "S"
+            }
+
+            let checkbox_bordado = $('#bordado');
+            if(checkbox_bordado.is(":checked")) {
+                bordado = "B"
+            } 
+
             $('#produto_id'+_modelo).val(token);
             //$('[name="tokenProduto[]"]').append(token);
   
@@ -543,6 +556,8 @@
                         tipo: $('[name="tipo"]').val(),
                         descricao: $('[name="descricao"]').val(),
                         novo_modelo: novo_modelo,
+                        serigrafia: serigrafia,
+                        bordado: bordado,
                         tamanhoM: valorUni,
                         tamanhoF: valorUniF,
                         tamanhoNU: valorUniNU,
@@ -593,6 +608,8 @@
             $('#valor_tecido_secundario').val();
             $('#valor_tecido_terciario').val();
             $('#_novo_modelo').prop('checked', false);
+            $('#serigrafia').prop('checked', false);
+            $('#bordado').prop('checked', false);
             $("._descricao").hide();
             $('[name="descricao"]').val("");
         });
@@ -870,6 +887,8 @@
             $('.masc').show();
             $('.sem_tamanho').hide();
             $('#_novo_modelo').prop('checked', false);
+            $('#serigrafia').prop('checked', true);
+            $('#bordado').prop('checked', true);
             $("._descricao").hide();
             $('[name="descricao"]').val("");
 
@@ -953,6 +972,14 @@
                                 $('#_novo_modelo').prop('checked', true);
                                 $('[name="descricao"]').val(data.descricao);
                                 $("._descricao").show();
+                            }
+
+                            if (data.serigrafia == "S") {
+                                $('#serigrafia').prop('checked', true);
+                            }
+
+                            if (data.bordado == "B") {
+                                $('#bordado').prop('checked', true);
                             }
 
                             var tamanhoF =  data.tamanhoF;

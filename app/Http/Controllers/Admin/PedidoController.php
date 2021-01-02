@@ -118,6 +118,8 @@ class PedidoController extends Controller
                     $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
                     $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
                     $itemPedidos['novo_modelo'] = $detalhes['novo_modelo'];
+                    $itemPedidos['bordado'] = $detalhes['bordado'];
+                    $itemPedidos['serigrafia'] = $detalhes['serigrafia'];
                     $itemPedidos['descricao'] = $detalhes['descricao'];
                     
                     if ($detalhes['tipo'] == "N") {
@@ -269,6 +271,8 @@ class PedidoController extends Controller
                         $itemPedidos["manga_esquerda"] = $detalhes['manga_esquerda'];
                         $itemPedidos["tipo_tamano"] = $detalhes['tipo'];
                         $itemPedidos['novo_modelo'] = $detalhes['novo_modelo'];
+                        $itemPedidos['novo_modelo'] = $detalhes['novo_modelo'];
+                        $itemPedidos['bordado'] = $detalhes['bordado'];
                         $itemPedidos['descricao'] = $detalhes['descricao'];
                         //dd($detalhes['valorSemtamanho']);
                         if ($detalhes['tipo'] == "N") {
@@ -503,6 +507,7 @@ class PedidoController extends Controller
 
                 return response()->json($detalhes);
             } else {
+                dd($itemPedido);
                 $produto = $this->dadosProduto->where('modelo', $modelo)->first();
                 $estoque_id = $produto->estoque->id;
                 // Lista os detalhes que foram salvo na Base de dados.
@@ -523,6 +528,8 @@ class PedidoController extends Controller
                 $detalhes['frente'] = $itemPedido->frente;
                 $detalhes['costa'] = $itemPedido->costa;
                 $detalhes['valor_serigrafia'] = !empty($itemPedido->valor_serigrafia) ? number_format($itemPedido->valor_serigrafia, 2, ',', '') : null;
+                $detalhes['serigrafia'] = $itemPedido->serigrafia;
+                $detalhes['bordado'] = $itemPedido->bordado;
                 $detalhes['manga_direita'] = $itemPedido->manga_direita;
                 $detalhes['manga_esquerda'] = $itemPedido->manga_esquerda;
                 $detalhes['tipo'] = $itemPedido->tipo_tamano;

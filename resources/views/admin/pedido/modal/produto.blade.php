@@ -129,7 +129,14 @@
                     <div class="form-group col-md-4 sem_tamanho">
                         <p>Valor total: <strong id="valor_totalS"></strong></p>
                     </div>
-                    <h3>Serigrafia ou Bordado</h3>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input serigrafia" type="checkbox" name="serigrafia" id="serigrafia" value="S" checked>
+                        <label class="form-check-label" for="serigrafia">Serigrafia</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input bordado" type="checkbox" name="bordado" id="bordado" value="B>
+                        <label class="form-check-label" for="bordado">Bordado</label>
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="_frente" class="pb-0 mb-0">
