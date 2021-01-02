@@ -17,9 +17,16 @@ class Tamanho extends Model
     
         return $tamanhoM;
     }
+
     public function tamanhoFeminino(){
         $tamanhoF = Tamanho::where('tipo', "F")->get();
     
         return $tamanhoF;
+    }
+
+    public function tamanhoNumerico(){
+        $tamanhoN = Tamanho::where('tipo', "N")->get();
+    
+        return $tamanhoN;
     }
 }

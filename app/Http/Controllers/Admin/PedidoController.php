@@ -162,6 +162,7 @@ class PedidoController extends Controller
                             $novoM->quantidade = $detalhesTamanho["quatidadetamanho"] != 0 ? $detalhesTamanho["quatidadetamanho"] : null;
                             $novoM->save();
                         }
+
                         //Feminino
                         foreach ($request->tamanhoF as $c => $tamanho_idF) {
                             $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idF)->where('estoque_id', $produto->estoque->id)->first();
@@ -172,6 +173,18 @@ class PedidoController extends Controller
                             $novoF->valor_unitario = $detalhesTamanhoF["valortamanho"] != 0 ? $detalhesTamanhoF["valortamanho"] : null;;
                             $novoF->quantidade = $detalhesTamanhoF["quatidadetamanho"] != 0 ? $detalhesTamanhoF["quatidadetamanho"] : null;
                             $novoF->save();
+                        }
+
+                        //Numérico
+                        foreach ($request->tamanhoNU as $c => $tamanho_idNU) {
+                            $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idNU)->where('estoque_id', $produto->estoque->id)->first();
+                            $detalhesTamanhoNU = $detalhes["tamanhoNU"][$c];
+                            $novoNU = new tamanhoItensPedidos;
+                            $novoNU->item_pedido_id = $itensPedidos->id;
+                            $novoNU->tamanho_produto_id = $tamanhoProduto->id;
+                            $novoNU->valor_unitario = $detalhesTamanhoNU["valortamanho"] != 0 ? $detalhesTamanhoNU["valortamanho"] : null;
+                            $novoNU->quantidade = $detalhesTamanhoNU["quatidadetamanho"] != 0 ? $detalhesTamanhoNU["quatidadetamanho"] : null;
+                            $novoNU->save();
                         }
                     }
                 } else {
@@ -222,7 +235,6 @@ class PedidoController extends Controller
             return redirect()->route('pedido.index')->with('success', "Pedido cancelado com sucesso");
         }
 
-        // dd($clientes, $request->all());
         //Salvar dados na tabela pedido.
         $pedido->update($clientes);
         $deletaItem = $request->deletaProduto;
@@ -339,6 +351,23 @@ class PedidoController extends Controller
                                 $novoF->valor_unitario = $detalhesTamanhoF["valortamanho"] != 0 ? $detalhesTamanhoF["valortamanho"] : null;;
                                 $novoF->quantidade = $detalhesTamanhoF["quatidadetamanho"] != 0 ? $detalhesTamanhoF["quatidadetamanho"] : null;
                                 $novoF->save();
+                            }
+
+                            //Numerico
+                            foreach ($request->tamanhoNU as $c => $tamanho_idNU) {
+                                $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idNU)->where('estoque_id', $produto->estoque->id)->first();
+                                $detalhesTamanhoNU = $detalhes["tamanhoNU"][$c];
+                                $novoNU = tamanhoItensPedidos::where('item_pedido_id', $itensPedidos->id)->where('tamanho_produto_id', $tamanhoProduto->id)->first();
+
+                                if (empty($novoNU)) {
+                                    $novoNU = new tamanhoItensPedidos;
+                                }
+
+                                $novoNU->item_pedido_id = $itensPedidos->id;
+                                $novoNU->tamanho_produto_id = $tamanhoProduto->id;
+                                $novoNU->valor_unitario = $detalhesTamanhoNU["valortamanho"] != 0 ? $detalhesTamanhoNU["valortamanho"] : null;;
+                                $novoNU->quantidade = $detalhesTamanhoNU["quatidadetamanho"] != 0 ? $detalhesTamanhoNU["quatidadetamanho"] : null;
+                                $novoNU->save();
                             }
                         }
                     } else {
@@ -506,22 +535,31 @@ class PedidoController extends Controller
                     $estoque_id = $produto->estoque->id;
                     $detalhes['tamanhosPreco'] = TamanhoProduto::where('estoque_id', $estoque_id)->get();
                     $detalhes['semTamanhosPreco'] = $produto->estoque->preco_venda;
-                    // Tamanho masclino
-                    foreach ($request->tamanhoM as $c => $tamanho_idM) {
 
-                        $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idM)->where('estoque_id', $itemPedido->estoque->id)->first();
-                        $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
-                        $tamanhoM[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
-                    }
+                // Tamanho masclino
+                foreach ($request->tamanhoM as $c => $tamanho_idM) {
+                    $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idM)->where('estoque_id', $itemPedido->estoque->id)->first();
+                    $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
+                    $tamanhoM[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
+                }
 
-                    // Tamanho Feminino
-                    foreach ($request->tamanhoF as $c => $tamanho_idF) {
-                        $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idF)->where('estoque_id', $itemPedido->estoque->id)->first();
-                        $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
-                        $tamanhoF[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
-                    }
+                // Tamanho Feminino
+                foreach ($request->tamanhoF as $c => $tamanho_idF) {
+                    $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idF)->where('estoque_id', $itemPedido->estoque->id)->first();
+                    $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
+                    $tamanhoF[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
+                }
+
+                // Tamanho Feminino
+                foreach ($request->tamanhoNU as $c => $tamanho_idNU) {
+                    $tamanhoProduto = TamanhoProduto::Where('tamanho_id', $tamanho_idNU)->where('estoque_id', $itemPedido->estoque->id)->first();
+                    $itensPedidosTamanho = tamanhoItensPedidos::where('tamanho_produto_id', $tamanhoProduto->id)->where('item_pedido_id', $itemPedido->id)->first();
+                    $tamanhoNU[] = ['quatidadetamanho' => $itensPedidosTamanho->quantidade ?? 0, 'valortamanho' => number_format($itensPedidosTamanho->valor_unitario, 2, '.', '') ?? 0];
+                }
+
                     $detalhes['tamanhoM'] = $tamanhoM;
                     $detalhes['tamanhoF'] = $tamanhoF;
+                    $detalhes['tamanhoNU'] = $tamanhoNU;
                 }
                 return response()->json($detalhes);
             }
