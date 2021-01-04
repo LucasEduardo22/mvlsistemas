@@ -55,7 +55,7 @@ class FichaTecnicaController extends Controller
     {
         $produto = $this->dadosProduto->find($id);
      
-        if(!empty($request)){
+        if(!empty($request) && !empty($request->materiaPrima)){
             $dados = [];
             $detalhes = [];
             $quantidade = [];
