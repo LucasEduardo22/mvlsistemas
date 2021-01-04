@@ -192,7 +192,11 @@
                         <div class="row">
                             @foreach ($tamanhos as $tamanho)
                                 @php
-                                    $dados = $estoque->tamanho()->where('tamanho_id', $tamanho->id)->first();
+                                    if ($estoque) {
+                                        $dados = $estoque->tamanho()->where('tamanho_id', $tamanho->id)->first();
+                                    } else {
+                                        $dados = null;
+                                    }
                                 @endphp
                                 <div class="col-3 order-last">
                                     <input type="hidden" name="tamanho[]" value="{{$tamanho->id}}">
