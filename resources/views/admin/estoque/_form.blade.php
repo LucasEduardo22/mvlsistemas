@@ -214,23 +214,6 @@
                                     </div>
                                 </div>
                             @endforeach
-                            {{-- @foreach ($estoque->tamanho as $tamanhoProduto) 
-                                <div class="col-3 order-last">
-                                    <input type="hidden" name="tamanho[]" value="{{$tamanhoProduto->tamanho_id}}">
-                                    <p class="text_grid">{{$tamanhoProduto->tamanhoProdutos->id}}º
-                                        {{$tamanhoProduto->tamanhoProdutos->sigla}}
-                                    </p>
-                                    <div class="form-group">
-                                        <label for="_preco_venda1[]">Valor de venda:</label>
-                                        <input type="text" name="preco_venda1[]" class="form-control dinheiro @error('preco_venda1[]') is-invalid @enderror" value="{{old("preco_venda1[]", !empty($tamanhoProduto->preco_venda) ? number_format($tamanhoProduto->preco_venda, 2, ',', '.') : number_format($produto->calc_preco_sugerido($produto->id) , 2, ',', '.'))}}" id="_preco_venda1[]" placeholder="R$ 000,00">
-                                        @error('preco_venda1[]')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
-                                </div>
-                            @endforeach --}}
                         </div>
                     </div>
                 </div>
