@@ -37,10 +37,11 @@ class EstoqueController extends Controller
         $produto = $this->dadosProduto->find($id);
         $tamanhos = $this->dadosTamanho->all();
         $unidades = $this->dadosUnidade->all();
+        $estoque = "";
         if(!$produto){
             return redirect()->back();
         }
-        return view('admin.estoque.create', compact('produto', 'tamanhos', 'unidades'));
+        return view('admin.estoque.create', compact('produto', 'tamanhos', 'unidades', "estoque"));
     }
 
     public function store(StoreUpdateEstoqueRequest $request, $id)
