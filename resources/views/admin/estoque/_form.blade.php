@@ -193,7 +193,7 @@
                             @foreach ($tamanhos as $tamanho)
                                 @php
                                     if ($estoque) {
-                                        $dados = $estoque->tamanho()->where('tamanho_id', $tamanho->id)->first();
+                                        $dados = $estoque->tamanho->where('tamanho_id', $tamanho->id)->first();
                                     } else {
                                         $dados = null;
                                     }

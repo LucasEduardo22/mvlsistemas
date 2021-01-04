@@ -37,7 +37,7 @@ class EstoqueController extends Controller
         $produto = $this->dadosProduto->find($id);
         $tamanhos = $this->dadosTamanho->all();
         $unidades = $this->dadosUnidade->all();
-        $estoque = $produto->estoque();
+        $estoque = $produto->estoque;
         if(!$produto){
             return redirect()->back();
         }

@@ -507,7 +507,6 @@ class PedidoController extends Controller
 
                 return response()->json($detalhes);
             } else {
-                dd($itemPedido);
                 $produto = $this->dadosProduto->where('modelo', $modelo)->first();
                 $estoque_id = $produto->estoque->id;
                 // Lista os detalhes que foram salvo na Base de dados.
